@@ -16,8 +16,8 @@ void cAmp::DrawAmpRect()
 		tmPl = BASS_ChannelBytes2Seconds(chPl, BASS_ChannelGetPosition(chPl, BASS_POS_BYTE));
 		float xp = (tmPl/tmTot) * (1.f-xWpo), //marg,bar dim
 			x1 = xp*view.xSize;  int xb = xWpo*view.xSize;
-		Rtex(pDev, Tex[TX_PosDk], 0.f,yBpo, view.xSize,yEpo);
-		Rtex(pDev, Tex[TX_PosBr], x1, yBpo, x1+xb, yEpo, 0.48f,0.52f); //xp,xp+xWpo);
+		Rtex(pDev, Tex, TX_PosDk, 0.f,yBpo, view.xSize,yEpo);
+		Rtex(pDev, Tex, TX_PosBr, x1, yBpo, x1+xb, yEpo, 0.48f,0.52f); //xp,xp+xWpo);
 	}
 
 /* Buttons  |< >|  */
@@ -25,8 +25,8 @@ void cAmp::DrawAmpRect()
 		int i1=0,i2=0;
 		if (xm > view.xSize/2)  i2=2;  else  i1=2;
 		float y1= 0.f, y2=23.f, x1= 96.f/4.f, x2= view.xSize*0.5f;  //96x23
-		Rtex(pDev, Tex[TX_Prev], x2-x1, y1, x2, y2, i1*0.25f, (i1+1)*0.25f);
-		Rtex(pDev, Tex[TX_Next], x2, y1, x2+x1, y2, i2*0.25f, (i2+1)*0.25f);	}
+		Rtex(pDev, Tex, TX_Prev, x2-x1, y1, x2, y2, i1*0.25f, (i1+1)*0.25f);
+		Rtex(pDev, Tex, TX_Next, x2, y1, x2+x1, y2, i2*0.25f, (i2+1)*0.25f);	}
 	
 	//  btns pls tabs up,dn
 	if (ed==ED_Help || ed==ED_Keys || ed==ED_Set1)  return;
@@ -35,8 +35,8 @@ void cAmp::DrawAmpRect()
 			if (ym-yBpt > (yEpt-yBpt)/2)  i2=2;  else  i1=2;
 		float y1= yBpt, y2= yEpt-4, y3=64.f/4.f, x1= view.xSize-xWptbt;  //16x64
 		D3DRECT r= {view.xSize-xWptbt, yBpt, view.xSize, yEpt-4};  pDev->Clear(1, &r, clFl, 0, 1.f, 0);
-		Rtex(pDev, Tex[TX_Up], x1, y1, view.xSize, y1+y3, 0.f,1.f, i1*0.25f, (i1+1)*0.25f);
-		Rtex(pDev, Tex[TX_Dn], x1, y2-y3, view.xSize, y2, 0.f,1.f, i2*0.25f, (i2+1)*0.25f);  }
+		Rtex(pDev, Tex, TX_Up, x1, y1, view.xSize, y1+y3, 0.f,1.f, i1*0.25f, (i1+1)*0.25f);
+		Rtex(pDev, Tex, TX_Dn, x1, y2-y3, view.xSize, y2, 0.f,1.f, i2*0.25f, (i2+1)*0.25f);  }
 }
 
 //  Player  Text
@@ -87,7 +87,7 @@ void cAmp::DrawAmpText()
 	}
 	if (!bPlay)  // logo not playing
 	{	cf->Fclr = D3DXCOLOR(0.7,0.8,1,1);
-		cf->StrWr("Crystal  AMP  1.04", 1,yBfi+1);  cf->Fclr = D3DXCOLOR(1,1,1,1);  }
+		cf->StrWr("Crystal  AMP  1.06", 1,yBfi+1);  cf->Fclr = D3DXCOLOR(1,1,1,1);  }
 
 	//  pls inf  rate filters  =*
 	if (!pls)  return;
@@ -100,7 +100,7 @@ void cAmp::DrawAmpText()
 		cd->Write(view.xSize/2+12, yBpli-1);	}
 
 /* Vol %,  @1 @A */
-	if (tmd>0) {  tmd--;  int y = yBfi+26;
+	if (tmd>0) {  tmd--;  int y = yBfi + (view.eVis==viNone ? 23 : 26);
 		float f = min(1.f, 0.5f+float(tmd)/tmD);  cf->Fclr = D3DXCOLOR(0.7*f,0.8*f,1*f,1);
 		if (bRep1)   cf->StrWr("@1", view.xSize-135,y);
 		if (bRepAll) cf->StrWr("@A", view.xSize-110,y);

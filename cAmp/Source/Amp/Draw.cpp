@@ -62,7 +62,7 @@ void cAmp::GraphAmp()
 /* plr back */
 	if (view.eVis != viPrint && view.eVis != viOsc) //!
 	{	float th = (view.eVis==viNone||view.eVis==viPrint)? 0.4f: 1.f; //min(1.f, float(yEvi)/view.visH);
-		Rtex(pDev, Tex[TX_BackPlr], 0.f, 0.f, view.xSize, yEvi/*yBpo*/, 0.f,1.f, 0.f,th);  }
+		Rtex(pDev, Tex, TX_BackPlr, 0.f, 0.f, view.xSize, yEvi/*yBpo*/, 0.f,1.f, 0.f,th);  }
 	
 /* Vis Tex */
 	//pDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
@@ -75,12 +75,12 @@ void cAmp::GraphAmp()
 
 /* pls bottom _ */
 	/**/if ((bDrawPlst || ed!=ED_Pls) && yEpl+5 < view.ySize)
-		Rtex(pDev, Tex[TX_BackBtm], 0.f,yEpl, view.xSize,view.ySize);
+		Rtex(pDev, Tex, TX_BackBtm, 0.f,yEpl, view.xSize,view.ySize);
 
 /* Backgr */
 	if (yBpt < view.ySize)  {
-	if (bDrawPlst && ed==ED_Help)	Rtex(pDev, Tex[TX_BackHelp], 0.f, yBpt, view.xSize, yEpl);
-	if (ed==ED_Keys || ed==ED_Set1)	Rtex(pDev, Tex[TX_BackPlr],  0.f, yBpt, view.xSize, yEpl);  }
+	if (bDrawPlst && ed==ED_Help)	Rtex(pDev, Tex, TX_BackHelp, 0.f, yBpt, view.xSize, yEpl);
+	if (ed==ED_Keys || ed==ED_Set1)	Rtex(pDev, Tex, TX_BackPlr,  0.f, yBpt, view.xSize, yEpl);  }
 
 
 	pDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);

@@ -46,15 +46,9 @@ bool D3::Init2()
 	sadd(cfdig->Fname,  "Media\\fonts\\dig");
 	scpy(cfdig->Fext, ".png");  cfdig->Init(pDev);
 	
-	//  Plr Textures
-	for (int i=0; i<NumTex; ++i)
-	{
-		scpy(s,appPath);
-		if (i<=NumBtnsLast)  sadd(s,"Media\\buttons\\");  else  sadd(s,"Media\\main\\");
-		sadd(s,csTexName[i]);  sadd(s,".png");
-		Vd( D3DXCreateTextureFromFileA(pDev, s, &Tex[i]) );
-		//if (!Tex[i])  Info(s,"No texture file");
-	}
+	//  Plr Texture
+	scpy(s,appPath);  sadd(s,"Media\\player.png");
+	Vd( D3DXCreateTextureFromFileA(pDev, s, &Tex) );
 
 	///  Surf, clear  ................
 	int d = max(view.xSize,view.ySize);
@@ -69,9 +63,9 @@ bool D3::Init2()
 
 	//  Vis Tex
 	D3DFORMAT fmt = bFltTex ? D3DFMT_R32F : D3DFMT_X8R8G8B8;
-	Vd( D3DXCreateTexture( pDev, view.xSize, 1, 0,	D3DUSAGE_DYNAMIC, fmt, D3DPOOL_DEFAULT, &visTex ) );
+	Vd( D3DXCreateTexture( pDev, NextPow2(view.xSize), 1, 0,	D3DUSAGE_DYNAMIC, fmt, D3DPOOL_DEFAULT, &visTex ) );
 	//if (!visTex)	Info("Can't create vis Texture", "Init D3D 2");
-	Vd( D3DXCreateTexture( pDev, view.xSize, 1, 0,	D3DUSAGE_DYNAMIC, fmt, D3DPOOL_DEFAULT, &visTex2 ) );
+	Vd( D3DXCreateTexture( pDev, NextPow2(view.xSize), 1, 0,	D3DUSAGE_DYNAMIC, fmt, D3DPOOL_DEFAULT, &visTex2 ) );
 	//if (!visTex2)	Info("Can't create vis Texture", "Init D3D 2");
 
 	//  Vis Fx
@@ -96,7 +90,7 @@ void D3::Destroy2()
 {
 	REL(surf)
 	REL(visTex)  REL(visTex2)
-	for (int i=0; i<NumTex; ++i)  REL(Tex[i])
+	REL(Tex)
 	for (int i=0; i<FX_ALL; ++i)  REL(fx[i])
 
 	for (int i=0; i<NumFnt; ++i)
@@ -120,7 +114,7 @@ D3::D3()	// ctor default
 
 	hInst=NULL; hWnd=NULL;  pD3d=NULL; pDev=NULL;
 	visTex=NULL; visTex2=NULL;	surf=NULL; bckbuf=NULL;
-	for (int i=0; i<NumTex; ++i)  Tex[i]=NULL;
+	Tex=NULL;
 	for (int i=0; i<FX_ALL; ++i)  fx[i]=NULL;
 	for (int i=0; i<NumFnt; ++i)  cfont[i]=NULL;
 }

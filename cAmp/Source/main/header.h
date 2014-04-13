@@ -11,6 +11,7 @@
  #include <CommDlg.h>
  #include <shlobj.h>
  #include <ShellApi.h>
+#include <boost/filesystem.hpp>
 
 #include <vector>
 #include <map>
@@ -49,6 +50,15 @@ using namespace std;
 
 #define  PTex  LPDIRECT3DTEXTURE9
 #define  PDev  LPDIRECT3DDEVICE9
+
+static int __declspec(naked) __fastcall NextPow2(unsigned n)
+{  _asm  {
+	dec ecx
+	mov eax, 2
+	bsr ecx, ecx
+	rol eax, cl
+	ret
+}  }
 
 #pragma warning(disable:4305)  //double to float
 #pragma warning(disable:4244)  //float to int

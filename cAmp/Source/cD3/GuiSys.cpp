@@ -26,7 +26,7 @@ void GuiSys::DrawText(float dt)
 //  ctor
 GuiSys::GuiSys() :
 	xPos(0),yPos(0), xSize(800),ySize(600),
-	pTexBut(0), pTexLeRi(0),
+	tex(0), idTexBut(0), idTexLeRi(0), idTexSld(0),
 	pDev(0), cfont(0), bInit(0)
 {
 	//controls.reserve(10);
@@ -45,12 +45,14 @@ void GuiSys::Clear()
 //  Init
 //------------------------------------------
 bool GuiSys::ReInit(int _xPos,int _yPos, int _xSize,int _ySize, 
-		PDev _pDev, CFont* _cfont,
-		PTex _pTexB, PTex _pTexLR, PTex _pTexSld)
+		PDev _pDev, CFont* _cfont, 
+		PTex _tex,
+		int _idTexB, int _idTexLR, int _idTexSld)
 {
 	xPos=_xPos; yPos=_yPos;  xSize=_xSize; ySize=_ySize;
 	pDev=_pDev; cfont=_cfont;
-	pTexBut=_pTexB;  pTexLeRi=_pTexLR;  pTexSld=_pTexSld;
+	tex=_tex;
+	idTexBut=_idTexB;  idTexLeRi=_idTexLR;  idTexSld=_idTexSld;
 	bInit = _pDev && _cfont;
 
 	if (controls.size() > 0)  // upd all controls
@@ -87,7 +89,7 @@ bool GuiSys::MouseMove(int xm, int ym, bool lmb, bool lmbo, bool rmb)
 						mia(0.f,1.f, float(xm-xc - s->xb) / s->xbs ));
 				}else
 				if (rmb)
-					s->rst(s);
+					s->rst();
 			}
 		}
 	}	rf
@@ -148,7 +150,6 @@ GuiInt* GuiSys::AddInt(int x, int y, int xs, const char* name,
 	controls.push_back((GuiCtrl*)c);
 	return c;
 }
-
 
 //  add Slider
 //------------------------------------------

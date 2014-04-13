@@ -57,7 +57,7 @@ public:
 	bool bLsl, bMInWnd;  float mti,mtiv;
 	
 	// view
-	CViewSet vc, views[MaxViews];
+	CViewSet views[MaxViews];
 	void ViewSave(int v),ViewLoad(int v),ViewUpd();
 	
 	//  Keys hook
@@ -127,5 +127,7 @@ public:
 	//  gui
 	GuiSys gui[GuiPages];  int gpg;  // page
 	void GuiReInit(), GuiCreate();
+	void GuiEvent(GuiCtrl* ctrl, int IDc, eGuiEvent evt);
+	static void GuiEvCall(void* pInst, GuiCtrl* ctrl, int IDc, eGuiEvent evt);
 	///------------------------------------------------
 };

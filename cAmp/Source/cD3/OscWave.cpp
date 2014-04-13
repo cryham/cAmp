@@ -130,7 +130,7 @@ void cOsc::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 				visTex2->LockRect(0, &lr, 0, D3DLOCK_DISCARD|D3DLOCK_NOOVERWRITE);
 				float* o = (float*)lr.pBits;
 				for (UINT x=0; x < view.xSize; ++x)
-					o[x] = A[x+1];
+					o[x] = A[x+1];  // 0; test
 				visTex2->UnlockRect(0);
 			}
 		}
@@ -146,18 +146,19 @@ void cOsc::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 	if (visTex)
 	{
 		//  vis fx
+		float fxw = NextPow2(view.xSize);
 		LPD3DXEFFECT e = fx[bFFT ? FX_fft : FX_osc];
-		float ftx = 0.5f/view.xSize;  // half pixel ofs
+		float ftx = 0.5f / fxw;  // half pixel ofs
 
 		//  scale osc for big views
-		float xf = 1.f;
+		float xf = float(view.xSize) / fxw;  //1.f;
 		if (!bFFT && view.xSize > xScreen/3)  xf = 0.5f/*+(float)view.xSize / xScreen*/;
 		//if (!bFFT)  {
 		//	e->SetFloat("gWidth",	0.0047f - 0.00469998f * view.visH / 1200.f);
 		//	e->SetFloat("gPow",		0.18f - 0.08f * view.visH / 1200.f);  }
 
 		e->Begin(0,0);  e->BeginPass(0);
-		Rtex(pDev, visTex, 0.f, y1, view.xSize, y2, 0.f+ftx,xf+ftx);
+		Rtex(pDev, visTex, NumTex, 0.f, y1, view.xSize, y2, 0.f+ftx,xf+ftx);
 		e->EndPass();  e->End();
 	}
 

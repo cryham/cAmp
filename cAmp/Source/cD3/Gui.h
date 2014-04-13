@@ -1,8 +1,17 @@
 #pragma once
 
 
-enum GuiCtrlType
+enum eGuiCtrlType
 {	GC_NONE=0,  GC_But, GC_Int, GC_Sld,  GC_ALL  };
+
+enum eGuiEvent	// for user callback
+{
+	GE_BtnDnL=0,GE_BtnDnR=0,  // button down Lmb,Rmb
+	GE_ValChg,GE_SldDnR,	// slider value changed, rmb down
+	GE_ALL
+};
+
+typedef void (*FGuiEvent)(void* pInst, class GuiCtrl* ctrl, int IDc, eGuiEvent event);
 
 
 //  Control base
@@ -18,8 +27,12 @@ public:
 	float sel;  DWORD rgb;  //clr over
 
 	class GuiSys* ps;
-	GuiCtrlType type;
+	eGuiCtrlType type;
 	D3DXCOLOR tclr;
+	
+	FGuiEvent callb;  void* inst;  // user callback
+	void SetCallback(FGuiEvent callback, void* pInst);
+	int idC;  // control's unique id
 
 	virtual ~GuiCtrl();  GuiCtrl();
 	virtual void DrawRect()=0;
@@ -45,9 +58,8 @@ class GuiBut : public GuiCtrl
 {
 public:
 
-	//  callbacks
-	FButDown Ldown,Rdown;
-	void* piL,*piR;
+	//  callbacks internal
+	FButDown Ldown,Rdown;	void* piL,*piR;
 	void LDown(), RDown();
 	void SetLDown(FButDown butdown, void* pInst);
 	void SetRDown(FButDown butdown, void* pInst);
@@ -68,20 +80,14 @@ public:
 	map<int, const char*> imap;
 	map<int, const char*>::iterator imi;
 
-	// dec,inc, home,end
-	#define  giv  GuiInt* gi = (GuiInt*)pInst;  int* v = gi->v;
-	static void dec(void* pInst) {	giv  if (*v > gi->vmin)  (*v)--;  }
-	static void inc(void* pInst) {	giv  if (*v < gi->vmax)  (*v)++;  }
-	static void home(void* pInst){	giv  *v = gi->vmin;  }
-	static void end(void* pInst) {	giv  *v = gi->vmax;  }
-	static void rst(void* pInst) {	giv  *v = gi->vdef;  }
+	void iCall();  // inc,dec
+	static void dec(void* pInst), inc(void* pInst);
+	static void home(void* pInst),end(void* pInst), rst(void* pInst);
 
-	void mdec_(){			if (imi != imap.begin())  --imi;  (*v) = (*imi).first;  }
-	void minc_(){	++imi;	if (imi == imap.end())    --imi;  (*v) = (*imi).first;  }
-	static void mdec(void* pInst){	giv  gi->mdec_();  }
-	static void minc(void* pInst){	giv  gi->minc_();  }
+	void imdec(),iminc();
+	static void mdec(void* pInst),minc(void* pInst);
 		
-	// find *v in map, do after imap adds
+	// find val in map, do after imap adds
 	void done();
 
 	GuiBut* bDn,*bUp;
@@ -102,9 +108,7 @@ public:
 	char sfmt[16];
 
 	// set val
-	#define  giv  GuiSld* gi = (GuiSld*)pInst;  float* v = gi->v;
-	static void rst(void* pInst) {	giv  *v = gi->vdef;  }
-	void SetVal(float fv) {  *v = fv;  /*callback*/  }
+	void SetVal(float fv), rst();
 
 	GuiSld();
 	void DrawRect();

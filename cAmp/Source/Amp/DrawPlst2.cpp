@@ -26,19 +26,19 @@ void cAmp::DrawPlstRect()
 	// cur
 	if (curPly >=0 && curPly < view.yNpt)  {
 		float yt= yBpt+curPly*yHpt;  float x1= curPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex[TX_TabC], x1, yt, x2, (yt+yHpt));  }
+		Rtex(pDev, Tex, TX_TabC, x1, yt, x2, (yt+yHpt));  }
 	// play
 	if (plaPly >=0 && plaPly < view.yNpt)  {
 		float yt= yBpt+plaPly*yHpt;  float x1= plaPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex[TX_TabP], x1, yt, x2, (yt+yHpt));  }
+		Rtex(pDev, Tex, TX_TabP, x1, yt, x2, (yt+yHpt));  }
 	// sel
 	if (selPly >=0 && selPly < view.yNpt)  {
 		float yt= yBpt+selPly*yHpt;  float x1= selPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex[TX_TabS], x1, yt, x2, (yt+yHpt));  }
+		Rtex(pDev, Tex, TX_TabS, x1, yt, x2, (yt+yHpt));  }
 	// mov
 	if (movPly >=0 && movPly < view.yNpt && alt)  {
 		float yt= yBpt+movPly*yHpt;  float x1= movPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex[TX_TabC], x1, yt, x2, (yt+yHpt));  }
+		Rtex(pDev, Tex, TX_TabC, x1, yt, x2, (yt+yHpt));  }
 
 
 /* Pls cursor, sel */	///  pls backgr
@@ -55,10 +55,10 @@ void cAmp::DrawPlstRect()
 			float yf = y;
 
 			if (q->sel > 0)  if (i != pls->lCur)	//  sel
-				Rtex(pDev, Tex[TX_PlsS], 0.f, yf, fxw, (yf+Fy), 0.f,1.f, 0.1f,0.9f);
-			if (i == pls->lCur)  Rtex(pDev, Tex[TX_PlsC], 0.f, yf, fxw, (yf+Fy));	//  cur
-			if (i == pls->idPl)  Rtex(pDev, Tex[TX_PlsP], 0.f, yf, fxw, (yf+Fy));	//  play
-			if (q->bokm > 0)	 Rtex(pDev, Tex[TX_PlsB1 + q->bokm - 1],
+				Rtex(pDev, Tex, TX_PlsS, 0.f, yf, fxw, (yf+Fy), 0.f,1.f, 0.1f,0.9f);
+			if (i == pls->lCur)  Rtex(pDev, Tex, TX_PlsC, 0.f, yf, fxw, (yf+Fy));	//  cur
+			if (i == pls->idPl)  Rtex(pDev, Tex, TX_PlsP, 0.f, yf, fxw, (yf+Fy));	//  play
+			if (q->bokm > 0)	 Rtex(pDev, Tex, TX_PlsB1 + q->bokm - 1,
 														  0.f, yf, fxw, (yf+Fy));	//  bookm
 			//  rating backgr
 			int rr = q->rate, r = mia(0,chRall, rr+cR0);
@@ -66,10 +66,11 @@ void cAmp::DrawPlstRect()
 			{
 				LPD3DXEFFECT e = fx[FX_rClr];
 				e->SetValue("color", &vRclr[r], sizeof(float)*3);
-				e->SetTexture("TexDiff", Tex[mia(TX_Rate1,TX_Rate5, TX_Rate1-1+abs(rr))]);
+				e->SetTexture("TexDiff", Tex/*[]*/);
 
 				e->Begin(0,0);  e->BeginPass(0);
-				Graphics::DrawRectTexC(pDev,0, 0.f, yf, fxw, (yf+Fy), rtx.r, rtx.g, rtx.b, rtx.a);
+				Graphics::DrawRectTexC(pDev,0,mia(TX_Rate1,TX_Rate5, TX_Rate1-1+abs(rr)),
+					0.f, yf, fxw, (yf+Fy), rtx.r, rtx.g, rtx.b, rtx.a);
 				e->EndPass();  e->End();
 			}
 
@@ -100,15 +101,15 @@ void cAmp::DrawSlider()
 
 		D3DRECT rAll= {view.xSize-view.xWplS+1, yBpl, view.xSize, yEpl};  pDev->Clear(1, &rAll, clFl, 0, 1.f, 0);
 		if (pls->listLen > yLpl)
-		Rtex(pDev, Tex[TX_Slid], xk1, float(s1), xk2, float(s2));
-		Rtex(pDev, Tex[TX_SliC], xk1, float(c1), xk2, float(c2));
+		Rtex(pDev, Tex, TX_Slid, xk1, float(s1), xk2, float(s2));
+		Rtex(pDev, Tex, TX_SliC, xk1, float(c1), xk2, float(c2));
 		
 	// playing _
 		{
 			float fc1 = pls->idPl /fle,  fc2 = /*fc1+4.f/yw*/(pls->idPl + 1.f) /fle;  if (fc2>1.f) fc2=1.f;
 			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;  if (c2-c1<2)  c2=c1+2;
 
-			Rtex(pDev, Tex[TX_SliP], xk1, float(c1), xk2, float(c2));
+			Rtex(pDev, Tex, TX_SliP, xk1, float(c1), xk2, float(c2));
 		}
 	// selected-
 		float ySr = mia(1.f, 2.f, float(pls->listLen) / yLpl);
@@ -122,7 +123,7 @@ void cAmp::DrawSlider()
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
 			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;	if (c2-c1<1) c2=c1+1;
 
-			RtxC(pDev, Tex[mia(TX_Rate1,TX_Rate5, TX_Rate1-1+abs(rr))],
+			RtxC(pDev, Tex, mia(TX_Rate1,TX_Rate5, TX_Rate1-1+abs(rr)),
 				xk1, float(c1), xk2, float(c2), rgb);//, 0.15f, 0.25f);
 		}  }
 	
@@ -135,7 +136,7 @@ void cAmp::DrawSlider()
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
 			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;	if (c2-c1<1) c2=c1+1;
 
-			Rtex(pDev, Tex[TX_SliF], xk1, float(c1), xp2, float(c2));
+			Rtex(pDev, Tex, TX_SliF, xk1, float(c1), xp2, float(c2));
 		}
 
 	// bookmarks <*
@@ -145,6 +146,6 @@ void cAmp::DrawSlider()
 			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;	if (c2-c1<1) c2=c1+1;
 
 			int tex = pls->vList[i]->bokm-1 + TX_SliB1;
-			Rtex(pDev, Tex[tex], xp1, float(c1), xk2, float(c2));
+			Rtex(pDev, Tex, tex, xp1, float(c1), xk2, float(c2));
 		}
 }

@@ -15,11 +15,11 @@ void cAmp::DrawKeysRect()
 	//D3DRECT rVis= {0,3, 205,502};
 	//pDev->Clear(1, &rVis, clFl, RGB(20,147,170), 1.f, 0);
 
-	/*on*/Rtex(pDev, Tex[TX_Checks],  16.f, float(yBpt+36),
+	/*on*/Rtex(pDev, Tex, TX_Checks,  16.f, float(yBpt+36),
 		(16.f+19.f), float(yBpt+36+18), bHKeys?0.25f:0.f, bHKeys?0.5f:0.25f, 0.f,1.f);  if (btnKeysOn)
-		  Rtex(pDev, Tex[TX_Checks],  16.f, float(yBpt+36),	(16.f+19.f), float(yBpt+36+18), 0.f, 0.25f, 0.f,1.f);
-	/*ok*/Rtex(pDev, Tex[TX_PlsC], 150.f, (yBgc-80.f), 200.f, (yBgc-60.f));  if (btnKeysOk)
-		  Rtex(pDev, Tex[TX_PlsS], 150.f, (yBgc-80.f), 200.f, (yBgc-60.f));
+		  Rtex(pDev, Tex, TX_Checks,  16.f, float(yBpt+36),	(16.f+19.f), float(yBpt+36+18), 0.f, 0.25f, 0.f,1.f);
+	/*ok*/Rtex(pDev, Tex, TX_PlsC, 150.f, (yBgc-80.f), 200.f, (yBgc-60.f));  if (btnKeysOk)
+		  Rtex(pDev, Tex, TX_PlsS, 150.f, (yBgc-80.f), 200.f, (yBgc-60.f));
 
 	pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -32,7 +32,7 @@ void cAmp::DrawKeysRect()
 		/*x sel*/int m = 0;  for (int j=0; j<3; j++)  if (xm > xBgc+xWgc*j)  m = j;
 		for (int j=0; j<3; j++)
 		{	/*m sel x2*/int mch = (j==m && xm > xBgc && xm < xBgc+3*xWgc && ym > y && ym < y+yHgc) ? 2:1;
-			for (int a=0; a < mch; a++)  Rtex(pDev, Tex[TX_Checks],
+			for (int a=0; a < mch; a++)  Rtex(pDev, Tex, TX_Checks,
 				float(xBgc+ xWgc*j), float(y),
 				float(xBgc+14+ xWgc*j), float(y+14), b[j]?0.25f:0.f, b[j]?0.5f:0.25f, 0.f,1.f);  }
 
@@ -41,8 +41,8 @@ void cAmp::DrawKeysRect()
 			pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 			pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCCOLOR);
 			if (bPickingKey)
-			Rtex(pDev, Tex[TX_PlsC], (xBgck+5.f), float(y-3), (xBgck+125.f), float(y+Fy+2));
-			Rtex(pDev, Tex[TX_PlsP], (xBgck+5.f), float(y-3), (xBgck+125.f), float(y+Fy+2));
+			Rtex(pDev, Tex, TX_PlsC, (xBgck+5.f), float(y-3), (xBgck+125.f), float(y+Fy+2));
+			Rtex(pDev, Tex, TX_PlsP, (xBgck+5.f), float(y-3), (xBgck+125.f), float(y+Fy+2));
 			pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 			pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 		}

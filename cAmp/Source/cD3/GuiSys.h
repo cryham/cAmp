@@ -11,7 +11,8 @@ class GuiSys
 //private:
 public:
 	int xPos,yPos, xSize,ySize;
-	PTex pTexBut, pTexLeRi, pTexSld;
+	PTex tex;
+	int idTexBut, idTexLeRi, idTexSld;
 	PDev pDev;
 	CFont* cfont;
 	bool bInit;  // can draw
@@ -21,10 +22,15 @@ public:
 public:
 	GuiSys();  ~GuiSys();
 	bool ReInit(int xPos,int yPos, int xSize,int ySize, 
-		PDev pDev, CFont* cfont,
-		PTex pTexB, PTex pTexLR, PTex pTexSld);
+		PDev pDev, CFont* cfont, PTex tex,
+		int idTexB, int idTexLR, int idTexSld);
 
 	void Clear();
+
+	bool MouseMove(int xm, int ym, bool lmb, bool lmbo, bool rmb);
+
+	void DrawRect();
+	void DrawText(float dt);
 
 	GuiText* AddText(int x, int y, int xs, const char* name);
 	GuiBut* AddBut(int x, int y, int xs, int ys, const char* name);
@@ -34,9 +40,4 @@ public:
 		float* val, float vmin, float vmax,
 		int valpos, int barpos, int marg=15, const char* _sfmt=0);
 	//..
-
-	bool MouseMove(int xm, int ym, bool lmb, bool lmbo, bool rmb);
-
-	void DrawRect();
-	void DrawText(float dt);
 };
