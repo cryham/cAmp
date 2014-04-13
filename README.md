@@ -1,4 +1,6 @@
-cAmp
+Crystal AMP (cAmp)
 ====
 
-Crystal AMP (cAmp), audio player
+Audio Player with custom playlist
+
+https://raw.githubusercontent.com/cryham/cAmp/master/cAmp/screenshots.png
