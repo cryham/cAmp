@@ -42,11 +42,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="source\tinyxml;source\bass;&quot;c:\v\dx June2010\Include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;DEBUG;_WINDOWS;TIXML_USE_STL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
 				WarningLevel="4"
@@ -64,9 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="DxErr.lib d3d9.lib d3dx9d.lib dxguid.lib tinyxmld_STL.lib bass.lib winmm.lib"
+				AdditionalDependencies="DxErr.lib d3d9.lib d3dx9d.lib dxguid.lib bass.lib winmm.lib"
 				OutputFile="cAmp_d.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="c:\v\boost_1_55_0\stage\lib;&quot;c:\v\dx June2010\Lib\x86&quot;;source\bass"
 				GenerateManifest="true"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="true"
@@ -126,11 +127,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="source/tinyxml;source/bass;&quot;c:\v\dx June2010\Include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;TIXML_USE_STL"
 				StringPooling="true"
 				ExceptionHandling="0"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
@@ -150,9 +151,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="d3d9.lib d3dx9.lib dxguid.lib tinyxml_STL.lib bass.lib winmm.lib "
+				AdditionalDependencies="d3d9.lib d3dx9.lib dxguid.lib bass.lib winmm.lib "
 				OutputFile="cAmp.exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="c:\v\boost_1_55_0\stage\lib;&quot;c:\v\dx June2010\Lib\x86&quot;;source\bass"
 				GenerateManifest="true"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs=""
@@ -440,6 +442,34 @@
 			</File>
 			<File
 				RelativePath=".\Source\Amp\Set.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="tinyxml"
+			>
+			<File
+				RelativePath=".\Source\tinyxml\tinystr.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\tinyxml\tinystr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\tinyxml\tinyxml.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\tinyxml\tinyxml.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\tinyxml\tinyxmlerror.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\tinyxml\tinyxmlparser.cpp"
 				>
 			</File>
 		</Filter>
