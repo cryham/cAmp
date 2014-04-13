@@ -2,7 +2,8 @@ Crystal AMP (cAmp)
 ------------------
 
 Audio Player with custom playlist and filtering.
-Works on Windows and uses DirectX and bass.
+
+Works on Windows only (for now) uses DirectX and bass.
 
 Screenshots
 -----------
