@@ -13,7 +13,7 @@ Screenshots
 Features
 --------
 
-See [Features wiki page](https://github.com/cryham/cAmp/wiki/Features)
+See [Features wiki page](https://github.com/cryham/cAmp/wiki/Features).
 
 Using
 -----
