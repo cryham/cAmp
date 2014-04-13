@@ -1,14 +1,16 @@
 Crystal AMP (cAmp)
-====
+------------------
 
 Audio Player with custom playlist and filtering.
 Works on Windows and uses DirectX and bass.
 
 Screenshots
+-----------
 
 ![](https://raw.githubusercontent.com/cryham/cAmp/master/cAmp/screenshots.png)
 
 Features
+--------
 
 new in version 1.04 (16 July 2010)
 
@@ -24,7 +26,7 @@ version 1.02 (1 March 2010)
 
 - song Rating (-3..+5, can be saved in filename), visible as symbol and background in one line
 - rating Filtering in playlist (hides songs outside range)
-- directories grouping (3 display modes), directory hiding/showing 
+- directories grouping (3 display modes), directory hiding/showing
 
 - playlist Tabs, changeable number of columns and rows
 - song Bookmarks, 3 levels (cyan, orange, red), keys to navigate
@@ -32,7 +34,7 @@ version 1.02 (1 March 2010)
 
 - playlist slider displaying: visible range, cursor pos, playing pos, bookmarks, find results, and rating preview in whole playlist
 - faster playlist managing through many shortcuts, operations like drop and insert are made normally at cursor, with shift at top, with ctrl at end of playlist
-- extended mouse areas (song seek, prev/next, playlist slider) 
+- extended mouse areas (song seek, prev/next, playlist slider)
 
 - time coloring depending on song time, useless zeros not displayed
 - custom colored fonts (created in CrystalFont)
