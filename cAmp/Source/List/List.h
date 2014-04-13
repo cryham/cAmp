@@ -55,7 +55,8 @@ public:
 	void  Move1(int m, pTrk npos), MoveSel(int m, pTrk npos, CList* pL=NULL/*from*/),  // npos,cur = destin
 		Del(bool disk=false), DelSel(bool disk=false), del(pTrk q,bool disk=false),  //from disk
 		Insert1(int m, pTrk nt), ins(int m, pTrk cur, pTrk n/*what*/),
-		insertList(int m, pTrk npos, pTrk first,pTrk last);
+		insertList(int m, pTrk npos, pTrk first,pTrk last),
+		CopySelFiles();
 	
 	//  tree, create
 	void  treeCrt(), listCrt();  int listLen;  // length

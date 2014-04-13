@@ -146,6 +146,9 @@ bool cAmp::Keys(WPARAM k)
 			case VK_SPACE:  pls->UnSel();  clrSelId();  rt
 			//  back gotoPlay
 			case VK_BACK:  if (ctrl) {  plsId = plsPlId;  plsChg();  }  pls->GotoPlay();  rt
+			
+			case 'M':  if (ctrl)  /// new copy files  <---------------------
+				pls->CopySelFiles();  rt
 
 
 			//  operate

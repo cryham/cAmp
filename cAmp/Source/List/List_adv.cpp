@@ -150,6 +150,47 @@ void CList::unSel0()
 {	numSel = 0;  selSize = 0;  selTime = 0;  }
 
 
+namespace bfs = boost::filesystem;
+
+void CList::CopySelFiles()
+{
+	/*try  //-
+	{
+		bfs::create_directory("c:\\wav");
+	}
+	catch (const bfs::filesystem_error & ex)
+	{
+		MessageBoxA(0, ex.what(), "aa", 0);
+	}*/
+	
+	pTrk q = ll;
+	while (q)
+	{
+		if (q->sel)
+		{
+			char pa[MP],to[MP],tp[MP];  q->getFullName(pa);
+			scpy(to,pa);  to[0] = 'i';  // drive letter
+			scpy(tp,q->path);  tp[0] = 'i';
+			//int i = strlen(tp);
+			//if (i > 0)  tp[i-1] = 0;
+
+			try
+			{
+				bfs::create_directories(tp);
+
+				if (!bfs::exists(to))
+					bfs::copy_file(pa, to);  //bfs::copy_option::overwrite_if_exists
+			}
+			catch (const bfs::filesystem_error & ex)
+			{
+				MessageBoxA(0, ex.what(), "copy fail", 0);
+			}
+		}
+		q = q->next;
+	}
+}
+
+
 
 ///  list update  ------------------------------------------------------------------------
 
