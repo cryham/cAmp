@@ -24,6 +24,8 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 		plsPl->idPl = plsPl->lCur;  }  //trk id
 	if (!plsPl || !plsPl->ll)  rf  //empty
 	
+	if (plsPl->idPl < 0 || plsPl->idPl >= plsPl->vList.size())  rf
+	
 	pTrk tkPl = plsPl->vList[plsPl->idPl];
 	if (tkPl->isDir())  rf  //-
 	//bDrawPlst = true;  // Z,X diffr--
@@ -49,7 +51,8 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 		default:	// other
 		{	p(s)"%s\n (error code: %d)",name,
 			BASS_ErrorGetCode());
-			Info(s,"Can't play file");  }  rf
+			Info(s,"Can't play file");
+		}	rf
 	}
 	else  tkPl->dis = 0;
 

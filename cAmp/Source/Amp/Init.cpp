@@ -35,7 +35,7 @@ bool cAmp::Begin()
 		(iPriority>=2) ? REALTIME_PRIORITY_CLASS :
 		((iPriority==1) ? HIGH_PRIORITY_CLASS : NORMAL_PRIORITY_CLASS) );
 
-	if (!InitSnd())  rf
+	InitSnd();
 	KbdInit();
 	
 	LoadPlsts();
@@ -125,7 +125,7 @@ void cAmp::UpdDim(float rfrFq)
 	//  pls tabs
 	yBpt = yEpo;  /*par+- +2 8pos*/
 	xWptbt = 13;  // btnsW up,dn
-		xWpt = (view.xSize -8)/view.xNpt;
+		xWpt = (view.xSize - xWptbt)/view.xNpt;
 		yHpt = cfont[view.cfT]->Fy+2;  // <^ dim pls tabs
 	yEpt = yBpt+ view.yNpt*yHpt+4;
 
@@ -192,8 +192,18 @@ void cAmp::LoadPlsts()
 	plsPlId = mia(0,l, plsPlId);  plsPl = vPlst[plsPlId];
 	  plsId = mia(0,l, plsId);		pls = vPlst[plsId];
 	
-	if (bWasPlay)  // last state
-		PlayFrom(lastPos);
+	// last state play
+	if (bWasPlay)
+	if (plsPl && plsPl->idPl >= 0 && plsPl->idPl < plsPl->vList.size())
+	{
+		pTrk tkPl = plsPl->vList[plsPl->idPl];
+		if (tkPl && !tkPl->isDir())
+		{
+			char s[320];
+			tkPl->getFullName(s);
+			if (boost::filesystem::exists(s))
+				PlayFrom(lastPos);
+	}	}
 }
 
 bool cAmp::PlayFrom(double t)
