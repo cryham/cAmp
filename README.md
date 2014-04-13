@@ -18,4 +18,4 @@ See [Features wiki page](https://github.com/cryham/cAmp/wiki/Features)
 Using
 -----
 
-See [Using  wiki page] on how to get started.
+See [Using  wiki page](https://github.com/cryham/cAmp/wiki/Using) on how to get started.
