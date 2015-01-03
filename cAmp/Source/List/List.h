@@ -10,6 +10,7 @@ public:
 		*next,*prev;  // list: next,prev
 
 	char* name, *path, *path2;  //sub-1
+	std::string name_pls;
 	double time;  INT64 size;
 	
 	//  extra
@@ -23,6 +24,7 @@ public:
 	
 	void getFullName(char* str)  {
 		StringCbPrintfA(str,MP-1, "%s%s.%s", path, name, ExtAudM[ext]);  }
+	void updName();
 
 	CTrk::~CTrk();
 	CTrk::CTrk(const char* Name, const char* Path);

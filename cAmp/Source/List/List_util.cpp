@@ -210,9 +210,13 @@ CTrk::CTrk(const char* Name, const char* Path)
 	
 	int l = strlen(Name)+1;  name = new char[l];  strcpy(name, Name);
 	int r = strlen(Path)+1;  path = new char[r];  strcpy(path, Path);
+	
+	updName();
 }
+
 void CTrk::AddPath2(const char* Path2)
 {
 	int r = strlen(Path2)+1;  path2 = new char[r];  strcpy(path2, Path2);
 }
-CTrk::~CTrk() {  DELA(name)  DELA(path)  DELA(path2)  }
+CTrk::~CTrk()
+{	DELA(name)  DELA(path)  DELA(path2)  }

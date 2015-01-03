@@ -150,7 +150,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 				if (CList::iDirView == 2 && q->isDir())
 					cf->Format("%s", q->path);
 				else
-					cf->Format("%s", q->name);  // offset long.. shift wheel
+					cf->Format("%s", q->name_pls.c_str());  // offset long.. shift wheel
 			#else  // debug list
 				if (q->isDir())  p(cf->s) "%s  %s", q->name,  pls->ll->name);  else
 				p(cf->s) "%s <   %s   > %s",
