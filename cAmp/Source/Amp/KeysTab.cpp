@@ -194,7 +194,9 @@ void cAmp::tabMove(int n)
 void cAmp::tabNew(int m)
 {
 	pls->Save();
-	CList* pl = new CList();	p(pl->name) "%d", ++cntrPls);
+	CList* pl = new CList();
+	p(pl->name) "%d", ++cntrPls);
+
 	if (m==2)
 	{	//  ctrl- at end
 		vPlst.push_back(pl);

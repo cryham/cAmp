@@ -79,25 +79,26 @@ void cAmp::SetLoad()
 			a = n->Attribute("ofsTab");		if (a)  view.ofsTab = toInt(a);
 		}
 
+		//  views
 		n = root->FirstChildElement("Playlists");	if (!n)  Info("No <Playlists>",sle);
-		if (n)  {
-			a = n->Attribute("tabsX");		if (a)  view.xNpt = max(1,toInt(a));
+		if (n)
+		{	a = n->Attribute("tabsX");		if (a)  view.xNpt = max(1,toInt(a));
 			a = n->Attribute("tabsY");		if (a)  view.yNpt = max(0,toInt(a));
 			a = n->Attribute("counter");	if (a)  cntrPls = toInt(a);
 			
 			m = n->FirstChildElement("Pls");  //if (!m)  N("No <Pls>",sle)
-			while (m)	{
-				a = m->Attribute("name");
+			while (m)
+			{	a = m->Attribute("name");
 					int l = strlen(a)+1;  
 					char* na = new char[l];  strcpy(na, a);
 					vPlsNames.push_back(na);
-				m = m->NextSiblingElement("Pls");	}
-		}
+				m = m->NextSiblingElement("Pls");
+		}	}
 
 		//  global keys
 		n = root->FirstChildElement("GlobalKeys");	if (!n)  Info("No <GlobalKeys>",sle);
-		if (n)  {
-			a = n->Attribute("On");  if (a)  bHKeys = toBool(a);
+		if (n)
+		{	a = n->Attribute("On");  if (a)  bHKeys = toBool(a);
 
 			m = n->FirstChildElement("Key");  if (!m)  Info("No <Key>",sle);
 			int i = 0;
@@ -112,8 +113,8 @@ void cAmp::SetLoad()
 					ck.mod = toInt(amod);  ck.on = toBool(aon);
 					++i;
 				}
-				m = m->NextSiblingElement("Key");	}
-		}
+				m = m->NextSiblingElement("Key");
+		}	}
 		
 		//  views
 		n = root->FirstChildElement("Views");	if (!n)  Info("No <Views>",sle);
@@ -223,7 +224,7 @@ void cAmp::SetSave()
 	Pls.SetAttribute("tabsY",		strI(view.yNpt));
 	Pls.SetAttribute("counter",		strI(cntrPls));
 	
-	for (int i=0; i < vPlst.size(); i++)
+	for (size_t i=0; i < vPlst.size(); i++)
 	{
 		TiXmlElement plst("Pls");
 			plst.SetAttribute("name",	vPlst[i]->name);
@@ -344,7 +345,7 @@ void cAmp::ClrSave()  // unused
 	TiXmlDocument xml;	TiXmlElement root("cAmp");
 
 	TiXmlElement Rclrs("RatingColors");
-		for (int i = 0; i < vRclr.size(); i++)
+		for (size_t i = 0; i < vRclr.size(); i++)
 		{	TiXmlElement rclr("Rclr");
 				p(s) "%.3f %.3f %.3f", vRclr[i].r, vRclr[i].g, vRclr[i].b);
 				rclr.SetAttribute("rgb", s);
@@ -362,7 +363,7 @@ void cAmp::ClrSave()  // unused
 	TiXmlElement Tclrs("TimeColors");
 		Tclrs.SetAttribute("mode",	strI(tmClrMode));
 
-		for (int i = 0; i < vTclr.size(); i++)
+		for (size_t i = 0; i < vTclr.size(); i++)
 		{	TiXmlElement tclr("Tclr");
 				tclr.SetAttribute("time", strF(vTclr[i].a));
 				p(s) "%.3f %.3f %.3f", vTclr[i].r, vTclr[i].g, vTclr[i].b);

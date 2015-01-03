@@ -117,7 +117,8 @@ void cAmp::DrawSlider()
 	// rating ->
 		if (view.bSlDrawR && !bShowSrch)
 		for (int i=0; i < pls->listLen; i++)
-		{	int rr = pls->vList[i]->rate;	if (rr != 0)  {
+		{
+			int rr = pls->vList[i]->rate;	if (rr != 0)  {
 			DWORD rgb = rr > 0 ? 0xFF40A0FF : 0xFF80FF00;
 
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
@@ -131,7 +132,8 @@ void cAmp::DrawSlider()
 		//ySr = mia(1.f, 1.f, float(pls->listLen) / yLpl);
 
 		if (bShowSrch /*&& ySr > 0.8f*/)
-		for (int i=0; i < pls->listLen; i++)  if (pls->vList[i]->srch > 0)
+		for (int i=0; i < pls->listLen; ++i)
+		if (pls->vList[i]->srch > 0)
 		{
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
 			int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;	if (c2-c1<1) c2=c1+1;
@@ -140,7 +142,8 @@ void cAmp::DrawSlider()
 		}
 
 	// bookmarks <*
-		for (int i=0; i < pls->listLen; i++)  if (pls->vList[i]->bokm > 0)
+		for (int i=0; i < pls->listLen; ++i)
+		if (pls->vList[i]->bokm > 0)
 		{
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
 			int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;	if (c2-c1<1) c2=c1+1;

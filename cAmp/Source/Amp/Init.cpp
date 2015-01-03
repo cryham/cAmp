@@ -32,8 +32,8 @@ bool cAmp::Begin()
 	SetLoad();	// set
 	ClrLoad();
 	SetPriorityClass(GetCurrentProcess(),  // not here-
-		(iPriority>=2) ? REALTIME_PRIORITY_CLASS :
-		((iPriority==1) ? HIGH_PRIORITY_CLASS : NORMAL_PRIORITY_CLASS) );
+		iPriority>=2 ? REALTIME_PRIORITY_CLASS :
+		(iPriority==1 ? HIGH_PRIORITY_CLASS : NORMAL_PRIORITY_CLASS) );
 
 	InitSnd();
 	KbdInit();
@@ -82,8 +82,10 @@ void cAmp::End()
 
 	D3::Destroy2();
 	D3::Destroy();
+
 	KbdDest();
 	DestSnd();
+
 	SetSave();	// set
 	//ClrSave();
 	DestPlsts();
@@ -95,12 +97,13 @@ void cAmp::updAllInfo()
 {
 	aaD=0;  aaF=0;  aaSi=0;  aaTm=0;
 
-	for (int i=0; i < vPlst.size(); ++i)
+	for (size_t i=0; i < vPlst.size(); ++i)
 	{	CList* pl = vPlst[i];
 
 		aaD += pl->allDirs;  aaF += pl->allFiles;
 		aaSi += pl->allSize/1000000;
-		aaTm += pl->allTime;  }
+		aaTm += pl->allTime;
+	}
 }
 
 //  Update dims
@@ -114,7 +117,7 @@ void cAmp::UpdDim(float rfrFq)
 	//  file info
 	yB_fi = 0;	yE_pl_btn = 20;  // btnsH |< >|
 
-	//  visual fft
+	//  visualisation
 	yB_vis = 16;  //yFvi = 64;
 	yE_vis = min(view.ySize, 28 + ((view.eVis!=viNone)? view.visH: 0));
 	
@@ -122,20 +125,20 @@ void cAmp::UpdDim(float rfrFq)
 	yB_pos = yE_vis;  yE_pos = yB_pos+9;
 	xW_pos = 0.03f;
 
-	//  pls tabs
+	//  pt = playlist tabs
 	yB_pt = yE_pos;  /*par+- +2 8pos*/
 	xW_pt_btn = 13;  // btnsW up,dn
 		xW_pt = (view.xSize - xW_pt_btn)/view.xNpt;
 		yH_pt = cfont[view.cfT]->Fy+2;  // <^ dim pls tabs
 	yE_pt = yB_pt+ view.yNpt*yH_pt+4;
 
-	//  pls tracks
+	//  pl = playlist tracks
 	yB_pli = yE_pt;
 	yB_pl = yB_pli +cfont[view.cfP]->Fy+2/*yHpli*/;
 	yE_pl = view.ySize -cfont[view.cfP]->Fy;
 	yH_pl = yE_pl-1-yB_pl;  yL_pl = max(0, yH_pl/cfont[view.cfP]->Fy);
 		DELA(Lxm);  Lxm = new int[yL_pl+4];
-		yE_pl = yL_pl*cfont[view.cfP]->Fy+yB_pl;  yH_pl = yE_pl-1-yB_pl;
+	yE_pl = yL_pl*cfont[view.cfP]->Fy+yB_pl;  yH_pl = yE_pl-1-yB_pl;
 
 	/*xWplS = 14;*/  xW_plSm = 40;  //|sliderW, mW
 	xTm = view.xSize - view.xWplS-3;  //|
@@ -156,7 +159,7 @@ void cAmp::UpdDim(float rfrFq)
 
 cAmp::cAmp()
 {	bL= bR= bM= bLsl= false;  xm= 0; ym= 0;  xMs= 0; yMs= 0; yMd= 0;  bMInWnd=0;  mti=0.f;
-	chPl= NULL;  bPaus= 0;  bPlay= 0;  sPlInf[0]=0;  thrIns = 0;  appPath[0]=0;
+	chPl= NULL;  bPaused= 0;  bPlay= 0;  sPlInf[0]=0;  thrIns = 0;  appPath[0]=0;
 	pls=plsPl=plsSel=NULL;  plsSelId=-1;
 	sed[0]=0;  ied=0;  srch[0]=0;  fTi=0.f;  Lxm=NULL;  bFInfo=0; bAllInfo=0;
 	bNextPrev=1;  bDrawPlst=1; bDrawPlst2=0;  bShowSrch=0; iSrchAll=0; bAltOld=0;
@@ -175,20 +178,23 @@ cAmp::~cAmp()
 void cAmp::LoadPlsts()
 {
 	// load last -from set
-	if (vPlsNames.size()==0)
+	if (vPlsNames.empty())
 	{
 		CList* pl = new CList();
-		vPlst.push_back(pl);  pl->Save();
-	}else
-	for (int i=0; i < vPlsNames.size(); ++i)
+		vPlst.push_back(pl);
+		pl->Save();
+	}
+	else
+	for (size_t i=0; i < vPlsNames.size(); ++i)
 	{
 		CList* pl = new CList();
-		scpy(pl->name, vPlsNames[i]);  pl->Load();
+		scpy(pl->name, vPlsNames[i]);
+		pl->Load();
 		vPlst.push_back(pl);
 	}
 
 	//  old ids
-	int l = vPlst.size()-1;
+	int l = int(vPlst.size())-1;
 	plsPlId = mia(0,l, plsPlId);  plsPl = vPlst[plsPlId];
 	  plsId = mia(0,l, plsId);		pls = vPlst[plsId];
 	
@@ -211,7 +217,9 @@ bool cAmp::PlayFrom(double t)
 	float vol = fVol;	fVol = 0.f;
 	Play(false);  fVol = vol;
 	chPosAbs(t);
-	if (bPlay)  BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);	rt
+	if (bPlay)
+		BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);
+	rt
 }
 
 void cAmp::DestPlsts()
@@ -219,11 +227,10 @@ void cAmp::DestPlsts()
 	for (int i=0; i < vPlsNames.size(); ++i)
 		DELA(vPlsNames[i])
 
-	if (!pls)  return;
-	/* */pls->Save();
+	if (pls)  pls->Save();
 	if (plsPl && plsPl != pls)  plsPl->Save();
 
-	for (int i=0; i < vPlst.size(); ++i)
+	for (size_t i=0; i < vPlst.size(); ++i)
 		DEL(vPlst[i]);
 	vPlst.clear();
 }

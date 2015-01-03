@@ -33,8 +33,6 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	//  get name
 	char name[MP];
 	tkPl->getFullName(name);
-	//p(name) "%s%s.%s", tkPl->path, tkPl->name, ExtAud[tkPl->ext]);
-	//N(name,"play")
 
 	//  create stream
 	BASS_StreamFree(chPl);  // free old	,stop
@@ -77,7 +75,7 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	//  play
 	BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);  //,bal
 	BASS_ChannelPlay(chPl, TRUE);
-	bPlay = true;	bPaus = false;  rt
+	bPlay = true;	bPaused = false;  rt
 }
 
 
@@ -114,7 +112,7 @@ void cAmp::chVol(float add)  //  ^_
 
 ///  repeat  - - - - 
 
-void cAmp::repAll()  // @All
+void cAmp::repAll()  // @A
 {
 	bRepAll = !bRepAll;  tmd = tmD;
 }
@@ -132,6 +130,7 @@ void cAmp::Prev()	//  |<
 {
 	EnterCriticalSection(&cs);
 	bNextPrev = false;
+
 	bool dn=false;  int subs=0, old = plsPl->idPl;
 	while (!dn && subs < plsPl->listLen-1)
 	{
@@ -151,6 +150,7 @@ void cAmp::Next()	//  >|
 {
 	EnterCriticalSection(&cs);
 	bNextPrev = true;
+
 	bool dn=false;  int adds=0, old = plsPl->idPl;
 	while (!dn && adds < plsPl->listLen-1)
 	{
@@ -169,17 +169,19 @@ void cAmp::Next()	//  >|
 
 void cAmp::Pause()	//  ||
 {
-	if (!bPlay)  {  Play();  return;  }
-	if (bPaus)
-	{	BASS_ChannelPlay(chPl,FALSE);  bPaus = false;	}
+	if (!bPlay)
+	{	Play();  return;  }
+	
+	if (bPaused)
+	{	BASS_ChannelPlay(chPl,FALSE);  bPaused = false;	}
 	else
-	{	BASS_ChannelPause(chPl);	bPaus = true;  }
+	{	BASS_ChannelPause(chPl);	bPaused = true;  }
 }
 
 void cAmp::Stop()	//  []
 {
 	if (bPlay)
-	{	BASS_ChannelStop(chPl);  bPlay = false;  bPaus = false;  }
+	{	BASS_ChannelStop(chPl);  bPlay = false;  bPaused = false;  }
 }
 
 

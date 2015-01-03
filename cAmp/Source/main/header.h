@@ -59,11 +59,3 @@ static int __declspec(naked) __fastcall NextPow2(unsigned n)
 	rol eax, cl
 	ret
 }  }
-
-#pragma warning(disable:4305)  //double to float
-#pragma warning(disable:4244)  //float to int
-#pragma warning(disable:4018)  //signed/unsigned
-#pragma warning(disable:4100)  //w4 unref param
-#pragma warning(disable:4706)  //w4 assign in if
-#pragma warning(disable:4505)  //unref function
-#pragma warning(disable:4309)  //trunc const val

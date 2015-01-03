@@ -70,4 +70,6 @@ void cAmp::KbdInit()
 	if (!hKbd)  Info("Can't hook keyboard.","Init");
 }
 void cAmp::KbdDest()
-{	UnhookWindowsHookEx(hKbd);  }
+{
+	UnhookWindowsHookEx(hKbd);
+}

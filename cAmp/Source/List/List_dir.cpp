@@ -163,7 +163,8 @@ pTrk CList::tree1Dir(const char* subPath)
 void CList::treeCrt()
 {
 	pTrk q,o;  lev = 0;  ww = NULL;
-	if (trGet)  tt = tree1Dir("");
+	if (trGet)
+		tt = tree1Dir("");
 	q = tt;  if (!q)  return;
 	int m = 0;	lev = 1;
 	
@@ -181,11 +182,14 @@ void CList::treeCrt()
 			q->p = tree1Dir(ss);
 			
 			/* add allSize */
-			o = q;	do {
-				o->size += dirSize;  o = o->pv;  } while(o);
+			o = q;
+			do {
+				o->size += dirSize;  o = o->pv;
+			}while(o);
 			
 			allDirs++;	m = 1;
-			if (q->p) {  q = q->p;  lev++;  }
+			if (q->p)
+			{	q = q->p;  lev++;  }
 		}
 		if (m == 1)  m = 0;
 		else
@@ -201,40 +205,40 @@ void CList::treeCrt()
 
 void CList::listCrt()
 {
-	if (tt)
-	{
-		pTrk q = tt, prv = NULL, ll1 = NULL;
-		vector<pTrk> delDirs;
-		
-		bool done = true;
-		while (done)
-		{
-			if (!q->isDir())
-			{
-				if (!ll1)  {  // new 1st
-					ll1 = q;  prv = NULL;  }
-				
-				q->prev = prv;
-				if (prv)
-					q->prev->next = q;
-				
-				prv = q;
-			}else
-				delDirs.push_back(q);
-			
-			if (Next(q))  done = false;
-		}
+	if (!tt)  return;
 
-		insertList(InsM, getCur(), ll1,prv);  //ins
+	pTrk q = tt, prv = NULL, ll1 = NULL;
+	vector<pTrk> delDirs;
+	
+	bool done = true;
+	while (done)
+	{
+		if (!q->isDir())
+		{
+			if (!ll1)  {  // new 1st
+				ll1 = q;  prv = NULL;  }
+			
+			q->prev = prv;
+			if (prv)
+				q->prev->next = q;
+			
+			prv = q;
+		}else
+			delDirs.push_back(q);
 		
-		// dirs from tree
-		for (int i=0; i<delDirs.size(); ++i)
-			DEL(delDirs[i])
-		tt=NULL;  // end tree
-		
-		listUpd(1);
-		UpdTimes();
+		if (Next(q))
+			done = false;
 	}
+
+	insertList(InsM, getCur(), ll1,prv);  //ins
+	
+	// dirs from tree
+	for (size_t i=0; i<delDirs.size(); ++i)
+		delete delDirs[i];
+	tt=NULL;  // end tree
+	
+	listUpd(1);
+	UpdTimes();
 }
 
 

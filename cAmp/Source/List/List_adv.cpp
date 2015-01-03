@@ -11,6 +11,7 @@ void CList::Bookm(int lev)  // toggle
 	if (vList[lCur]->bokm == lev)  vList[lCur]->bokm = 0;
 	else  vList[lCur]->bokm = lev;
 }
+
 void CList::BookmPrev(int lev, bool bSrch)
 {
 	if (ll==NULL)  return;
@@ -22,7 +23,7 @@ void CList::BookmPrev(int lev, bool bSrch)
 		if (bSrch)	{  if (vList[lCur]->srch > 0)     dn=true;  }
 		else		{  if (vList[lCur]->bokm >= lev)  dn=true;  }
 	}
-	if (!dn)  lCur == old;
+	if (!dn)  lCur = old;
 	Center();
 }
 void CList::BookmNext(int lev, bool bSrch)
@@ -35,7 +36,7 @@ void CList::BookmNext(int lev, bool bSrch)
 		if (bSrch)	{  if (vList[lCur]->srch > 0)     dn=true;  }
 		else		{  if (vList[lCur]->bokm >= lev)  dn=true;  }
 	}
-	if (!dn)  lCur == old;
+	if (!dn)  lCur = old;
 	Center();
 }
 
@@ -299,25 +300,36 @@ bool CList::PgUp	(int m){	lCur -= m;  lOfs -= m;  zCur();  zOfs();  rt}
 bool CList::PgDn	(int m){	lCur += m;  lOfs += m;  zCur();  zOfs();  rt}
 
 
-bool CList::Home	(int m){	switch(m) {
+bool CList::Home	(int m)
+{	switch(m)
+	{
 	case 2:  lCur = 0;  lOfs = 0;  rt  //list
 	case 1:  lCur = lOfs;  rt  //view
-	case 0:  if (/*vList[lCur]->prev &&*/ lCur > 1)  {
-		if (vList[lCur-1]->isDir() || vList[lCur]->isDir())
-		{	do  lCur--;  while (lCur > 0 && vList[lCur]->isDir());  }
-		else
-		{	while (lCur-1 > 0 && !vList[lCur-1]->isDir())  lCur--;  }
-		Up(0);	} rt	//srch prev^/next_ dir in list
-}  rf}
 
-bool CList::End		(int m){	switch(m) {
+	case 0: 
+		if (/*vList[lCur]->prev &&*/ lCur > 1)
+		{	if (vList[lCur-1]->isDir() || vList[lCur]->isDir())
+			{	do  lCur--;  while (lCur > 0 && vList[lCur]->isDir());  }
+			else
+			{	while (lCur-1 > 0 && !vList[lCur-1]->isDir())  lCur--;  }
+			Up(0);
+		}  rt	//srch prev^/next_ dir in list
+	}  rf
+}
+
+bool CList::End		(int m)
+{	switch(m)
+	{
 	case 2:  lCur = listLen-1;  lOfs = listLen-1;  zCur(); zOfs();  rt  //list
 	case 1:  lCur = lOfs+Lin-1;  zCur(); rt  //view
-	case 0:  if (/*vList[lCur]->next &&*/ lCur < listLen-1)  {
-		if (vList[lCur+1]->isDir() || vList[lCur]->isDir())
-		{	do  lCur++;  while (lCur < listLen && vList[lCur]->isDir());  }
-		else
-		{	while (lCur+1 < listLen && !vList[lCur+1]->isDir())  lCur++;  }
-		Dn(0);	} rt
-}  rf}
-//--------------------------------------------------------------------
+
+	case 0:
+		if (/*vList[lCur]->next &&*/ lCur < listLen-1)
+		{	if (vList[lCur+1]->isDir() || vList[lCur]->isDir())
+			{	do  lCur++;  while (lCur < listLen && vList[lCur]->isDir());  }
+			else
+			{	while (lCur+1 < listLen && !vList[lCur+1]->isDir())  lCur++;  }
+			Dn(0);
+		}  rt
+	}  rf
+}

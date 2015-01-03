@@ -16,7 +16,8 @@ DWORD WINAPI BrowseDirThr(LPVOID lp)
 
 void cAmp::GuiOff()
 {
-	ed = ED_Pls;  UpdDim();  bDrawPlst = true;  bPickingKey = false;
+	ed = ED_Pls;  UpdDim();
+	bDrawPlst = true;  bPickingKey = false;
 }
 
 /*-   -   -   -   -   -   -   -   -   -   -   -   -   Keys   -   -   -   -   -   -   -   -   -   -   -   -  -*/
@@ -110,15 +111,19 @@ bool cAmp::Keys(WPARAM k)
 
 			///  -,+ rate file
 			// none- playing cur  ctrl- cursor
-			case VK_SUBTRACT: case VK_OEM_MINUS:  if (ctrl) pls->DecRate(); else  pls->DecRatePl();	rt
-			case VK_ADD:	  case VK_OEM_PLUS:	  if (ctrl) pls->IncRate(); else  pls->IncRatePl();	rt
+			case VK_SUBTRACT: case VK_OEM_MINUS:
+				if (ctrl) pls->DecRate(); else  pls->DecRatePl();	rt
+			case VK_ADD:	  case VK_OEM_PLUS:
+				if (ctrl) pls->IncRate(); else  pls->IncRatePl();	rt
 
 			///  rating filter
-			case VK_DIVIDE:   case VK_OEM_4:	pls->DecRFil(ctrl);  rt
-			case VK_MULTIPLY: case VK_OEM_6:	pls->IncRFil(ctrl);  rt
+			case VK_DIVIDE:   case VK_OEM_4:
+				pls->DecRFil(ctrl);  rt
+			case VK_MULTIPLY: case VK_OEM_6:
+				pls->IncRFil(ctrl);  rt
 
 			//  next/prev tab   ctrl- dn/up row  shift- ofs row
-			case VK_OEM_3:  tabPrev(ctrl,shift);  rt
+			case VK_OEM_3:  tabPrev(ctrl,shift);  rt  // tilde`
 			case VK_TAB:    tabNext(ctrl,shift);  rt
 
 			///  save/load quick
@@ -128,10 +133,10 @@ bool cAmp::Keys(WPARAM k)
 				pls->Clear();  pls->Load();  if (b) Play(0);  }  rt
 			
 			//  bookmark
-			case VK_OEM_5:  pls->Bookm(alt ? 3 : ctrl ? 2 : 1);  bDrawPlst = true;  rt
+			case VK_OEM_5:  pls->Bookm(alt ? 3 : ctrl ? 2 : 1);  bDrawPlst = true;  rt  // backslash
 			//  goto prev/next
 			case VK_OEM_PERIOD:	pls->BookmPrev(alt ? 3 : ctrl ? 2 : 1, bShowSrch);  rt
-			case VK_OEM_2:		pls->BookmNext(alt ? 3 : ctrl ? 2 : 1, bShowSrch);  rt
+			case VK_OEM_2:		pls->BookmNext(alt ? 3 : ctrl ? 2 : 1, bShowSrch);  rt  // slash
 			
 			//  duplicate  none- below   shift- top   ctrl- end
 			case 'D':  pls->Insert1(shift? -2: ctrl? 2: 1, NULL);  rt
@@ -147,11 +152,12 @@ bool cAmp::Keys(WPARAM k)
 			//  back gotoPlay
 			case VK_BACK:  if (ctrl) {  plsId = plsPlId;  plsChg();  }  pls->GotoPlay();  rt
 			
-			case 'M':  if (ctrl)  /// new copy files  <---------------------
+			/// new copy files			
+			case VK_F12:
 				pls->CopySelFiles();  rt
 
 
-			//  operate
+			//  del
 			case VK_DELETE:  //none- del one/sel  shift- from disk  ctrl- clear plst
 				if (ctrl)  {  pls->Clear();  clrSelId();  }  else
 				{	if (pls->numSel == 0)  {  // del one
@@ -160,6 +166,7 @@ bool cAmp::Keys(WPARAM k)
 						pls->Del(shift);  }
 					else  {  pls->DelSel(shift);  clrSelId();  }  }  rt  // del sel
 			
+			//  ins dir
 			case VK_INSERT:
 				if (shift)	pls->InsM = -2; else  //top,end, cur
 				if (ctrl)	pls->InsM =  2; else  pls->InsM = (pls->lCur==0) ? -1 : 1;
@@ -167,28 +174,6 @@ bool cAmp::Keys(WPARAM k)
 				if (!pls->bThr && !thrIns)
 				//if (alt)
 					thrIns = CreateThread(NULL,0,BrowseDirThr,(LPVOID)this,0,NULL);
-				#if 0
-				else	// BrowseFiles ...
-				{
-					//CFileDialog fd;
-					
-					OPENFILENAMEA ofn;  ZeroMemory(&ofn,sizeof(ofn));  ofn.lStructSize = sizeof(ofn);
-					char szFile[10*MP];	ofn.hwndOwner = hWnd;
-
-					ofn.lpstrFile = szFile;  ofn.lpstrFile[0]='\0';  ofn.nMaxFile = sizeof(szFile);
-					ofn.lpstrFilter = "cAmp Audio Files (*.wav;*.flac;*.ogg;*.mp3;*.ape;*.wv;*.mpc;*.wma;*.mp2)\0*.wav;*.flac;*.ogg;*.mp3;*.ape;*.wv;*.mpc;*.wma;*.mp2\0*.*\0*.*";
-					ofn.lpstrFileTitle = NULL;	ofn.nMaxFileTitle = 0;  ofn.nFilterIndex=1;
-
-					//scpy(sDir, cOsc::appPath);  sadd(sDir, "playlists");
-					//ofn.lpstrInitialDir = sDir;
-					ofn.Flags = /*OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST|*/OFN_ALLOWMULTISELECT|
-						OFN_EXPLORER|OFN_ENABLESIZING|OFN_HIDEREADONLY|OFN_NONETWORKBUTTON;
-
-					if (GetOpenFileNameA(&ofn)==TRUE)  {
-						int i=1;
-					}
-				}
-				#endif
 				rt
 
 			//  New tab
@@ -207,7 +192,8 @@ bool cAmp::Keys(WPARAM k)
 			//... update names (search rating)
 
 			//  Reload Dir
-			case VK_F6:  if (pls && pls->ll)  if (pls->vList[pls->lCur]->isDir())
+			case VK_F6:
+			if (pls && pls->ll)  if (pls->vList[pls->lCur]->isDir())
 			{	if (shift)  pls->InsM =-2; else  //top,end, cur
 				if (ctrl)   pls->InsM = 2; else  pls->InsM = (pls->lCur == 0) ? -1 :1;
 				bool rem = !alt && !ctrl && !shift;  // alt duplicate
@@ -218,7 +204,7 @@ bool cAmp::Keys(WPARAM k)
 				pls->trGet = true;  pls->trRem = true;
 				pls->InsertDir(pls->vList[pls->lCur]->path);
 
-				// delete duplicated
+				// delete duplicated-
 				//if (rem) {	int i=0;
 				//	while (pls->bThr)  Sleep(20);  // lock..
 				//	pls->DelSel();	}
@@ -243,8 +229,10 @@ bool cAmp::Keys(WPARAM k)
 			switch(k)
 			{	case VK_HOME:  hlpPg = 0;	 rt
 				case VK_END:   hlpPg = HelpPages-1;  rt
-				case VK_PRIOR:case VK_LEFT: case VK_UP:		hlpPg--; if(hlpPg < 0)  hlpPg = 0;		rt
-				case VK_NEXT: case VK_RIGHT:case VK_DOWN:	hlpPg++; if(hlpPg > HelpPages-1)  hlpPg = HelpPages-1;	rt
+				case VK_PRIOR:case VK_LEFT: case VK_UP:
+					hlpPg--; if(hlpPg < 0)  hlpPg = 0;  rt
+				case VK_NEXT: case VK_RIGHT:case VK_DOWN:
+					hlpPg++; if(hlpPg > HelpPages-1)  hlpPg = HelpPages-1;  rt
 			}	break;
 	}
 	rf

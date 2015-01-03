@@ -11,7 +11,7 @@ cOsc::cOsc()
 	dt = 0.01f;  tmd = 0;  view.fftSize=1;
 	memset(A,0,sizeof(A));
 	lock = false;  xpr = 0;  xpn = 0;  //ptim.iv
-	bRec=0; bPlay=0; bPaus=0;
+	bRec=0; bPlay=0; bPaused=0;
 	UpdPClr();
 }
 

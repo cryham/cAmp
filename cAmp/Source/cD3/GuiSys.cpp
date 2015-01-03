@@ -10,7 +10,7 @@
 void GuiSys::DrawRect()
 {
 	if (!bInit)  return;
-	for (int c=0; c < controls.size(); c++)
+	for (size_t c=0; c < controls.size(); c++)
 		if (controls[c]->vis)
 			controls[c]->DrawRect();
 }
@@ -18,7 +18,7 @@ void GuiSys::DrawRect()
 void GuiSys::DrawText(float dt)
 {
 	if (!bInit)  return;
-	for (int c=0; c < controls.size(); c++)
+	for (size_t c=0; c < controls.size(); c++)
 		//if (controls[c]->vis)
 			controls[c]->DrawText(dt);
 }
@@ -37,7 +37,7 @@ GuiSys::~GuiSys()
 
 void GuiSys::Clear()
 {
-	for (int c=0; c < controls.size(); ++c)
+	for (size_t c=0; c < controls.size(); ++c)
 		delete controls[c];
 	controls.clear();
 }
@@ -56,7 +56,7 @@ bool GuiSys::ReInit(int _xPos,int _yPos, int _xSize,int _ySize,
 	bInit = _pDev && _cfont;
 
 	if (controls.size() > 0)  // upd all controls
-	for (int c=0; c < controls.size(); ++c)
+	for (size_t c=0; c < controls.size(); ++c)
 		controls[c]->ReSize();
 	return bInit;
 }
@@ -66,7 +66,7 @@ bool GuiSys::ReInit(int _xPos,int _yPos, int _xSize,int _ySize,
 ///------------------------------------------------------------------------------------
 bool GuiSys::MouseMove(int xm, int ym, bool lmb, bool lmbo, bool rmb)
 {
-	for (int i=0; i < controls.size(); i++)
+	for (size_t i=0; i < controls.size(); ++i)
 	{
 		GuiCtrl* c = controls[i];
 		int xc = c->xp + xPos, yc = c->yp + yPos;

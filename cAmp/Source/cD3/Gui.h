@@ -77,8 +77,8 @@ class GuiInt : public GuiCtrl
 public:
 	int* v,pdef;  // value,range
 	int vmin,vdef,vmax;  bool enu;
-	map<int, const char*> imap;
-	map<int, const char*>::iterator imi;
+	std::map<int, const char*> imap;
+	std::map<int, const char*>::iterator imi;
 
 	void iCall();  // inc,dec
 	static void dec(void* pInst), inc(void* pInst);

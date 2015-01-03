@@ -2,6 +2,7 @@
 
 #define MP   MAX_PATH+60  //path+file name
 #define ExtLen     5  // max ext
+
 #define NamePls   24  // max plst tab name
 #define NameSrch  32  // max search name
 
@@ -9,8 +10,9 @@ const INT64 smax = INT64(MAXDWORD)+1;
 
 
 //  enum CTrk type
-const BYTE  /*unvisited*/TY_DIR_unv=0, TY_DIR=1,
-	/*Files:*/TY_FILE=2, TY_AUDIO=3;  //, TY_PLS=4, TY_IMG=5;
+const BYTE
+	TY_DIR_unv=0, TY_DIR=1,  // dir unvisited
+	TY_FILE=2, TY_AUDIO=3;   // files
 
 
 //  file ext

@@ -8,7 +8,7 @@
 
 void cAmp::Wheel(int nWheel)	///  Wheel
 {
-	if (!nWheel)  return;
+	if (nWheel == 0)  return;
 	if (ym < yB_pt)  // plr vol
 	{
 		chVol((shift? 0.005f: ctrl? 0.05f: 0.02f)*(nWheel > 0? 1.f: -1.f));
@@ -41,7 +41,7 @@ void cAmp::Mouse()		///  move
 	{
 		if (shift) {  pls->lInsM =-1;  pls->lInsPos = pls->lOfs;  } else
 		if (ctrl)  {  pls->lInsM = 1;  pls->lInsPos = pls->lOfs+yL_pl-1;  } else
-		if (cr < pls->vList.size())
+		if (cr < int(pls->vList.size()))
 		{
 			dest = pls->vList[cr];
 			pls->lInsPos = cr;  //ins bar vis
@@ -168,7 +168,7 @@ void cAmp::Mouse()		///  move
 
 	if (ym > yB_pt && ym < yE_pt)
 	{	int y = (ym-yB_pt)/yH_pt, x = xm/xW_pt, n = y*view.xNpt+x +view.ofsTab;
-		if (y < view.yNpt && x < view.xNpt && n < vPlst.size())
+		if (y < view.yNpt && x < view.xNpt && n < int(vPlst.size()))
 			nTabMov = n;  }
 	if (bL && !bLs && ym > yB_pt && ym < yE_pt)
 	{

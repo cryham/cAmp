@@ -17,7 +17,7 @@ public:
 	CFont* cfont;
 	bool bInit;  // can draw
 	
-	vector<GuiCtrl*> controls;
+	std::vector<GuiCtrl*> controls;
 
 public:
 	GuiSys();  ~GuiSys();

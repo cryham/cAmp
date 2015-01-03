@@ -7,8 +7,14 @@
 
 int CList::getTkPlIdx()  //on unhid
 {
-	int i=0,id=-1;  pTrk tkPl = vList[idPl];
-	pTrk q=ll;	while (q)  {  if (tkPl==q) id=i;  q=q->next;  ++i;  }
+	int i=0,id=-1;
+	pTrk tkPl = vList[idPl];
+
+	pTrk q=ll;
+	while (q)
+	{	if (tkPl==q)  id = i;
+		q = q->next;  ++i;
+	}
 	return id;
 }
 
@@ -44,7 +50,7 @@ void CList::SelDir(int cr)  // select dir
 	lCur++;
 	while (lCur < listLen && !vList[lCur]->isDir())
 	{
-		sel(lCur, 1 - vList[lCur]->sel);
+		sel(lCur, 1 - vList[lCur]->sel > 0);
 		lCur++;
 	}
 	lCur = lc;
@@ -71,7 +77,7 @@ void CList::Select1(int cr)
 	if (vList[cr]->isDir())  // sel dir
 		SelDir(cr);
 	else  {
-		sel(cr, 1 - vList[cr]->sel);
+		sel(cr, 1 - vList[cr]->sel > 0);
 		Pick(cr);  }
 }
 
@@ -181,7 +187,7 @@ void CList::destList()
 /// auto save opts to new dirs-... new dir creation
 void CList::destDirs()
 {
-	for (int i=0; i<vDirs.size(); i++)
+	for (size_t i=0; i<vDirs.size(); i++)
 		DEL(vDirs[i])
 }
 
@@ -201,7 +207,10 @@ CList::CList()
 	iRFilt=-cR0; iRFilU=cR1; //all
 	name[0]=0;  trGet=true;  iSrch=0;  trRem=false;
 }
-CList::~CList() {	destroyThr();	destList();  }
+CList::~CList()
+{
+	destroyThr();	destList();
+}
 
 CTrk::CTrk(const char* Name, const char* Path)
 {	nx = p = pv = NULL;	name = NULL;  path = NULL; prev = next = NULL;  path2 = NULL;

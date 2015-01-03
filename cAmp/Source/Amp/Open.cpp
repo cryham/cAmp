@@ -4,7 +4,8 @@
 #include "..\main\App.h"
 
 
-///  Insert Dir dialog  -   -   -   -   -   -   -   -   -   -   -   -
+//  Insert Dir dialog
+///-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
 static int CALLBACK BrowseCallbackProc(HWND hwnd,UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
@@ -21,7 +22,8 @@ BOOL cAmp::BrowseDir(LPCSTR sCurrent, LPSTR sPath)
 	LPITEMIDLIST pidl;	CHAR sDisplay[MAX_PATH];
 
 	CoInitialize(NULL);
-	bi.hwndOwner = hWnd;	bi.pszDisplayName = sDisplay;
+	bi.hwndOwner = hWnd;
+	bi.pszDisplayName = sDisplay;
 	bi.lpszTitle = "Insert Directory";
 	bi.ulFlags = BIF_RETURNONLYFSDIRS|BIF_USENEWUI|BIF_NONEWFOLDERBUTTON|BIF_VALIDATE;
 	bi.lpfn    = BrowseCallbackProc;
@@ -100,5 +102,6 @@ LRESULT cAmp::OnDropFiles(WPARAM wParam, LPARAM lParam)
 				while (pls->bbThr)  Sleep(10);  // <!>
 			}	}
 	}
+	DragFinish(hDrop);
 	return 0;
 }

@@ -20,7 +20,8 @@ GuiPg(0);
 
 	gi = g->AddInt(0,y,xs, "Sound Device", &nDev, -1, sDevs.size()-1);  y+=ya;
 	gi->imap[-1] = "Default";
-	for (int i=0; i < sDevs.size(); i++)  gi->imap[i] = sDevs[i];
+	for (size_t i=0; i < sDevs.size(); i++)
+		gi->imap[i] = sDevs[i];
 
 	gi = g->AddInt(0,y,xs, "Frequency [kHz]", &nFreq, 0, 2, true);  //y+=ya;
 	gi->imap[44100]="44.1";  //..get from snd
@@ -65,10 +66,6 @@ GuiPg(2);	//  pls
 // - -  -   -                                -  - -- 
 void cAmp::GuiEvent(GuiCtrl* ctrl, int IDc, eGuiEvent evt)
 {
-	(void)evt;
-	(void)IDc;
-	(void)ctrl;
-	
 	switch (IDc)
 	{
 	case 1:

@@ -8,7 +8,7 @@
 
 ///  Voice print . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 //
-#define  PlR  (bPaus ? false : (bPlay || bRec))
+#define  PlR  (bPaused ? false : (bPlay || bRec))
 void cOsc::Vpr()
 {
 	//  get data
@@ -31,7 +31,7 @@ void cOsc::Vpr()
 		
 		LeaveCriticalSection(&cs);
 	}else
-	if (!bPaus)  {  xpr = 0;  xpn = 0;  }
+	if (!bPaused)  {  xpr = 0;  xpn = 0;  }
 }
 
 

@@ -126,8 +126,9 @@ void GuiInt::DrawText(float dt)
 	else
 		ps->cfont->Format("%s", imap[*v]);  // enum
 
-	ps->cfont->Write(xp + ps->xPos + 5 + xs + 60,
-					 yp + ps->yPos + 4);  //_par
+	ps->cfont->Write(
+		xp + ps->xPos + 5 + xs + 60,
+		yp + ps->yPos + 4);  //_par
 }
 
 //  dec,inc, home,end
@@ -152,7 +153,9 @@ void GuiInt::minc(void* pInst){	giv  gi->iminc();  clb  }
 
 GuiSld::GuiSld() :
 	pdef(0), vmin(0),vdef(1.f),vmax(3.f)
-{  v = &vdef;  type = GC_Sld;  scpy(sfmt, "%6.3f");  }
+{
+	v = &vdef;  type = GC_Sld;  scpy(sfmt, "%6.3f");
+}
 
 void GuiSld::DrawRect()
 {
