@@ -241,10 +241,10 @@ bool cAmp::Keys(WPARAM k)
 	
 		case ED_Help:  /* Help */
 			switch(k)
-			{	case VK_HOME:  hlpPg=0;	 rt
-				case VK_END:   hlpPg=HP-1;  rt
-				case VK_PRIOR:case VK_LEFT: case VK_UP:		hlpPg--; if(hlpPg<0) hlpPg=0;		rt
-				case VK_NEXT: case VK_RIGHT:case VK_DOWN:	hlpPg++; if(hlpPg>HP-1) hlpPg=HP-1;	rt
+			{	case VK_HOME:  hlpPg = 0;	 rt
+				case VK_END:   hlpPg = HelpPages-1;  rt
+				case VK_PRIOR:case VK_LEFT: case VK_UP:		hlpPg--; if(hlpPg < 0)  hlpPg = 0;		rt
+				case VK_NEXT: case VK_RIGHT:case VK_DOWN:	hlpPg++; if(hlpPg > HelpPages-1)  hlpPg = HelpPages-1;	rt
 			}	break;
 	}
 	rf

@@ -72,8 +72,6 @@ const int texUV[NumTex+1][4] =  // size x,y, pos x,y on player.png texture, in p
 */
 enum eEffx {
 	FX_fft=0, FX_osc, /*FX_ff2,*/ FX_rClr, FX_ALL };
-enum eEdit {
-	ED_Pls=0/*none*/, ED_Help, ED_nTab, ED_nFind, ED_Keys, ED_Set1, ED_ALL };
 
 const int NumFnt = 6;  // playlist font sizes  find in dir..
 

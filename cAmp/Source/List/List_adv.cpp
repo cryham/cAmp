@@ -103,7 +103,7 @@ bool CList::RenameRate(pTrk t)
 				e==ERROR_PATH_NOT_FOUND? "path not found" :"");
 			if (e==ERROR_FILE_NOT_FOUND || e==ERROR_PATH_NOT_FOUND)
 				t->dis = 1;
-			Info(s,"Can't rename file")
+			Info(s,"Can't rename file");
 		}
 		else
 		{	// change trk name

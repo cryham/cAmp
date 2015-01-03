@@ -23,11 +23,11 @@ void cAmp::SetLoad()
 	scpy(s,appPath);  sadd(s,"cAmp.xml");
 	TiXmlDocument xml;  xml.LoadFile(s);
 	TiXmlElement* root = xml.RootElement(), *n = NULL, *m = NULL;
-	if (!root) {	Info("No set file cAmp.xml",sle)  }
+	if (!root) {	Info("No set file cAmp.xml",sle);  }
 	else
 	{	const char* a = NULL,*avk=NULL,*asc=NULL,*amod=NULL,*aon=NULL;
 
-		n = root->FirstChildElement("Window");	if (!n)  Info("No <Window>",sle)
+		n = root->FirstChildElement("Window");	if (!n)  Info("No <Window>",sle);
 		if (n)  {
 			a = n->Attribute("sizeX");	if (a)  view.xSize = mia(100, xScreen, toInt(a));
 			a = n->Attribute("sizeY");	if (a)	view.ySize = mia(30,  yScreen, toInt(a));
@@ -38,7 +38,7 @@ void cAmp::SetLoad()
 			a = n->Attribute("slider");	if (a)  view.xWplS = max(0,toInt(a));
 		}
 		
-		n = root->FirstChildElement("Fonts");	if (!n)  Info("No <Fonts>",sle)
+		n = root->FirstChildElement("Fonts");	if (!n)  Info("No <Fonts>",sle);
 		if (n)  {
 			a = n->Attribute("pls");	if (a)  view.cfP = mia(0,NumFnt-1, toInt(a));
 			a = n->Attribute("amp");	if (a)	view.cfA = mia(0,NumFnt-1, toInt(a));
@@ -47,7 +47,7 @@ void cAmp::SetLoad()
 			a = n->Attribute("gui");	if (a)  view.cfG = mia(0,NumFnt-1, toInt(a));
 		}
 		
-		n = root->FirstChildElement("OnOff");	if (!n)  Info("No <OnOff>",sle)
+		n = root->FirstChildElement("OnOff");	if (!n)  Info("No <OnOff>",sle);
 		if (n)  {
 			a = n->Attribute("bRepAll");	if (a)  bRepAll = toBool(a);
 			a = n->Attribute("bRep1");		if (a)  bRep1 = toBool(a);
@@ -57,7 +57,7 @@ void cAmp::SetLoad()
 			a = n->Attribute("bSlDrawR");	if (a)  view.bSlDrawR = toInt(a);
 		}
 
-		n = root->FirstChildElement("App");		if (!n)  Info("No <App>",sle)
+		n = root->FirstChildElement("App");		if (!n)  Info("No <App>",sle);
 		if (n)  {
 			a = n->Attribute("bRec");		if (a)  bRecSet = toBool(a);
 			a = n->Attribute("vprFq");		if (a)  view.pr_fq = toInt(a);
@@ -69,7 +69,7 @@ void cAmp::SetLoad()
 			a = n->Attribute("insPath");	if (a)  scpy(sInsPath, a);
 		}
 
-		n = root->FirstChildElement("Last");	if (!n)  Info("No <Last>",sle)
+		n = root->FirstChildElement("Last");	if (!n)  Info("No <Last>",sle);
 		if (n)  {
 			a = n->Attribute("volume");		if (a)  fVol = toFloat(a);
 			a = n->Attribute("bPlay");		if (a)  bWasPlay = toBool(a);
@@ -79,7 +79,7 @@ void cAmp::SetLoad()
 			a = n->Attribute("ofsTab");		if (a)  view.ofsTab = toInt(a);
 		}
 
-		n = root->FirstChildElement("Playlists");	if (!n)  Info("No <Playlists>",sle)
+		n = root->FirstChildElement("Playlists");	if (!n)  Info("No <Playlists>",sle);
 		if (n)  {
 			a = n->Attribute("tabsX");		if (a)  view.xNpt = max(1,toInt(a));
 			a = n->Attribute("tabsY");		if (a)  view.yNpt = max(0,toInt(a));
@@ -95,11 +95,11 @@ void cAmp::SetLoad()
 		}
 
 		//  global keys
-		n = root->FirstChildElement("GlobalKeys");	if (!n)  Info("No <GlobalKeys>",sle)
+		n = root->FirstChildElement("GlobalKeys");	if (!n)  Info("No <GlobalKeys>",sle);
 		if (n)  {
 			a = n->Attribute("On");  if (a)  bHKeys = toBool(a);
 
-			m = n->FirstChildElement("Key");  if (!m)  Info("No <Key>",sle)
+			m = n->FirstChildElement("Key");  if (!m)  Info("No <Key>",sle);
 			int i = 0;
 			while (m)
 			{
@@ -116,9 +116,9 @@ void cAmp::SetLoad()
 		}
 		
 		//  views
-		n = root->FirstChildElement("Views");	if (!n)  Info("No <Views>",sle)
+		n = root->FirstChildElement("Views");	if (!n)  Info("No <Views>",sle);
 		if (n)  {	int i = 0;
-			m = n->FirstChildElement("View");  if (!m)  Info("No <View>",sle)
+			m = n->FirstChildElement("View");  if (!m)  Info("No <View>",sle);
 			while (m && i < MaxViews)
 			{
 				CViewSet* v = &views[i];
@@ -297,13 +297,13 @@ void cAmp::ClrLoad()
 	scpy(s,appPath);  sadd(s,"Media\\colors.xml");
 	TiXmlDocument xml;  xml.LoadFile(s);
 	TiXmlElement* root = xml.RootElement(), *n = NULL, *m = NULL;
-	if (!root) {	Info("No set file cAmp.xml",sce)  }
+	if (!root) {	Info("No set file cAmp.xml",sce);  }
 	else
 	{	const char* a = NULL;//,*avk=NULL,*asc=NULL,*amod=NULL,*aon=NULL;
 
-		n = root->FirstChildElement("RatingColors");	if (!n)  Info("No <RatingColors>",sce)
+		n = root->FirstChildElement("RatingColors");	if (!n)  Info("No <RatingColors>",sce);
 		{	m = NULL;
-			if (n)  m = n->FirstChildElement("Rclr");  if (!m)  Info("No <Rclr>",sce)
+			if (n)  m = n->FirstChildElement("Rclr");  if (!m)  Info("No <Rclr>",sce);
 			for (int i=0; i < chRall; ++i)
 			{
 				D3DXCOLOR c(0.2f,0.5f,0.8f,1.f);  if (i<cR0)  c=D3DXCOLOR(0.3f,0.6f,0.2f,1.f);
@@ -314,7 +314,7 @@ void cAmp::ClrLoad()
 			}
 		}
 		
-		n = root->FirstChildElement("RatingTex");	if (!n)  Info("No <RatingColors>",sce)
+		n = root->FirstChildElement("RatingTex");	if (!n)  Info("No <RatingColors>",sce);
 		if (n)  {
 			a = n->Attribute("xmin");	if (a)	rtx.r = toFloat(a);
 			a = n->Attribute("xmax");	if (a)	rtx.g = toFloat(a);
@@ -322,11 +322,11 @@ void cAmp::ClrLoad()
 			a = n->Attribute("ymax");	if (a)	rtx.a = toFloat(a);
 		}
 
-		n = root->FirstChildElement("TimeColors");	if (!n)  Info("No <TimeColors>",sce)
+		n = root->FirstChildElement("TimeColors");	if (!n)  Info("No <TimeColors>",sce);
 		if (n)  {
 			a = n->Attribute("mode");  if (a)  tmClrMode = toInt(a);
 
-			m = n->FirstChildElement("Tclr");  if (!m)  Info("No <Tclr>",sce)
+			m = n->FirstChildElement("Tclr");  if (!m)  Info("No <Tclr>",sce);
 			while (m)	{
 				D3DXCOLOR c(0.2f,0.6f,0.9f,/*tm*/1.f);
 				a = m->Attribute("time");	if (a)	c.a = toFloat(a);

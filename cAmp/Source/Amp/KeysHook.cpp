@@ -31,22 +31,22 @@ bool cAmp::KeysHook(DWORD vk,DWORD sc,DWORD fl)  //BYTE
 			ck->vis = 100;
 			switch (i)	// Player
 			{
-				case FU_BACK:  chPos(-5);  rf	case FU_BACK1: chPos(-1);  rf	case FU_BACK2: chPos(-15);  rf
-				case FU_FORW:  chPos( 5);  rf	case FU_FORW1: chPos( 1);  rf	case FU_FORW2: chPos( 15);  rf
+				case FU_Back:  chPos(-5);  rf	case FU_Back1: chPos(-1);  rf	case FU_Back2: chPos(-15);  rf
+				case FU_Forw:  chPos( 5);  rf	case FU_Forw1: chPos( 1);  rf	case FU_Forw2: chPos( 15);  rf
 
-				case FU_VOLDN:  chVol(-0.02f);  rf	case FU_VOLDN2: chVol(-0.05f);  rf	//case FU_BACK1: chVol(-0.005f);  rf
-				case FU_VOLUP:  chVol( 0.02f);  rf	case FU_VOLUP2: chVol( 0.05f);  rf	//case FU_FORW1: chVol( 0.005f);  rf
+				case FU_VolDn:  chVol(-0.02f);  rf	case FU_VolDn2: chVol(-0.05f);  rf
+				case FU_VolUp:  chVol( 0.02f);  rf	case FU_VolUp2: chVol( 0.05f);  rf
 
-				case FU_PREV:  Prev();  rf		case FU_NEXT:  Next();  rf
-				case FU_PLAY:  Play(0);  rf		case FU_PAUSE: Pause();  rf		case FU_STOP:  Stop();   rf
+				case FU_Prev:  Prev();  rf		case FU_Next:  Next();  rf
+				case FU_Play:  Play(0);  rf		case FU_Pause: Pause();  rf		case FU_Stop:  Stop();   rf
 				
-				case FU_RATINC:	 if (plsPl) plsPl->IncRatePl();  rf
-				case FU_RATDEC:  if (plsPl) plsPl->DecRatePl();  rf
+				case FU_RatInc:	 if (plsPl) plsPl->IncRatePl();  rf
+				case FU_RatDec:  if (plsPl) plsPl->DecRatePl();  rf
 
-				case FU_REPONE:  rep1();  rf
+				case FU_Rep1:  rep1();  rf
 
-				case FU_PREVPLS:  PlayPrevTab();  rf
-				case FU_NEXTPLS:  PlayNextTab();  rf
+				case FU_PrevPls:  PlayPrevTab();  rf
+				case FU_NextPls:  PlayNextTab();  rf
 			}
 			rt
 		}
@@ -67,7 +67,7 @@ LRESULT CALLBACK kpH(int code, WPARAM wp, LPARAM lp)
 void cAmp::KbdInit()
 {
 	hKbd = SetWindowsHookEx(WH_KEYBOARD_LL, kpH, GetModuleHandle(0), 0);
-	if (!hKbd)  Info("Can't hook keyboard.","Init")
+	if (!hKbd)  Info("Can't hook keyboard.","Init");
 }
 void cAmp::KbdDest()
 {	UnhookWindowsHookEx(hKbd);  }

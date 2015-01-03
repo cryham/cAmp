@@ -3,37 +3,7 @@
 #include "..\cD3\Osc.h"
 #include "..\List\List.h"
 #include "..\cD3\GuiSys.h"
-
-
-//  Gui pages
-const int GuiPages = 3;
-
-//  help pages
-#define  HP  6
-const static char HPnames[HP][20]={
-	"Player","Mouse","Playlist basic","Playlist advanced","Tabs, visual","Player functions"};
-
-//  global keys
-enum ePlrFuns {
-	FU_PLAY=0,FU_PAUSE,FU_STOP, FU_PREV,FU_NEXT, FU_PREVPLS,FU_NEXTPLS, 
-	FU_BACK,FU_FORW, FU_BACK1,FU_FORW1, FU_BACK2,FU_FORW2,
-	FU_VOLDN,FU_VOLUP, /*FU_VOLDN1,FU_VOLUP1,*/ FU_VOLDN2,FU_VOLUP2,
-	FU_RATINC,FU_RATDEC, FU_REPONE, FU_ALL};
-
-const char cswFuns[FU_ALL][24] = {
-	"Play  |>","Pause ||","Stop  []",  "Prev  |<","Next  >|",  "Prev < playlist","Next > playlist",
-	"Backward <<","Forward  >>", "Bck  << small","Frw >> small", "Bck  << big","Frw >> big",
-	"Volume Down","Volume Up ^", /*"Vol Dn small","Vol Up small",*/ "Vol Dn big","Vol Up big", 
-	"Inc + Rating","Dec - Rating", "Repeat 1 One"};
-
-const int cyFadd[FU_ALL] = {0,0,2, 0,1, 0,2, 0,1,0,1,0,1, 0,1,0,2, 0,1,0};
-
-
-class CKey  {  public:
-	BYTE vk,sc, mod;
-	bool on;  int vis;
-	CKey() : vk(0),sc(0),mod(0), on(false),vis(0) {}
-};
+#include "Amp_def.h"
 
 
 class cAmp : public cOsc

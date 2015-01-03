@@ -18,7 +18,7 @@ void cAmp::DrawHelpText()									//  help  //
 	#define  clr(r,g,b)  cf->Fclr = D3DXCOLOR(r,g,b,1)
 
     clr(0.7,0.7,0.7);    sc("Keyboard help");  wr(20,y);  //y+=Fy;
-    clr(0.8,0.8,0.9);    cf->Format("Page: %s %d/%d %s", hlpPg==0?"  ":"<", hlpPg+1,HP, hlpPg==HP-1?"  ":">");
+    clr(0.8,0.8,0.9);    cf->Format("Page: %s %d/%d %s", hlpPg==0?"  ":"<", hlpPg+1,HelpPages, hlpPg==HelpPages-1?"  ":">");
     wr(view.xSize-110,y);  y+=Fy*3/2;	clr(1,1,1);
     
     sc(HPnames[hlpPg]);  int o=cf->GetWidth(); //center

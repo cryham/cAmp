@@ -198,15 +198,15 @@ void CList::del(pTrk q, bool disk)
 	if (q && disk)
 	{
 		char s[MP];  q->getFullName(s);
-		if (DeleteFileA(s)==FALSE)  {	//FormatMessageA()
-			DWORD er = GetLastError();
+		if (DeleteFileA(s)==FALSE)  //FormatMessageA()
+		{	DWORD er = GetLastError();
 			if (er == ERROR_FILE_NOT_FOUND || er == ERROR_PATH_NOT_FOUND)
-				Info(s,"Can't delete file (File/path not found")
+				Info(s,"Can't delete file (File/path not found");
 			else if (er == ERROR_ACCESS_DENIED)
-				Info(s,"Can't delete file (Access denied)")
+				Info(s,"Can't delete file (Access denied)");
 			else
-				Info(s,"Can't delete file")  }
-	}
+				Info(s,"Can't delete file");
+	}	}
 
 	if (q == ll) {  ll = nxt;	if (nxt) nxt->prev = NULL;  }  //1st
 	else  {
