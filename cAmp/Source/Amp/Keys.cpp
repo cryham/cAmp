@@ -100,8 +100,8 @@ bool cAmp::Keys(WPARAM k)
 			case VK_DOWN:	if (alt)  pls->Move1(shift? -2: ctrl? 2:  1,0);  else  pls->Dn(ctrl ? 8:1);  rt
 		
 			// none- page/4  ctrl- page   alt- offset 1  ctrl-alt- ofs x8
-			case VK_PRIOR:	if (alt)  pls->PgOfsUp(ctrl ? 8:1);  else  pls->PgUp(ctrl ? yLpl : yLpl/4);  rt
-			case VK_NEXT:	if (alt)  pls->PgOfsDn(ctrl ? 8:1);  else  pls->PgDn(ctrl ? yLpl : yLpl/4);  rt
+			case VK_PRIOR:	if (alt)  pls->PgOfsUp(ctrl ? 8:1);  else  pls->PgUp(ctrl ? yL_pl : yL_pl/4);  rt
+			case VK_NEXT:	if (alt)  pls->PgOfsDn(ctrl ? 8:1);  else  pls->PgDn(ctrl ? yL_pl : yL_pl/4);  rt
 			
 			// none- move by dir   ctrl- view   alt- list
 			case VK_HOME:	pls->Home(alt ? 2: ctrl ? 1:0);  rt
@@ -123,7 +123,7 @@ bool cAmp::Keys(WPARAM k)
 
 			///  save/load quick
 			case VK_F4:  if (pls)  pls->Save();  SetSave();  rt
-			case VK_F5:  if (ctrl)	tabOpen();  else  	//  open plst dialog
+			case VK_F5:  if (ctrl)	PlsOpen();  else  	//  open plst dialog
 			{	bool b = bPlay;  Stop();  clrSelId();
 				pls->Clear();  pls->Load();  if (b) Play(0);  }  rt
 			

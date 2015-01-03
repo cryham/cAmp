@@ -241,7 +241,7 @@ void cAmp::tabClose()
 
 //  open playlist dialog . . .
 
-void cAmp::tabOpen()
+void cAmp::PlsOpen()
 {
 	OPENFILENAMEA ofn;  ZeroMemory(&ofn,sizeof(ofn));  ofn.lStructSize = sizeof(ofn);
 	char szFile[MP], sDir[MP];	ofn.hwndOwner = hWnd;

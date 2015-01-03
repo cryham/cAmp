@@ -13,24 +13,34 @@ public:
 	HANDLE hpr;  bool run;
 
 	///  main  ------------------------------------------------
-	bool Begin(),  Keys(WPARAM k), KeysEdit(bool shift, WPARAM k), bDrawPlst,bDrawPlst2;
-	void End(), ReInit(bool reset),  Graph(), GraphAmp(),
-		DrawPlsText(), DrawPlstRect(), DrawSlider(), DrawHelpText(), //draw
-		DrawAmpRect(), DrawAmpText(),  DrawKeysRect(), DrawKeysEditsText(),
-		SetLoad(), SetSave(),  ClrLoad(), ClrSave(), //set
-		Wheel(int nWheel), Mouse();
-	void tabPrev(bool row, bool ofs),tabNext(bool row, bool ofs), // Tabs
-		tabNew(int m),tabClose(),tabMove(int n), tabOpen();
+	bool Begin();
+	void End(), ReInit(bool reset);
+	void Graph(), GraphAmp();
+
+	bool Keys(WPARAM k), KeysEdit(bool shift, WPARAM k);
+	void Mouse(), Wheel(int nWheel);
+
+	//  Draw  --------
+	bool bDrawPlst,bDrawPlst2;
+	void DrawPlsText(), DrawPlstRect(), DrawSlider(), DrawHelpText(), //draw
+		DrawAmpRect(), DrawAmpText(),  DrawKeysRect(), DrawKeysText();
+
+	//  set
+	void SetLoad(), SetSave(),  ClrLoad(), ClrSave();
+		
+	void tabPrev(bool row, bool ofs), tabNext(bool row, bool ofs), // Tabs
+		tabNew(int m),tabClose(), tabMove(int n), PlsOpen();
 
 	//  mouse
 	int xm,ym,xms,yms, xMs,yMs,yMd,yMFvi, xLs,yLs;
 	bool bLsl, bMInWnd;  float mti,mtiv;
 	
 	// view
+	const static int MaxViews = 8;
 	CViewSet views[MaxViews];
 	void ViewSave(int v),ViewLoad(int v),ViewUpd();
 	
-	//  Keys hook
+	//  Keys hook  ----
 	/*HHOOK hKbd;*/  bool bHKeys;
 	bool KeysHook(DWORD vk,DWORD sc,DWORD fl);
 	void KbdInit(), KbdDest();
@@ -44,55 +54,67 @@ public:
 	char sPlInf[100];  //file info
 
 	//----  play control
-	bool bWasPlay, bRepAll,bRep1;  float fVol;
+	bool bWasPlay, bRepAll,bRep1;
+	float fVol;
 	
 	double tmPl, tmTot, lastPos;  //play, total time, relpos
 	double time; //save time
 
-	bool Play(bool get=true,bool fget=false), PlayFrom(double t), bNextPrev;//dir>
+	bool Play(bool get=true,bool fget=false), PlayFrom(double t);
+	bool bNextPrev;  //last dir for next>
 	void chPos(double add),chPosAbs(double pos), chVol(float add),
 		Pause(),Stop(), Prev(),Next(), PlayPrevTab(),PlayNextTab(),
-		repAll(),rep1();  //toggle
-	//----
+		repAll(),rep1();  //toggle repeat
 
-	char sInsPath[MP];  HANDLE thrIns;
+	//  System  ----
+	HANDLE thrIns;
+	char sInsPath[MP];
 	BOOL BrowseDir(LPCSTR sCurrent, LPSTR sPath);
 	LRESULT OnDropFiles(WPARAM wp, LPARAM lp);
+
 	
+	//  editbox
 	float fTi;  //dt
 	int ed/*mode*/, hlpPg;
 	//  edit name
-	char sed[MP],srch[MP];  int ied;  int* Lxm;//name long
+	char sed[MP],srch[MP];
+	int ied;  int* Lxm;//name long
 
 
 	///  PlayLists  ------------------------------------------------
-	vector<CList*> vPlst;  int nTabMov;
+	std::vector<CList*> vPlst;  int nTabMov;
 	CList* pls,*plsPl,*plsSel;  //cur, playing, copy from
 	int plsId,plsPlId,plsSelId;
 	void plsChg(int clrSel=0), plsPlChg(int id), updSelId(int clear=0), clrSelId();
 
 	void LoadPlsts(), DestPlsts();  int cntrPls;  //for new
-	vector<char*> vPlsNames;  //set load
+	std::vector<char*> vPlsNames;  //set load
 	void RenameAll(int type), DoSearch();
 	bool bShowSrch, bAltOld;  int iSrchAll;
 
 
 	///  colors, set  ------------------------------------------------
-	vector<D3DXCOLOR> vRclr,vTclr;  //rating,time
+	std::vector<D3DXCOLOR> vRclr,vTclr;  //rating,time
 	D3DXCOLOR rtx;  //rate tex uv
 	int tmClrMode;
 	
-	//  dims
-	float xWpo;  // pos mrkr
-	int yBfi, yBvi,yEvi,/*yFvi,*/ yBpo,yEpo, yEplbt,  // vis, posbar, btns
-		yBpt,yEpt, /*xNpt,yNpt,*/ xWpt,yHpt, xWptbt,  // pls tabs, num, dim1, btns
-		// pls tracks  begin,end, height, lines, |sliderW,mW, xTime
-		yBpli,yBpl,yEpl, yHpl,yLpl, /*xWplS,*/xWplSm,xTm,
-		xBgc,xBgck,yBgc, xWgc,yHgc;  // gui checks
+	//  dimensions  B=begin E=end W=width H=height
+	float xW_pos;  // position marker
+	int yB_fi,  // file info
+		yB_vis,yE_vis,  // visualisation
+		yB_pos,yE_pos, yE_pl_btn,  // posbar, btns
+		//  pls tabs, size, btns
+		yB_pt,yE_pt, xW_pt,yH_pt, xW_pt_btn,
+		// pls tracks  lines, |sliderW,mW, xTime
+		yB_pli, yB_pl,yE_pl, yH_pl,yL_pl, /*xWplS,*/xW_plSm,xTm,
+		// gui checks
+		xB_gc,xB_gck,yB_gc, xW_gc,yH_gc;
 
 	void UpdDim(float rfrFq=-1.f);
 	//  stats
-	DWORD  aaD,aaF, aaSi, aaTm;  void updAllInfo();
+	DWORD aaD,aaF, aaSi, aaTm;
+	void updAllInfo();
+	
 	
 	//  gui
 	GuiSys gui[GuiPages];  int gpg;  // page

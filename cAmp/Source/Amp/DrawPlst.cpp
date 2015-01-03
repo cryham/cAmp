@@ -16,7 +16,7 @@ void cAmp::DrawPlsText()
 	///  pls Tabs text	+
 	//-------------------------
 	/* multi line  up,dn */
-	int ytb = yBpt+1;
+	int ytb = yB_pt+1;
 	if (ytb >= view.ySize)  return;
 	int ntab = vPlst.size();
 	if (ntab > 0)
@@ -24,11 +24,11 @@ void cAmp::DrawPlsText()
 		for (y=0; y < view.yNpt; y++)
 		for (x=0; x < view.xNpt; x++)  {  if (a < ntab)  {
 			cf->StrCopy(vPlst[a]->name);  //name
-			int w = cf->GetWidth(), o = max(0, (xWpt-w)/2);  //center
-			cf->xmax = (x+1)*xWpt;
+			int w = cf->GetWidth(), o = max(0, (xW_pt-w)/2);  //center
+			cf->xmax = (x+1)*xW_pt;
 			if (bShowSrch && vPlst[a]->iSrch > 0)
 				cf->Fclr = D3DXCOLOR(0.4,1,0.2,1);  else  cf->Fclr = D3DXCOLOR(0.7,0.8,1,1);  // search..
-			cf->Write(x*xWpt+o, ytb+y*yHpt);	}  a++;  }
+			cf->Write(x*xW_pt+o, ytb+y*yH_pt);	}  a++;  }
 	}	cf->xmax = view.xSize;
 	
 	cf = cfont[view.cfP];  CFont* cf2 = cf;
@@ -37,7 +37,7 @@ void cAmp::DrawPlsText()
 	//  info  Total dirs, files, bookm*, size, time
 	//----------------------------------------------------------------
 	bool bList = pls->listLen > 0;
-	if (yBpli >= view.ySize)  return;
+	if (yB_pli >= view.ySize)  return;
 
 if (ed!=ED_nFind && ed!=ED_nTab)
 {
@@ -71,11 +71,11 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 	//*L*/p(cf->s) "L ofs %3d  cur %3d  Lin %3d  all %3d", plst->lOfs, plst->lCur, yLpl, plst->listLen);  cf->Write(0, yBpli);
 	//*M*/p(cf->s) "xm %4d ym %3d %d%d%d yMd %d %6.3f", xm,ym, bL,bR,bM, yMd, mtiv);  cf->Write(0, yBpli);
 	if (aD == 0)
-	{	cf->Format("%d  %s", aF, st);  cf->Write(20, yBpli);  }
+	{	cf->Format("%d  %s", aF, st);  cf->Write(20, yB_pli);  }
 	else
-	{	cf->Format("%d  %d  %s", aD, aF, st);  cf->Write(0, yBpli);  }
+	{	cf->Format("%d  %d  %s", aD, aF, st);  cf->Write(0, yB_pli);  }
 	if (pls->bThrTi /*&& plst->itu < plst->listLen*/)  {
-		cf->Format("%6.1f%%", 100.f*pls->itu/float(pls->listLen));  cf->Write(cf->xwr, yBpli);  }//-
+		cf->Format("%6.1f%%", 100.f*pls->itu/float(pls->listLen));  cf->Write(cf->xwr, yB_pli);  }//-
 
 	//  total time  once, str fun..
 	DWORD t = aTm, ts,tm,th,td;
@@ -84,7 +84,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 		p(st) "%c%c", tm%10+'0', tm/10+'0');  cf->StrCopy(st);	if (th > 0 || td > 0) {  
 	  p(st) " h%c%c", th%10+'0', th>9? th/10+'0': td>0?'0':' ');  cf->StrAdd(st);	if (td > 0) {  
 	p(st) " d%c%c%c", td%10+'0', td>9? td/10%10+'0':' ', td>99? td/100%10+'0':' ');  cf->StrAdd(st);	 }  }
-	cf->dir = -1;  cf->Write(xTm, yBpli);  cf->dir = 1;
+	cf->dir = -1;  cf->Write(xTm, yB_pli);  cf->dir = 1;
 	
 	//  num sel
 	//if (pls->numSel > 0)
@@ -101,14 +101,14 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 
 	// search dir
 	cf->bSl = false;
-	if (!bList)	{	cf->StrWr(pls->srchPath, 0,yBpl);  }
+	if (!bList)	{	cf->StrWr(pls->srchPath, 0,yB_pl);  }
 	cf->bSl = true;
 	
 	// Tracks
 	if (pls->vList.size()>0 && bList /*&& !plst->bThr..*/)
 	{
 		//cf->SetTex(1);
-		int i = pls->lOfs, y = yBpl, im = min(pls->listLen, i+yLpl);
+		int i = pls->lOfs, y = yB_pl, im = min(pls->listLen, i+yL_pl);
 		for (i = pls->lOfs; i < im; i++,j++)	/**/if (i < pls->vList.size())
 		{	q = pls->vList[i];  if (q)  {
 
@@ -135,7 +135,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			#endif
 			///  clr
 			if (bShowSrch && q->srch > 0)	clr(0.2,1,0);  // search
-			else if (q->isDir())	clr(0.8,0.7,0.95);	//dir
+			else if (q->isDir())	clr(0.9,0.8,1.0);	//dir 0.8,0.7,0.95
 			else if (q->dis == 1)	clr(0.4,0.6,0.9);	// dis
 			else if (q->sel > 0)	clr(0.0,1.0,0.9);	// sel
 			else if (i==pls->lCur)	clr(0.9,0.9,1);		// cur
@@ -184,7 +184,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 		pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 		pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCCOLOR);
 
-		i = pls->lOfs, y = yBpl;  j=0;
+		i = pls->lOfs, y = yB_pl;  j=0;
 		//**/if (bRep1)
 		for (i = pls->lOfs; i < im; i++,j++)	/**/if (i < pls->vList.size())
 		{	q = pls->vList[i];  if (q)  {
@@ -235,8 +235,8 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			int yy = yins;
 			bool shct = shift|ctrl;
 			D3DCOLOR clr = shct ? D3DCOLOR_ARGB(0, 60,230,230) : D3DCOLOR_ARGB(0,100,160,210);
-			if (shift)  yy = yBpl;  else
-			if (ctrl)   yy = cf->Fy*min(yLpl,pls->listLen) + yBpl;  else
+			if (shift)  yy = yB_pl;  else
+			if (ctrl)   yy = cf->Fy*min(yL_pl,pls->listLen) + yB_pl;  else
 			if (pls->lInsM == 1)  yy += cf->Fy;
 			if (yins != -1 || shct)
 			{	D3DRECT rIns= {0,yy-1, view.xSize,yy+1};  pDev->Clear(1, &rIns, clFl, clr, 1.f, 0);  }

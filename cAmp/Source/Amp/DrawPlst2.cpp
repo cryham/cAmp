@@ -25,20 +25,20 @@ void cAmp::DrawPlstRect()
 	}
 	// cur
 	if (curPly >=0 && curPly < view.yNpt)  {
-		float yt= yBpt+curPly*yHpt;  float x1= curPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex, TX_TabC, x1, yt, x2, (yt+yHpt));  }
+		float yt= yB_pt+curPly*yH_pt;  float x1= curPlx*xW_pt, x2= x1+xW_pt;
+		Rtex(pDev, Tex, TX_TabC, x1, yt, x2, (yt+yH_pt));  }
 	// play
 	if (plaPly >=0 && plaPly < view.yNpt)  {
-		float yt= yBpt+plaPly*yHpt;  float x1= plaPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex, TX_TabP, x1, yt, x2, (yt+yHpt));  }
+		float yt= yB_pt+plaPly*yH_pt;  float x1= plaPlx*xW_pt, x2= x1+xW_pt;
+		Rtex(pDev, Tex, TX_TabP, x1, yt, x2, (yt+yH_pt));  }
 	// sel
 	if (selPly >=0 && selPly < view.yNpt)  {
-		float yt= yBpt+selPly*yHpt;  float x1= selPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex, TX_TabS, x1, yt, x2, (yt+yHpt));  }
+		float yt= yB_pt+selPly*yH_pt;  float x1= selPlx*xW_pt, x2= x1+xW_pt;
+		Rtex(pDev, Tex, TX_TabS, x1, yt, x2, (yt+yH_pt));  }
 	// mov
 	if (movPly >=0 && movPly < view.yNpt && alt)  {
-		float yt= yBpt+movPly*yHpt;  float x1= movPlx*xWpt, x2= x1+xWpt;
-		Rtex(pDev, Tex, TX_TabC, x1, yt, x2, (yt+yHpt));  }
+		float yt= yB_pt+movPly*yH_pt;  float x1= movPlx*xW_pt, x2= x1+xW_pt;
+		Rtex(pDev, Tex, TX_TabC, x1, yt, x2, (yt+yH_pt));  }
 
 
 /* Pls cursor, sel */	///  pls backgr
@@ -46,7 +46,7 @@ void cAmp::DrawPlstRect()
 	bool bList = pls->listLen > 0;
 	if (pls->vList.size()>0 && bList /*&& !plst->bThr..*/)
 	{
-		int i = pls->lOfs, y = yBpl, im = min(pls->listLen, i+yLpl);
+		int i = pls->lOfs, y = yB_pl, im = min(pls->listLen, i+yL_pl);
 		float fxw = view.xSize-view.xWplS;
 		int Fy = cfont[view.cfP]->Fy;
 
@@ -85,34 +85,34 @@ void cAmp::DrawPlstRect()
 void cAmp::DrawSlider()
 {
 	if (!pls)  return;
-	if (yBpli >= view.ySize || view.xWplS <= 0)  return;
+	if (yB_pli >= view.ySize || view.xWplS <= 0)  return;
 
 	/* Pls slider | */
-		if (pls->listLen <= yLpl/2)  return;
+		if (pls->listLen <= yL_pl/2)  return;
 
 		float fle = pls->listLen;
 		float fc1 = pls->lCur /fle,  fc2 = (pls->lCur + 1) /fle;	if (fc2>1.f) fc2=1.f;  // cursor
-		float fs1 = pls->lOfs /fle,  fs2 = (pls->lOfs +yLpl) /fle;	if (fs2>1.f) fs2=1.f;  // vis list
-		int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;  if (c2-c1<2)  c2=c1+2;  // min h = 2 pix _
-		int s1 = fs1 *yHpl+yBpl, s2 = fs2 *yHpl+yBpl;  if (s2-s1<2)  s2=s1+2;
+		float fs1 = pls->lOfs /fle,  fs2 = (pls->lOfs +yL_pl) /fle;	if (fs2>1.f) fs2=1.f;  // vis list
+		int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;  if (c2-c1<2)  c2=c1+2;  // min h = 2 pix _
+		int s1 = fs1 *yH_pl+yB_pl, s2 = fs2 *yH_pl+yB_pl;  if (s2-s1<2)  s2=s1+2;
 
 		float xk1 = (view.xSize-view.xWplS+1),	  xk2 = view.xSize;
 		float xp1 = (view.xSize-2*view.xWplS/3+1), xp2 = (view.xSize-view.xWplS/2+1);
 
-		D3DRECT rAll= {view.xSize-view.xWplS+1, yBpl, view.xSize, yEpl};  pDev->Clear(1, &rAll, clFl, 0, 1.f, 0);
-		if (pls->listLen > yLpl)
+		D3DRECT rAll= {view.xSize-view.xWplS+1, yB_pl, view.xSize, yE_pl};  pDev->Clear(1, &rAll, clFl, 0, 1.f, 0);
+		if (pls->listLen > yL_pl)
 		Rtex(pDev, Tex, TX_Slid, xk1, float(s1), xk2, float(s2));
 		Rtex(pDev, Tex, TX_SliC, xk1, float(c1), xk2, float(c2));
 		
 	// playing _
 		{
 			float fc1 = pls->idPl /fle,  fc2 = /*fc1+4.f/yw*/(pls->idPl + 1.f) /fle;  if (fc2>1.f) fc2=1.f;
-			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;  if (c2-c1<2)  c2=c1+2;
+			int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;  if (c2-c1<2)  c2=c1+2;
 
 			Rtex(pDev, Tex, TX_SliP, xk1, float(c1), xk2, float(c2));
 		}
 	// selected-
-		float ySr = mia(1.f, 2.f, float(pls->listLen) / yLpl);
+		float ySr = mia(1.f, 2.f, float(pls->listLen) / yL_pl);
 
 	// rating ->
 		if (view.bSlDrawR && !bShowSrch)
@@ -121,7 +121,7 @@ void cAmp::DrawSlider()
 			DWORD rgb = rr > 0 ? 0xFF40A0FF : 0xFF80FF00;
 
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
-			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;	if (c2-c1<1) c2=c1+1;
+			int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;	if (c2-c1<1) c2=c1+1;
 
 			RtxC(pDev, Tex, mia(TX_Rate1,TX_Rate5, TX_Rate1-1+abs(rr)),
 				xk1, float(c1), xk2, float(c2), rgb);//, 0.15f, 0.25f);
@@ -134,7 +134,7 @@ void cAmp::DrawSlider()
 		for (int i=0; i < pls->listLen; i++)  if (pls->vList[i]->srch > 0)
 		{
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
-			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;	if (c2-c1<1) c2=c1+1;
+			int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;	if (c2-c1<1) c2=c1+1;
 
 			Rtex(pDev, Tex, TX_SliF, xk1, float(c1), xp2, float(c2));
 		}
@@ -143,7 +143,7 @@ void cAmp::DrawSlider()
 		for (int i=0; i < pls->listLen; i++)  if (pls->vList[i]->bokm > 0)
 		{
 			float fc1 = i /fle,  fc2 = (i + ySr) /fle;		if (fc2>1.f) fc2=1.f;
-			int c1 = fc1 *yHpl+yBpl, c2 = fc2 *yHpl+yBpl;	if (c2-c1<1) c2=c1+1;
+			int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;	if (c2-c1<1) c2=c1+1;
 
 			int tex = pls->vList[i]->bokm-1 + TX_SliB1;
 			Rtex(pDev, Tex, tex, xp1, float(c1), xk2, float(c2));

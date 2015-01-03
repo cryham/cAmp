@@ -55,14 +55,14 @@ void cAmp::GraphAmp()
 	//if (view.eVis != viPrint || bDrawPlst) //!-
 	{
 	if (bDrawPlst)  pDev->Clear(0,0, clFl, 0/*200*/, 1.f, 0);  // clear all
-	else {  D3DRECT r1= {0,0, view.xSize,yBpt};
+	else {  D3DRECT r1= {0,0, view.xSize,yB_pt};
 		pDev->Clear(1, &r1, clFl, 0, 1.f, 0);  }  // amp only
 	}
 
 /* plr back */
 	if (view.eVis != viPrint && view.eVis != viOsc) //!
 	{	float th = (view.eVis==viNone||view.eVis==viPrint)? 0.4f: 1.f; //min(1.f, float(yEvi)/view.visH);
-		Rtex(pDev, Tex, TX_BackPlr, 0.f, 0.f, view.xSize, yEvi/*yBpo*/, 0.f,1.f, 0.f,th);  }
+		Rtex(pDev, Tex, TX_BackPlr, 0.f, 0.f, view.xSize, yE_vis/*yBpo*/, 0.f,1.f, 0.f,th);  }
 	
 /* Vis Tex */
 	//pDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
@@ -70,17 +70,17 @@ void cAmp::GraphAmp()
 	//pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	//pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 	//pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	if (view.eVis!=viNone && !bFInfo)  Vis(pDev, yBvi, yEvi);
+	if (view.eVis!=viNone && !bFInfo)  Vis(pDev, yB_vis, yE_vis);
 	//pDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
 /* pls bottom _ */
-	/**/if ((bDrawPlst || ed!=ED_Pls) && yEpl+5 < view.ySize)
-		Rtex(pDev, Tex, TX_BackBtm, 0.f,yEpl, view.xSize,view.ySize);
+	/**/if ((bDrawPlst || ed!=ED_Pls) && yE_pl+5 < view.ySize)
+		Rtex(pDev, Tex, TX_BackBtm, 0.f,yE_pl, view.xSize,view.ySize);
 
 /* Backgr */
-	if (yBpt < view.ySize)  {
-	if (bDrawPlst && ed==ED_Help)	Rtex(pDev, Tex, TX_BackHelp, 0.f, yBpt, view.xSize, yEpl);
-	if (ed==ED_Keys || ed==ED_Set1)	Rtex(pDev, Tex, TX_BackPlr,  0.f, yBpt, view.xSize, yEpl);  }
+	if (yB_pt < view.ySize)  {
+	if (bDrawPlst && ed==ED_Help)	Rtex(pDev, Tex, TX_BackHelp, 0.f, yB_pt, view.xSize, yE_pl);
+	if (ed==ED_Keys || ed==ED_Set1)	Rtex(pDev, Tex, TX_BackPlr,  0.f, yB_pt, view.xSize, yE_pl);  }
 
 
 	pDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
@@ -106,7 +106,7 @@ void cAmp::GraphAmp()
 	pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 	pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCCOLOR);
 
-	DrawKeysEditsText();
+	DrawKeysText();
 	DrawAmpText();
 	if (ed==ED_Set1)  gui[gpg].DrawText(dt);
 

@@ -112,34 +112,34 @@ void cAmp::UpdDim(float rfrFq)
 	if (view.visH > view.ySize)  view.visH = view.ySize;  //vis max
 
 	//  file info
-	yBfi = 0;	yEplbt = 20;  // btnsH |< >|
+	yB_fi = 0;	yE_pl_btn = 20;  // btnsH |< >|
 
 	//  visual fft
-	yBvi = 16;  //yFvi = 64;
-	yEvi = min(view.ySize, 28 + ((view.eVis!=viNone)? view.visH: 0));
+	yB_vis = 16;  //yFvi = 64;
+	yE_vis = min(view.ySize, 28 + ((view.eVis!=viNone)? view.visH: 0));
 	
 	//  pos bar
-	yBpo = yEvi;  yEpo = yBpo+9;
-	xWpo = 0.03f;
+	yB_pos = yE_vis;  yE_pos = yB_pos+9;
+	xW_pos = 0.03f;
 
 	//  pls tabs
-	yBpt = yEpo;  /*par+- +2 8pos*/
-	xWptbt = 13;  // btnsW up,dn
-		xWpt = (view.xSize - xWptbt)/view.xNpt;
-		yHpt = cfont[view.cfT]->Fy+2;  // <^ dim pls tabs
-	yEpt = yBpt+ view.yNpt*yHpt+4;
+	yB_pt = yE_pos;  /*par+- +2 8pos*/
+	xW_pt_btn = 13;  // btnsW up,dn
+		xW_pt = (view.xSize - xW_pt_btn)/view.xNpt;
+		yH_pt = cfont[view.cfT]->Fy+2;  // <^ dim pls tabs
+	yE_pt = yB_pt+ view.yNpt*yH_pt+4;
 
 	//  pls tracks
-	yBpli = yEpt;
-	yBpl = yBpli +cfont[view.cfP]->Fy+2/*yHpli*/;
-	yEpl = view.ySize -cfont[view.cfP]->Fy;
-	yHpl = yEpl-1-yBpl;  yLpl = max(0, yHpl/cfont[view.cfP]->Fy);
-		DELA(Lxm);  Lxm = new int[yLpl+4];
-		yEpl = yLpl*cfont[view.cfP]->Fy+yBpl;  yHpl = yEpl-1-yBpl;
+	yB_pli = yE_pt;
+	yB_pl = yB_pli +cfont[view.cfP]->Fy+2/*yHpli*/;
+	yE_pl = view.ySize -cfont[view.cfP]->Fy;
+	yH_pl = yE_pl-1-yB_pl;  yL_pl = max(0, yH_pl/cfont[view.cfP]->Fy);
+		DELA(Lxm);  Lxm = new int[yL_pl+4];
+		yE_pl = yL_pl*cfont[view.cfP]->Fy+yB_pl;  yH_pl = yE_pl-1-yB_pl;
 
-	/*xWplS = 14;*/  xWplSm = 40;  //|sliderW, mW
+	/*xWplS = 14;*/  xW_plSm = 40;  //|sliderW, mW
 	xTm = view.xSize - view.xWplS-3;  //|
-	CList::Lin = yLpl;
+	CList::Lin = yL_pl;
 
 	if (rfrFq > 0.f)
 		tmD = int(rfrFq*1.f);	clear=1;
@@ -148,8 +148,8 @@ void cAmp::UpdDim(float rfrFq)
 	cfont[view.cfP]->StrCopy(" 0:00");  xt_ = cfont[view.cfP]->GetWidth();
 
 	//  gui checks pos
-	xBgc = 106;  yBgc = yBpt+90;  xWgc = 18;
-	xBgck = 170;  yHgc = cfont[view.cfG]->Fy+6; //[0
+	xB_gc = 106;  yB_gc = yB_pt+90;  xW_gc = 18;
+	xB_gck = 170;  yH_gc = cfont[view.cfG]->Fy+6; //[0
 	
 	GuiReInit();
 }

@@ -59,17 +59,6 @@ const int texUV[NumTex+1][4] =  // size x,y, pos x,y on player.png texture, in p
 	512,512,	0, 0,		// whole tex
 };
 
-/*const char csTexName[NumTex][20] = {
-	"prev","next","up","down", "checks","leri",
-	"pos_bright","pos_dark",
-	"tab_cur","tab_play", "tab_sel",
-	"back_plr", "back_btm", "back_help",
-	"pls_cur", "pls_play", "pls_sel",
-		"pls_bookm1", "pls_bookm2", "pls_bookm3",
-	"slider", "slid_cur", "slid_play", "slid_find",
-		"slid_bookm1", "slid_bookm2", "slid_bookm3",
-	"rate1","rate2","rate3","rate4","rate5" };
-*/
 enum eEffx {
 	FX_fft=0, FX_osc, /*FX_ff2,*/ FX_rClr, FX_ALL };
 

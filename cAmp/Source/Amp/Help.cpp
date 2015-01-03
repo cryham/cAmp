@@ -7,7 +7,7 @@ void cAmp::DrawHelpText()									//  help  //
 {
 	CFont* cf = cfont[view.cfH];
 	int Fy = cf->Fy;
-	int y = /*(yBpt+100 > view.ySize) ? yBpl :*/ yBpt+Fy,
+	int y = /*(yBpt+100 > view.ySize) ? yBpl :*/ yB_pt+Fy,
 		y1 = y, x1,x2,x3;
 	cf->Fs[' '] = cf->Fs['0']/2;
 	cf->dir = 1;
@@ -22,7 +22,7 @@ void cAmp::DrawHelpText()									//  help  //
     wr(view.xSize-110,y);  y+=Fy*3/2;	clr(1,1,1);
     
     sc(HPnames[hlpPg]);  int o=cf->GetWidth(); //center
-    wr(view.xSize/2-o/2,y);  y = yBpt+5*Fy;
+    wr(view.xSize/2-o/2,y);  y = yB_pt+5*Fy;
     #define dark()  clr(0.75,0.85,0.95)
 	
 	switch (hlpPg)

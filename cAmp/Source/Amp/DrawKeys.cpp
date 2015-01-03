@@ -15,34 +15,34 @@ void cAmp::DrawKeysRect()
 	//D3DRECT rVis= {0,3, 205,502};
 	//pDev->Clear(1, &rVis, clFl, RGB(20,147,170), 1.f, 0);
 
-	/*on*/Rtex(pDev, Tex, TX_Checks,  16.f, float(yBpt+36),
-		(16.f+19.f), float(yBpt+36+18), bHKeys?0.25f:0.f, bHKeys?0.5f:0.25f, 0.f,1.f);  if (btnKeysOn)
-		  Rtex(pDev, Tex, TX_Checks,  16.f, float(yBpt+36),	(16.f+19.f), float(yBpt+36+18), 0.f, 0.25f, 0.f,1.f);
-	/*ok*/Rtex(pDev, Tex, TX_PlsC, 150.f, (yBgc-80.f), 200.f, (yBgc-60.f));  if (btnKeysOk)
-		  Rtex(pDev, Tex, TX_PlsS, 150.f, (yBgc-80.f), 200.f, (yBgc-60.f));
+	/*on*/Rtex(pDev, Tex, TX_Checks,  16.f, float(yB_pt+36),
+		(16.f+19.f), float(yB_pt+36+18), bHKeys?0.25f:0.f, bHKeys?0.5f:0.25f, 0.f,1.f);  if (btnKeysOn)
+		  Rtex(pDev, Tex, TX_Checks,  16.f, float(yB_pt+36),	(16.f+19.f), float(yB_pt+36+18), 0.f, 0.25f, 0.f,1.f);
+	/*ok*/Rtex(pDev, Tex, TX_PlsC, 150.f, (yB_gc-80.f), 200.f, (yB_gc-60.f));  if (btnKeysOk)
+		  Rtex(pDev, Tex, TX_PlsS, 150.f, (yB_gc-80.f), 200.f, (yB_gc-60.f));
 
 	pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	int y = yBgc, /*x=5,*/ v;
+	int y = yB_gc, /*x=5,*/ v;
 	for (int i=0; i<FU_ALL; i++)
 	{
 		int mod = vKeys[i].mod;  // checks
 		int b[3] = {mod & 0x1, mod & 0x2, mod & 0x4};
-		/*x sel*/int m = 0;  for (int j=0; j<3; j++)  if (xm > xBgc+xWgc*j)  m = j;
+		/*x sel*/int m = 0;  for (int j=0; j<3; j++)  if (xm > xB_gc+xW_gc*j)  m = j;
 		for (int j=0; j<3; j++)
-		{	/*m sel x2*/int mch = (j==m && xm > xBgc && xm < xBgc+3*xWgc && ym > y && ym < y+yHgc) ? 2:1;
+		{	/*m sel x2*/int mch = (j==m && xm > xB_gc && xm < xB_gc+3*xW_gc && ym > y && ym < y+yH_gc) ? 2:1;
 			for (int a=0; a < mch; a++)  Rtex(pDev, Tex, TX_Checks,
-				float(xBgc+ xWgc*j), float(y),
-				float(xBgc+14+ xWgc*j), float(y+14), b[j]?0.25f:0.f, b[j]?0.5f:0.25f, 0.f,1.f);  }
+				float(xB_gc+ xW_gc*j), float(y),
+				float(xB_gc+14+ xW_gc*j), float(y+14), b[j]?0.25f:0.f, b[j]?0.5f:0.25f, 0.f,1.f);  }
 
 		if (yPickKey >= 0 && i==yPickKey)
 		{
 			pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 			pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCCOLOR);
 			if (bPickingKey)
-			Rtex(pDev, Tex, TX_PlsC, (xBgck+5.f), float(y-3), (xBgck+125.f), float(y+Fy+2));
-			Rtex(pDev, Tex, TX_PlsP, (xBgck+5.f), float(y-3), (xBgck+125.f), float(y+Fy+2));
+			Rtex(pDev, Tex, TX_PlsC, (xB_gck+5.f), float(y-3), (xB_gck+125.f), float(y+Fy+2));
+			Rtex(pDev, Tex, TX_PlsP, (xB_gck+5.f), float(y-3), (xB_gck+125.f), float(y+Fy+2));
 			pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 			pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 		}
@@ -53,13 +53,13 @@ void cAmp::DrawKeysRect()
 			pDev->Clear(1, &rVis, clFl, D3DCOLOR_ARGB(0,(int)(v*0.7f)+20,(int)(v*0.9f)+47,(int)(v*1.2f)+70), 1.f, 0);
 			vKeys[i].vis-=2;
 		}
-		y += yHgc + 16*cyFadd[i]/2;
+		y += yH_gc + 16*cyFadd[i]/2;
 	}
 }
 
 //  Keys Text
 //------------------------------------------------------------------------------------------------------------
-void cAmp::DrawKeysEditsText()
+void cAmp::DrawKeysText()
 {
 	CFont* cf = cfont[view.cfP];  //~
 	#define  clr(r,g,b)  cf->Fclr = D3DXCOLOR(r,g,b,1)
@@ -70,7 +70,7 @@ void cAmp::DrawKeysEditsText()
 /*  Edit name  */
 	if (ed==ED_nTab)
 	{
-		clr(0.5,0.9,1);  int y = yBpli;
+		clr(0.5,0.9,1);  int y = yB_pli;
 		cf->StrWr("Tab name: ", 1,y);
 		cf->StrWr(sed, cf->xwr+10,y);
 		
@@ -81,7 +81,7 @@ void cAmp::DrawKeysEditsText()
 /*  Edit search  */
 	if (ed==ED_nFind)
 	{
-		clr(0.3,1,0);  int y = yBpli;
+		clr(0.3,1,0);  int y = yB_pli;
 		cf->StrWr("Search: ", 1,y);
 		cf->StrWr(sed, cf->xwr+10,y);  //x2
 		
@@ -94,14 +94,14 @@ void cAmp::DrawKeysEditsText()
 	if (ed!=ED_Keys)  return;
 	cf = cfont[view.cfG];  //~
 
-	int y = yBgc, x=5;
+	int y = yB_gc, x=5;
 	clr(1,1,1);
-	cf->StrWr("Global HotKeys", 15, yBgc-90+15);
-	cf->StrWr("OK", 150+20, yBgc-80+5);
+	cf->StrWr("Global HotKeys", 15, yB_gc-90+15);
+	cf->StrWr("OK", 150+20, yB_gc-80+5);
 	clr(0.5,0.8,1.0);
-	cf->StrWr("Function        Shift Ctrl Alt      Key", 15, yBgc-25);
+	cf->StrWr("Function        Shift Ctrl Alt      Key", 15, yB_gc-25);
 	clr(0.6,0.7,0.7);
-	cf->StrWr("LMB- choose  RMB- on/off", x+120, yBgc-90+40);
+	cf->StrWr("LMB- choose  RMB- on/off", x+120, yB_gc-90+40);
 	for (int i=0; i<FU_ALL; i++)
 	{
 		if (vKeys[i].on)
@@ -115,7 +115,7 @@ void cAmp::DrawKeysEditsText()
 		else
 			strKeyName(vKeys[i].vk, vKeys[i].sc, cf->str);
 		
-		cf->Write(xBgck+5+x, y);
-		y += yHgc + 16*cyFadd[i]/2;
+		cf->Write(xB_gck+5+x, y);
+		y += yH_gc + 16*cyFadd[i]/2;
 	}
 }

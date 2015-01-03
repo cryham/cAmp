@@ -86,7 +86,7 @@ void cAmp::GuiEvent(GuiCtrl* ctrl, int IDc, eGuiEvent evt)
 void cAmp::GuiReInit()
 {
 	for (int i=0; i < GuiPages; ++i)
-	gui[i].ReInit(10, yBpt+cfont[view.cfG]->Fy, view.xSize,view.ySize,
+	gui[i].ReInit(10, yB_pt+cfont[view.cfG]->Fy, view.xSize,view.ySize,
 		pDev, cfont[view.cfG], Tex, TX_TabC,TX_LeRi,TX_PosDk);
 }
 
