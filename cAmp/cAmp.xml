@@ -1,44 +1,44 @@
 <cAmp>
-    <Window sizeX="354" sizeY="760" posX="0" posY="0" visH="96" fftSize="1" slider="16" />
-    <Fonts pls="2" amp="1" tabs="2" help="2" gui="2" />
-    <OnOff bRepAll="1" bRep1="0" eVis="1" bFilInfo="1" iDirView="1" bSlDrawR="1" />
-    <App bRec="1" vprFq="100.000000" fltTex="1" sleep="5" priority="1" sndDev="-1" sndFreq="48000" insPath="c:\" />
-    <Last volume="0.540" bPlay="0" pos="0.0" playPls="0" curPls="0" ofsTab="0" />
-    <Playlists tabsX="5" tabsY="1" counter="4">
-        <Pls name="1" />
-        <Pls name="2" />
-        <Pls name="3" />
-    </Playlists>
-    <GlobalKeys On="1">
-        <Key on="1" vk="A9" sc="00" mod="0" />
-        <Key on="1" vk="B3" sc="00" mod="0" />
-        <Key on="1" vk="B2" sc="00" mod="0" />
-        <Key on="1" vk="B1" sc="00" mod="0" />
-        <Key on="1" vk="B0" sc="00" mod="0" />
-        <Key on="1" vk="B1" sc="00" mod="2" />
-        <Key on="1" vk="B0" sc="00" mod="2" />
-        <Key on="1" vk="A6" sc="00" mod="0" />
-        <Key on="1" vk="A7" sc="00" mod="0" />
-        <Key on="1" vk="A6" sc="00" mod="1" />
-        <Key on="1" vk="A7" sc="00" mod="1" />
-        <Key on="1" vk="A6" sc="00" mod="2" />
-        <Key on="1" vk="A7" sc="00" mod="2" />
-        <Key on="1" vk="A6" sc="00" mod="4" />
-        <Key on="1" vk="A7" sc="00" mod="4" />
-        <Key on="1" vk="A6" sc="00" mod="6" />
-        <Key on="1" vk="A7" sc="00" mod="6" />
-        <Key on="1" vk="B0" sc="00" mod="4" />
-        <Key on="1" vk="B1" sc="00" mod="4" />
-        <Key on="1" vk="B3" sc="00" mod="4" />
-    </GlobalKeys>
-    <Views>
-        <View sizeX="332" sizeY="1175" posX="0" posY="0" visH="91" eVis="1" sleep="-1" fft="1" sldr="14" slR="1" Fp="1" Fa="0" Ft="1" Fh="2" Fg="2" tbX="10" tbY="3" tbO="0" vpFq="100" />
-        <View sizeX="354" sizeY="1178" posX="0" posY="0" visH="106" eVis="1" sleep="5" fft="1" sldr="16" slR="1" Fp="2" Fa="1" Ft="2" Fh="2" Fg="2" tbX="10" tbY="3" tbO="0" vpFq="100" />
-        <View sizeX="619" sizeY="396" posX="0" posY="476" visH="359" eVis="2" sleep="5" fft="2" sldr="20" slR="1" Fp="3" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="100" />
-        <View sizeX="619" sizeY="396" posX="0" posY="476" visH="359" eVis="1" sleep="5" fft="2" sldr="20" slR="1" Fp="3" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="100" />
-        <View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="1200" eVis="2" sleep="1" fft="3" sldr="30" slR="1" Fp="3" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="100" />
-        <View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="464" eVis="1" sleep="1" fft="3" sldr="30" slR="1" Fp="4" Fa="0" Ft="1" Fh="1" Fg="1" tbX="28" tbY="1" tbO="0" vpFq="100" />
-        <View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="907" eVis="3" sleep="-1" fft="3" sldr="30" slR="1" Fp="0" Fa="0" Ft="1" Fh="1" Fg="1" tbX="29" tbY="1" tbO="0" vpFq="168" />
-        <View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="1200" eVis="3" sleep="-1" fft="3" sldr="20" slR="1" Fp="1" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="196" />
-    </Views>
+	<Window sizeX="354" sizeY="760" posX="0" posY="0" visH="96" fftSize="1" slider="16" />
+	<Fonts pls="2" amp="1" tabs="2" help="2" gui="2" />
+	<OnOff bRepAll="1" bRep1="0" eVis="1" bFilInfo="1" iDirView="1" bSlDrawR="1" />
+	<App bRec="1" vprFq="100.000000" fltTex="1" sleep="5" priority="1" sndDev="-1" sndFreq="48000" insPath="c:\" />
+	<Last volume="0.540" bPlay="0" pos="0.0" playPls="0" curPls="0" ofsTab="0" />
+	<Playlists tabsX="5" tabsY="1" counter="4">
+		<Pls name="1" />
+		<Pls name="2" />
+		<Pls name="3" />
+	</Playlists>
+	<GlobalKeys On="1">
+		<Key on="1" vk="A9" sc="00" mod="0" />
+		<Key on="1" vk="B3" sc="00" mod="0" />
+		<Key on="1" vk="B2" sc="00" mod="0" />
+		<Key on="1" vk="B1" sc="00" mod="0" />
+		<Key on="1" vk="B0" sc="00" mod="0" />
+		<Key on="1" vk="B1" sc="00" mod="2" />
+		<Key on="1" vk="B0" sc="00" mod="2" />
+		<Key on="1" vk="A6" sc="00" mod="0" />
+		<Key on="1" vk="A7" sc="00" mod="0" />
+		<Key on="1" vk="A6" sc="00" mod="1" />
+		<Key on="1" vk="A7" sc="00" mod="1" />
+		<Key on="1" vk="A6" sc="00" mod="2" />
+		<Key on="1" vk="A7" sc="00" mod="2" />
+		<Key on="1" vk="A6" sc="00" mod="4" />
+		<Key on="1" vk="A7" sc="00" mod="4" />
+		<Key on="1" vk="A6" sc="00" mod="6" />
+		<Key on="1" vk="A7" sc="00" mod="6" />
+		<Key on="1" vk="B0" sc="00" mod="4" />
+		<Key on="1" vk="B1" sc="00" mod="4" />
+		<Key on="1" vk="B3" sc="00" mod="4" />
+	</GlobalKeys>
+	<Views>
+		<View sizeX="332" sizeY="1175" posX="0" posY="0" visH="91" eVis="1" sleep="-1" fft="1" sldr="14" slR="1" Fp="1" Fa="0" Ft="1" Fh="2" Fg="2" tbX="10" tbY="3" tbO="0" vpFq="100" />
+		<View sizeX="354" sizeY="1178" posX="0" posY="0" visH="106" eVis="1" sleep="5" fft="1" sldr="16" slR="1" Fp="2" Fa="1" Ft="2" Fh="2" Fg="2" tbX="10" tbY="3" tbO="0" vpFq="100" />
+		<View sizeX="619" sizeY="396" posX="0" posY="476" visH="359" eVis="2" sleep="5" fft="2" sldr="20" slR="1" Fp="3" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="100" />
+		<View sizeX="619" sizeY="396" posX="0" posY="476" visH="359" eVis="1" sleep="5" fft="2" sldr="20" slR="1" Fp="3" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="100" />
+		<View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="1200" eVis="2" sleep="1" fft="3" sldr="30" slR="1" Fp="3" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="100" />
+		<View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="464" eVis="1" sleep="1" fft="3" sldr="30" slR="1" Fp="4" Fa="0" Ft="1" Fh="1" Fg="1" tbX="28" tbY="1" tbO="0" vpFq="100" />
+		<View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="907" eVis="3" sleep="-1" fft="3" sldr="30" slR="1" Fp="0" Fa="0" Ft="1" Fh="1" Fg="1" tbX="29" tbY="1" tbO="0" vpFq="168" />
+		<View sizeX="1920" sizeY="1200" posX="0" posY="0" visH="1200" eVis="3" sleep="-1" fft="3" sldr="20" slR="1" Fp="1" Fa="0" Ft="1" Fh="1" Fg="1" tbX="5" tbY="2" tbO="0" vpFq="196" />
+	</Views>
 </cAmp>
