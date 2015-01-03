@@ -45,26 +45,44 @@ bool CList::RenameRate(pTrk t)
 {
 	if (ll==NULL || t==NULL || t->dis > 0)  rf
 	
-	scpy(fd.cFileName, t->name);
-	int rn = getNameRating(t);  //file
+	char o_rate = 0;  BYTE o_bokm = 0;
+	size_t posB = 0;
+	getNameRating(t->name, &o_rate, &o_bokm);
 	char old[MP];  t->getFullName(old);
 	
-	if (t->rate != rn)  // different
+	// different
+	if (t->rate != o_rate || t->bokm != o_bokm)
 	{
 		// clear old rating from name
-		char s[MP];  scpy(s, t->name);  int len = strlen(s);  // no ext
+		char s[MP];  scpy(s, t->name);
+		int l = strlen(s);  // no ext
 		
-		if (rn != 0)  // are chR's in name
-		{	bool dn=true;	int p = len-1;
+		if (o_rate != 0)  // are chR's in name
+		{	bool dn=true;
+			int p = l-1;
 			while (dn && p >= 0)
-			{	bool fn = false;
-				for (int i=0; i < chFnAll; ++i)  if (s[p] == cFnCharRates[i])
+			{
+				bool fn = false;
+				for (int i=0; i < chFnAll; ++i)
+				if (s[p] == cFnCharRates[i])
 					fn = true;
-				if (fn)  p--;  else  dn=false;  }  //back
+				if (fn)  p--;  else  dn=false;  //back
+			}
 			s[p+1]=0;  //end
 		}
+		if (o_bokm > 0)
+		{
+			l = strlen(s);
+			if (l >= 2 && s[l-2]=='%' /*&& s[]*/)
+				s[l-2]=0;  //end
+		}
 		
-		// change name add rating
+		// bookmark
+		if (t->bokm > 0)
+		{	char b[3] = {'%', t->bokm+'0', 0};
+			sadd(s, b);  }
+
+		// add rating
 		if (t->rate != 0)
 			sadd(s, chFRate[mia(0,chRall, t->rate+cR0)]);
 		
@@ -72,12 +90,27 @@ bool CList::RenameRate(pTrk t)
 		StringCbPrintfA(name,MP, "%s%s.%s", t->path, s, ExtAudM[t->ext]);
 
 		// rename
-		if (MoveFileA(old, name)==FALSE)  {  DWORD e = GetLastError()&0xFFFF;
-			p(s)"%s\nto:\n%s\nError: %d %s", old, name, e, e==ERROR_SHARING_VIOLATION? "file is opened": e==ERROR_FILE_NOT_FOUND? "file not found": e==ERROR_PATH_NOT_FOUND? "path not found" :"");
-			if (e==ERROR_FILE_NOT_FOUND || e==ERROR_PATH_NOT_FOUND)  t->dis = 1;
-			Info(s,"Can't rename file")  }
-		else {  // change trk name
-			int l = strlen(s)+1;  DELA(t->name)  t->name = new char[l];  strcpy(t->name, s);  rt}
+		if (t->isDir())
+		{
+		
+		}
+		if (MoveFileA(old, name)==FALSE)
+		{
+			DWORD e = GetLastError()&0xFFFF;
+			p(s)"%s\nto:\n%s\nError: %d %s", old, name, e,
+				e==ERROR_SHARING_VIOLATION? "file is opened":
+				e==ERROR_FILE_NOT_FOUND? "file not found":
+				e==ERROR_PATH_NOT_FOUND? "path not found" :"");
+			if (e==ERROR_FILE_NOT_FOUND || e==ERROR_PATH_NOT_FOUND)
+				t->dis = 1;
+			Info(s,"Can't rename file")
+		}
+		else
+		{	// change trk name
+			l = strlen(s)+1;  DELA(t->name)
+			t->name = new char[l];  strcpy(t->name, s);
+			rt
+		}
 	}	rf
 }
 
@@ -154,23 +187,15 @@ namespace bfs = boost::filesystem;
 
 void CList::CopySelFiles()
 {
-	/*try  //-
-	{
-		bfs::create_directory("c:\\wav");
-	}
-	catch (const bfs::filesystem_error & ex)
-	{
-		MessageBoxA(0, ex.what(), "aa", 0);
-	}*/
-	
 	pTrk q = ll;
 	while (q)
 	{
 		if (q->sel)
 		{
 			char pa[MP],to[MP],tp[MP];  q->getFullName(pa);
-			scpy(to,pa);  to[0] = 'i';  // drive letter
-			scpy(tp,q->path);  tp[0] = 'i';
+			scpy(to,pa);  to[0] = 'd';  // drive letter
+			scpy(tp,q->path);  tp[0] = 'd';
+			///TODO from set.xml ..
 			//int i = strlen(tp);
 			//if (i > 0)  tp[i-1] = 0;
 

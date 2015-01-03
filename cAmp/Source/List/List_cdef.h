@@ -9,7 +9,8 @@ const INT64 smax = INT64(MAXDWORD)+1;
 
 
 //  enum CTrk type
-const BYTE  /*unvisited*/TY_DIR_unv=0, TY_DIR=1,  /*Files:*/TY_FILE=2, TY_AUDIO=3, TY_PLS=4, TY_IMG=5;
+const BYTE  /*unvisited*/TY_DIR_unv=0, TY_DIR=1,
+	/*Files:*/TY_FILE=2, TY_AUDIO=3;  //, TY_PLS=4, TY_IMG=5;
 
 
 //  file ext
@@ -27,7 +28,7 @@ const char chRates[chRall] = {'=',150,'-',' ','`','^','~','+','*'};  // 176 o  1
 const char chDRates[chRall] = {'=',33,34,' ',39,40,41,'+','*'};  //cfdig =,33-150,34-,39` 40^ 41~ +*
 
 //  rating  in file name
-const int  chFnAll = 7;  //special -- `-
+const int  chFnAll = 7;  //special -2 -- 
 const char cFnCharRates[chFnAll] = {'=','-', '`','^','~','+','#'};
 const char cFnNumRates[chFnAll] = {-3,-1, 1,2,3,4,5};
 const static char chFRate[chRall][3] = {"=","--","-","","`","^","~","+","#"};  //rename add

@@ -2,30 +2,44 @@
 #include "List.h"
 
 
-char CList::getNameRating(pTrk qf)  //fd.name, qf not used
-{	//  get rating  in file name  find # + ~ ^ ` `- - -- =
-	int len = strlen(fd.cFileName);  // no ext !
-	if (len == 0/*<= 2*/)  return 0;
-	char rate = 0;
+void CList::getNameRating(const char* name, char* pRate, BYTE* pBokm)
+{
+	//  get rating in file name  find # + ~ ^ ` - -- =
+	int len = strlen(name);  // no ext !
+	if (len == 0/*<= 2*/)  return;
 
-	bool dn=true;	int r = 0;
-	while (dn && r < chFnAll)  {
-		if (fd.cFileName[len-1] == cFnCharRates[r])  {
-			rate = cFnNumRates[r];
+	bool dn = true;
+	int r = 0;
+	while (dn && r < chFnAll)
+	{
+		if (name[len-1] == cFnCharRates[r])
+		{
+			char rate = cFnNumRates[r];
 			if (rate==-1 && len >= 2)
-			{	if (fd.cFileName[len-2] == cFnCharRates[r])   rate=-2;  //- to --
-				if (fd.cFileName[len-2] == cFnCharRates[r+1])  rate=1;  //`- to `
+			{	if (name[len-2] == cFnCharRates[r])   rate=-2;  //- to --
+				//if (name[len-2] == cFnCharRates[r+1])  rate=1;  //`- to `  not used
 			}
-			dn = false;  }
-		r++;  }
-
-	return rate;
+			*pRate = rate;
+			dn = false;
+		}
+		++r;
+	}
+	
+	//  get bookmark %1..%3
+	string s(name);
+	size_t p = s.find_last_not_of(cFnCharRates);
+	if (p > 1 && s[p-1]=='%' && s[p]>='1' && s[p]<='3')
+	{
+		*pBokm = s[p]-'0';
+		//qf->name = strdup(s.substr(0,p-1).c_str());
+		///TODO: name_pls 2show, bool changed rate|bokm
+	}				  
 }
 
 
 // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 File
 
-void CList::tree1File(/*const char* name,*/ pTrk* tf, pTrk* qf)
+void CList::tree1File(pTrk* tf, pTrk* qf)
 {
 	//  .Ext
 	char* pe = strrchr(/*name*/fd.cFileName,'.');
@@ -52,7 +66,7 @@ void CList::tree1File(/*const char* name,*/ pTrk* tf, pTrk* qf)
 			if (*qf)  (*qf)->nx = n;  else  /*1st*/*tf = n;  (*qf) = n;  //list
 			(*qf)->pv = ww;   (*qf)->time = 0.0;
 			(*qf)->type = ty;  (*qf)->size = si;  (*qf)->tab = lev;  (*qf)->ext = exf;
-			(*qf)->rate = getNameRating(*qf);
+			getNameRating(n->name, &n->rate, &n->bokm);
 		}
 	}
 }
@@ -120,7 +134,7 @@ pTrk CList::tree1Dir(const char* subPath)
 				if (q)  q->nx = n;  else  /*1st*/t = n;  q = n;
 				q->pv = ww;  q->type = TY_DIR_unv;
 				q->size = 0;  q->tab = lev;
-				q->rate = getNameRating(q);  // dir rating
+				getNameRating(n->name, &n->rate, &n->bokm);  // dir rating
 			}
 			else  //  File
 				tree1File(&tf, &qf);

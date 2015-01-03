@@ -60,7 +60,8 @@ public:
 	
 	//  tree, create
 	void  treeCrt(), listCrt();  int listLen;  // length
-	void  tree1File(pTrk* t, pTrk* q);  char getNameRating(pTrk q);  bool trGet,trRem;
+	void  tree1File(pTrk* t, pTrk* q);  bool trGet,trRem;
+	void  getNameRating(const char* name, char* pRate, BYTE* pBokm);
 	pTrk  tree1Dir(const char* subPath),  tt,ww, ll;  /*1st(root): tt-tree, ww-back, ll-list*/
 	pTrk  tree1Dir(pTrk* t, pTrk* q); //drop
 	bool  Next(pTrk& cur), NextLev(pTrk& q);  int lev; // move
