@@ -4,15 +4,6 @@
 using namespace std;
 
 
-//  path, filename, utilities
-//. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-//find ext
-//find last dir
-//find dir-1
-//get name rating
-//..
-
-												
 ///  file extensions
 //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 vector<string> cExt::ext, cExt::Ext;
@@ -130,7 +121,7 @@ double	cStr::toDouble(chs)	{	return		  atof(str);	}
 bool	cStr::toBool(chs)	{	return ((int)strtol(str, NULL, 0) > 0) ? true : false;	}
 
 //  to str
-char cStr::s[128]={0};
+char cStr::s[512]={0};
 char* cStr::strI(int i)		{	sprintf(s,"%d", i);		return s;	}
 char* cStr::strI6(Usize i)	{	sprintf(s,"%d", i);		return s;	}
 char* cStr::strF(float f)	{	sprintf(s,"%.3f", f);	return s;	}
@@ -161,6 +152,20 @@ char* cStr::strHex(byte b)
 
 ///  Time string  (chars reversed, needs dir = -1)
 //---------------------------------------------------------------------------------------------------
+void cStr::strTime(char* s, double ti, bool d)
+{
+	DWORD t=ti, th = t/3600, tm = t/60%60, ts = t%60;
+	if (d)
+	{	StringCbPrintfA(s,40, "%c.%c",
+		/*.s*/ DWORD(ti*10.0)%10+'0', /*s*/ ts%10+'0');  return;  }
+	
+	StringCbPrintfA(s,40, "%c%c:%c%c",
+		/*s*/ ts%10+'0', /*10s*/ (ts>9||tm>0||th>0)? ts/10+'0':' ',//0
+		/*m*/ (tm>0||th>0)? tm%10+'0':' ', /*10m*/(tm>9||th>0)? tm/10+'0':' ');
+	if (th > 0) {	int l=strlen(s);  s[l]='.';  s[l+1]= th%10+'0';  s[l+2]=0;  /*h*/  }
+}
+
+#if 0
 string cStr::strTime(double ti, bool dec)
 {
 	string s;   // hour, min, sec
@@ -187,6 +192,7 @@ string cStr::strTime(double ti, bool dec)
 	}
 	return s;
 }
+#endif
 
 string cStr::strTimeTot(long ti)
 {

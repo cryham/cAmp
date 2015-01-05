@@ -135,7 +135,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			#endif
 			///  clr
 			if (bShowSrch && q->srch > 0)	clr(0.2,1,0);  // search
-			else if (q->isDir())	clr(0.9,0.8,1.0);	//dir 0.8,0.7,0.95
+			else if (q->isDir())	clr(0.9,0.8,1.0);	//dir
 			else if (q->dis == 1)	clr(0.4,0.6,0.9);	// dis
 			else if (q->sel > 0)	clr(0.0,1.0,0.9);	// sel
 			else if (i==pls->lCur)	clr(0.9,0.9,1);		// cur

@@ -93,7 +93,7 @@ public:
 	int mod, act, clear, iSize, iResets;
 
 	//  str
-	static char s[300], appPath[MAX_PATH];
+	static char appPath[MAX_PATH];
 	
 	//  d3d
 	LPDIRECT3D9 pD3d;  PDev pDev;

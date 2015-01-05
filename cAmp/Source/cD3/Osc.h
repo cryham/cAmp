@@ -1,5 +1,6 @@
 #pragma once
 #include "..\cD3\D3.h"
+#include "..\main\str.h"
 
 
 #define sWAV   4096  // wav data, max screen
@@ -13,7 +14,7 @@ const static int fts[fftNum] = {
 	BASS_DATA_FFT512, BASS_DATA_FFT1024, BASS_DATA_FFT2048, BASS_DATA_FFT4096, BASS_DATA_FFT8192};
 
 
-class cOsc : public D3
+class cOsc : public D3, public cStr
 {
 public:
 	cOsc();
@@ -46,16 +47,4 @@ public:
 	float  A[sWAV], C[PrLin][sWAV];  //fft,wav clr
 
 	DWORD  pcl[PrClrs];  void UpdPClr();
-	void hsv2rgb(float h, float s, float v, float *r,float *g, float *b);
- 
-	//  str
-	void sSize(DWORD), sTime(DWORD, char*);	//old-
-	void strTime(char* s, double ti, bool d=false); //d: 9.5s
-		
-	// str set
-	#define chs  const char* str
-	static char* strI(int i), *strF(float i), *strB(bool b);  // uses s
-	static char* strI6(INT64 i), *strD(double d), *strHex(BYTE b);
-	static float toFloat(chs);  static int toInt(chs);  static bool toBool(chs);
-	static double toDouble(chs);  static INT64 toInt6(chs);  static BYTE toByteHex(chs);
-};
+ };

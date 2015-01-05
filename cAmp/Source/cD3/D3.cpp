@@ -47,6 +47,7 @@ bool D3::Init2()
 	scpy(cfdig->Fext, ".png");  cfdig->Init(pDev);
 	
 	//  Plr Texture
+	char s[MP];
 	scpy(s,appPath);  sadd(s,"Media\\player.png");
 	Vd( D3DXCreateTextureFromFileA(pDev, s, &Tex) );
 
@@ -129,3 +130,5 @@ bool D3::Check()
 	}
 	return true;
 }
+
+char D3::appPath[MAX_PATH] = {0};
