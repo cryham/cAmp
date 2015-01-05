@@ -9,9 +9,9 @@ enum eETex {
 	TX_TabC, TX_TabP, TX_TabS,  //_Cur,Play,Sel,Find,Bookm
 	TX_BackPlr, TX_BackBtm, TX_BackHelp,
 	TX_PlsC, TX_PlsP, TX_PlsS, //TX_PlsF,
-	TX_PlsB1, TX_PlsB2, TX_PlsB3,
 	TX_Slid, TX_SliC, TX_SliP, TX_SliF,
-	TX_SliB1, TX_SliB2, TX_SliB3,
+	TX_PlsB1, TX_PlsB2, TX_PlsB3, TX_PlsB4, TX_PlsB5, TX_PlsB6,
+	TX_SliB1, TX_SliB2, TX_SliB3, TX_SliB4, TX_SliB5, TX_SliB6,
 	TX_Rate1, TX_Rate2, TX_Rate3, TX_Rate4, TX_Rate5,  NumTex };
 
 const int texUV[NumTex+1][4] =  // size x,y, pos x,y on player.png texture, in pixels
@@ -38,24 +38,30 @@ const int texUV[NumTex+1][4] =  // size x,y, pos x,y on player.png texture, in p
 	252, 13,	0, 90,		// pls_play
 	252, 13,	0, 110,		// pls_sel
 
-	252, 13,	0, 360,		// pls_bookm1
-	252, 13,	0, 380,		// pls_bookm2
-	252, 13,	0, 400,		// pls_bookm3
-
 	16, 512,	490, 0,		// slider
 	16, 24,		250, 40,	// slid_cur
 	16, 24,		270, 40,	// slid_play
 	16, 24,		290, 40,	// slid_find
 
-	16, 24,		320, 40,	// slid_bookm1
-	16, 24,		340, 40,	// slid_bookm2
-	16, 24,		360, 40,	// slid_bookm3
+	252, 13,	0, 360,		// 1 pls_bookm
+	252, 13,	0, 380,		// 2
+	252, 13,	0, 400,		// 3
+	252, 13,	0, 420,		// 4
+	252, 13,	0, 440,		// 5
+	252, 13,	0, 460,		// 6
 
-	252, 13,	0, 180,		// rate1
-	252, 13,	0, 200,		// rate2
-	252, 13,	0, 220,		// rate3
-	252, 13,	0, 240,		// rate4
-	252, 13,	0, 260,		// rate5
+	16, 24,		320, 40,	// 1 slid_bookm
+	16, 24,		340, 40,	// 2
+	16, 24,		360, 40,	// 3
+	16, 24,		380, 40,	// 4
+	16, 24,		400, 40,	// 5
+	16, 24,		420, 40,	// 6
+
+	252, 13,	0, 180,		// 1 rate
+	252, 13,	0, 200,		// 2
+	252, 13,	0, 220,		// 3
+	252, 13,	0, 240,		// 4
+	252, 13,	0, 260,		// 5
 	512,512,	0, 0,		// whole tex
 };
 

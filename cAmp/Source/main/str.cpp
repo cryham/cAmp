@@ -69,7 +69,7 @@ void cExt::splitExt(const string& s, string& name, string& ext)
 
 void cExt::splitPath(const string& s, string& path, string& fname)
 {
-	string::size_type p = s.find_last_of("/\\");
+	string::size_type p = s.find_last_of("\\/");
 	if (p == string::npos)
 	{	path = s;  fname = "";  return;  }
 
