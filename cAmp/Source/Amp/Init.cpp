@@ -137,7 +137,7 @@ void cAmp::UpdDim(float rfrFq)
 	yB_pl = yB_pli +cfont[view.cfP]->Fy+2/*yHpli*/;
 	yE_pl = view.ySize -cfont[view.cfP]->Fy;
 	yH_pl = yE_pl-1-yB_pl;  yL_pl = max(0, yH_pl/cfont[view.cfP]->Fy);
-		DELA(Lxm);  Lxm = new int[yL_pl+4];
+		delete[] Lxm;  Lxm = new int[yL_pl+4];
 	yE_pl = yL_pl*cfont[view.cfP]->Fy+yB_pl;  yH_pl = yE_pl-1-yB_pl;
 
 	/*xWplS = 14;*/  xW_plSm = 40;  //|sliderW, mW
@@ -169,7 +169,7 @@ cAmp::cAmp()
 	gpg=0;
 }
 cAmp::~cAmp()
-{	DELA(Lxm)	}
+{	delete[] Lxm;	}
 
 
 
@@ -188,7 +188,7 @@ void cAmp::LoadPlsts()
 	for (size_t i=0; i < vPlsNames.size(); ++i)
 	{
 		CList* pl = new CList();
-		scpy(pl->name, vPlsNames[i]);
+		pl->name = vPlsNames[i];
 		pl->Load();
 		vPlst.push_back(pl);
 	}
@@ -224,13 +224,10 @@ bool cAmp::PlayFrom(double t)
 
 void cAmp::DestPlsts()
 {
-	for (int i=0; i < vPlsNames.size(); ++i)
-		DELA(vPlsNames[i])
-
 	if (pls)  pls->Save();
 	if (plsPl && plsPl != pls)  plsPl->Save();
 
 	for (size_t i=0; i < vPlst.size(); ++i)
-		DEL(vPlst[i]);
+		delete vPlst[i];
 	vPlst.clear();
 }

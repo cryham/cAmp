@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="cAmp"
 	ProjectGUID="{D3D0911D-96D0-4629-88B8-122C0256058C}"
 	RootNamespace="main"
@@ -244,6 +244,14 @@
 				RelativePath=".\Source\main\resource.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Source\main\str.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\main\str.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Graphics"
@@ -414,6 +422,10 @@
 			>
 			<File
 				RelativePath=".\Source\Amp\Amp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\Amp\Amp_def.h"
 				>
 			</File>
 			<File

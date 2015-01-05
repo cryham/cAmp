@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include <vector>
 #include "List_cdef.h"
 
 
@@ -39,7 +41,7 @@ class CList		///  playlist
 {
 public:
 	CList();  ~CList();
-	char name[NamePls];  //=filename
+	std::string name;  //=filename
 
 	//  adv oper
 	bool RenameRate(pTrk t),
@@ -68,7 +70,7 @@ public:
 	pTrk  tree1Dir(pTrk* t, pTrk* q); //drop
 	bool  Next(pTrk& cur), NextLev(pTrk& q);  int lev; // move
 	//  list
-	vector<pTrk>  vList, vDirs;  // list +dir,hid
+	std::vector<pTrk>  vList, vDirs;  // list +dir,hid
 	void  listUpd(bool bUpdCur=true),updTi(),UpdTimes();  // update
 	void  destList(), destDirs();  // destroy
 	pTrk  getCur();  //ins

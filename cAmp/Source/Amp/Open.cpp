@@ -45,7 +45,7 @@ BOOL cAmp::BrowseDir(LPCSTR sCurrent, LPSTR sPath)
 LRESULT cAmp::OnDropFiles(WPARAM wParam, LPARAM lParam)
 {
 	if (!pls)  return 0;
-	char sFile[MAX_PATH];	int nFiles;
+	char sFile[MAX_PATH];
 	HDROP hDrop = (HDROP)wParam;
 
 	// chg icon...  show _
@@ -54,7 +54,7 @@ LRESULT cAmp::OnDropFiles(WPARAM wParam, LPARAM lParam)
 	if (shift)	pls->InsM = -2; else	if (ctrl)	pls->InsM = 2; else
 	if (alt)	pls->InsM = -1; else	pls->InsM = (pls->lCur == 0) ? -1 :1;
 	
-	nFiles = DragQueryFileA(hDrop, -1, sFile, MAX_PATH);	
+	int nFiles = DragQueryFileA(hDrop, 0xFFFFFFFF, sFile, MAX_PATH);	
 	pTrk tf=NULL,qf=NULL;  pls->ww = NULL;
 	bool files=false, dir;  int i;
 

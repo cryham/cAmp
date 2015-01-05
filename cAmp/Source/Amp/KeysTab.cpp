@@ -80,7 +80,7 @@ bool cAmp::KeysEdit(bool shift, WPARAM k)
 		case VK_RETURN: //  accept
 			switch(ed)	{
 				case ED_nTab:
-				{	scpy(pls->name, sed);	GuiOff();
+				{	pls->name = sed;	GuiOff();
 					pls->Save();  SetSave();  }  rt
 				case ED_nFind:
 				{	scpy(srch, sed);  GuiOff();  DoSearch();  }  rt
@@ -195,7 +195,9 @@ void cAmp::tabNew(int m)
 {
 	pls->Save();
 	CList* pl = new CList();
-	p(pl->name) "%d", ++cntrPls);
+	char nn[10];
+	p(nn) "%d", ++cntrPls);
+	pl->name = nn;
 
 	if (m==2)
 	{	//  ctrl- at end
@@ -260,5 +262,5 @@ void cAmp::PlsOpen()
 	if (GetOpenFileNameA(&ofn)==TRUE)  {
 		char* pp = strrchr(ofn.lpstrFile,'\\')+1, *pe = strrchr(ofn.lpstrFile,'.');  pe[0]=0;  //no dir,ext
 		//dont duplicate pls names--
-		scpy(pls->name, /*ofn.lpstrFile*/pp);  pls->Load();  }
+		pls->name = /*ofn.lpstrFile*/pp;  pls->Load();  }
 }

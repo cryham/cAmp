@@ -78,7 +78,7 @@ public:
 	int ed/*mode*/, hlpPg;
 	//  edit name
 	char sed[MP],srch[MP];
-	int ied;  int* Lxm;//name long
+	int ied;  int* Lxm;  // name long x max
 
 
 	///  PlayLists  ------------------------------------------------
@@ -88,7 +88,7 @@ public:
 	void plsChg(int clrSel=0), plsPlChg(int id), updSelId(int clear=0), clrSelId();
 
 	void LoadPlsts(), DestPlsts();  int cntrPls;  //for new
-	std::vector<char*> vPlsNames;  //set load
+	std::vector<std::string> vPlsNames;  //set load
 	void RenameAll(int type), DoSearch();
 	bool bShowSrch, bAltOld;  int iSrchAll;
 

@@ -23,7 +23,7 @@ void cAmp::DrawPlsText()
 	{	int x,y, a = view.ofsTab;
 		for (y=0; y < view.yNpt; y++)
 		for (x=0; x < view.xNpt; x++)  {  if (a < ntab)  {
-			cf->StrCopy(vPlst[a]->name);  //name
+			cf->StrCopy(vPlst[a]->name.c_str());  //name
 			int w = cf->GetWidth(), o = max(0, (xW_pt-w)/2);  //center
 			cf->xmax = (x+1)*xW_pt;
 			if (bShowSrch && vPlst[a]->iSrch > 0)

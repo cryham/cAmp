@@ -183,7 +183,7 @@ bool cAmp::Keys(WPARAM k)
 			
 			//  Edit tab name
 			case VK_F2:
-			{	scpy(sed, pls->name);  ied=strlen(sed);  ed=ED_nTab;  }  rt
+			{	scpy(sed, pls->name.c_str());  ied=strlen(sed);  ed=ED_nTab;  }  rt
 			//  Search
 			case VK_F3:	case 'F':
 				if (shift)  bShowSrch=!bShowSrch;  else

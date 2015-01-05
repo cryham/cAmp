@@ -88,10 +88,7 @@ void cAmp::SetLoad()
 			
 			m = n->FirstChildElement("Pls");  //if (!m)  N("No <Pls>",sle)
 			while (m)
-			{	a = m->Attribute("name");
-					int l = strlen(a)+1;  
-					char* na = new char[l];  strcpy(na, a);
-					vPlsNames.push_back(na);
+			{	a = m->Attribute("name");	vPlsNames.push_back(std::string(a));
 				m = m->NextSiblingElement("Pls");
 		}	}
 
@@ -227,7 +224,7 @@ void cAmp::SetSave()
 	for (size_t i=0; i < vPlst.size(); i++)
 	{
 		TiXmlElement plst("Pls");
-			plst.SetAttribute("name",	vPlst[i]->name);
+			plst.SetAttribute("name",	vPlst[i]->name.c_str());
 			// idx,cur,ofs on each playlist here--
 		Pls.InsertEndChild(plst);
 	}

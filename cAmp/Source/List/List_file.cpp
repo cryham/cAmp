@@ -12,7 +12,7 @@ bool CList::Load()
 	//**/static Timer ti;  ti.update();
 
 	ifstream fi;  char s[MP*2],ss[MP*2],n[MP*2],e[20];
-	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name);  sadd(s,".cp");
+	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
 	fi.open(s,ios_base::in|ios_base::binary);
 	if (fi.fail())  {  p(n)"Can't open file\n%s",s);  Wrng(n,slp)  }
 
@@ -36,9 +36,9 @@ bool CList::Load()
 			fi.getline(s,MP,'|');  q->size = cOsc::toInt6(s);
 
 			// c,h,r,b
-			fi.getline(s,80);	int c=0,h=0,r=0, b=0;
-			sscanf(s,"%d|%d|%d|%d", &c, &h, &r, &b);
-			q->tab=c;  q->hide=h;  q->rate=r;  q->bokm=b;
+			fi.getline(s,80);	int t=0,h=0,r=0, b=0;
+			sscanf(s,"%d|%d|%d|%d", &t, &h, &r, &b);
+			q->tab=t;  q->hide=h;  q->rate=r;  q->bokm=b;
 			
 			//  list
 			if (!ll1)  {  // new 1st
@@ -66,7 +66,7 @@ bool CList::Save()
 	if (name[0]==0)  rt  // empty
 
 	ofstream of;  char s[MP*2],n[MP*2];
-	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name);  sadd(s,".cp");
+	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
 	of.open(s, ios_base::out|ios_base::binary|ios_base::trunc);
 	if (of.fail())  {  p(n) "Can't open file\n%s",s);  Wrng(n,"Pls Save error")  }
 	of << "cAmpPls\n";
