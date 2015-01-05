@@ -27,9 +27,11 @@ public:
 
 	//  set
 	void SetLoad(), SetSave(),  ClrLoad(), ClrSave();
+	std::string sExtAll;
 		
-	void tabPrev(bool row, bool ofs), tabNext(bool row, bool ofs), // Tabs
-		tabNew(int m),tabClose(), tabMove(int n), PlsOpen();
+	//  tabs
+	void tabPrev(bool row, bool ofs), tabNext(bool row, bool ofs);
+	void tabNew(int m),tabClose(), tabMove(int n), PlsOpen();
 
 	//  mouse
 	int xm,ym,xms,yms, xMs,yMs,yMd,yMFvi, xLs,yLs;
@@ -39,6 +41,7 @@ public:
 	const static int MaxViews = 8;
 	CViewSet views[MaxViews];
 	void ViewSave(int v),ViewLoad(int v),ViewUpd();
+	
 	
 	//  Keys hook  ----
 	/*HHOOK hKbd;*/  bool bHKeys;
@@ -85,10 +88,12 @@ public:
 	std::vector<CList*> vPlst;  int nTabMov;
 	CList* pls,*plsPl,*plsSel;  //cur, playing, copy from
 	int plsId,plsPlId,plsSelId;
-	void plsChg(int clrSel=0), plsPlChg(int id), updSelId(int clear=0), clrSelId();
+	void plsChg(int clrSel=0), plsPlChg(int id),
+		updSelId(int clear=0), clrSelId();
 
 	void LoadPlsts(), DestPlsts();  int cntrPls;  //for new
 	std::vector<std::string> vPlsNames;  //set load
+
 	void RenameAll(int type), DoSearch();
 	bool bShowSrch, bAltOld;  int iSrchAll;
 

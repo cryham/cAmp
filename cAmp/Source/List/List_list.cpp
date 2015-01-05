@@ -100,7 +100,8 @@ void CList::Insert1(int m, pTrk nt)
 	if (nt == 0) {  nt = cur;  //0-dupl
 		n = new CTrk(nt->name, nt->path);  // copy
 		n->type = nt->type;  n->tab = nt->tab;  n->ext = nt->ext;
-		n->time = nt->time;  n->size = nt->size;  n->rate = nt->rate;  }
+		n->time = nt->time;  n->size = nt->size;
+		n->rate = nt->rate;  n->bokm = nt->bokm;  }
 	else  n = nt;
 
 	ins(m, cur, n);  // ins

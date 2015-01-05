@@ -129,20 +129,6 @@ void CList::updTi()
 }
 
 
-//  Ext Find  -------
-
-bool CList::ExtFind(const char* ex, int iExtCnt, const ExtTab extArr)
-{
-	bool dn = true;  exf = 0;
-	while (dn && exf < iExtCnt)
-	{
-		if (_stricmp(ex, extArr[exf]) == 0)
-			rt  //{	rt  dn = false;  }
-		exf++;
-	}	rf
-}
-
-
 //  Next >  -------------------------------------------------------------------------
 
 bool CList::Next(pTrk& q)
@@ -214,7 +200,7 @@ CList::~CList()
 
 CTrk::CTrk(const char* Name, const char* Path)
 {	nx = p = pv = NULL;	name = NULL;  path = NULL; prev = next = NULL;  path2 = NULL;
-	time = 0; size = 0;  ext = 0;  sel = 0;  srch = 0;
+	time = 0; size = 0;  sel = 0;  srch = 0;  time = 0.0;
 	type = 0; tab = 0;  hide = 0;  rate = 0;  dis = 0;  bokm = 0;
 	
 	int l = strlen(Name)+1;  name = new char[l];  strcpy(name, Name);
@@ -228,4 +214,6 @@ void CTrk::AddPath2(const char* Path2)
 	int r = strlen(Path2)+1;  path2 = new char[r];  strcpy(path2, Path2);
 }
 CTrk::~CTrk()
-{	DELA(name)  DELA(path)  DELA(path2)  }
+{
+	delete[] name;  delete[] path;  delete[] path2;
+}

@@ -89,7 +89,7 @@ bool CList::RenameRate(pTrk t)
 			sadd(s, chFRate[mia(0,chRall, t->rate+cR0)]);
 		
 		char name[MP+1];  //t->getFullName(name);
-		StringCbPrintfA(name,MP, "%s%s.%s", t->path, s, ExtAudM[t->ext]);
+		StringCbPrintfA(name,MP, "%s%s.%s", t->path, s, t->ext.c_str());
 
 		// rename
 		if (t->isDir())
@@ -109,7 +109,7 @@ bool CList::RenameRate(pTrk t)
 		}
 		else
 		{	// change trk name
-			l = strlen(s)+1;  DELA(t->name)
+			l = strlen(s)+1;  delete[] t->name;
 			t->name = new char[l];  strcpy(t->name, s);
 			rt
 		}

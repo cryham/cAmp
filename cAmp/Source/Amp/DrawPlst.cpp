@@ -125,10 +125,10 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			///  dbg pls  clr
 			#if 0
 			bool mid = i > 0 && i < pls->vList.size()-1;
-				 if (q->isDir())	clr(0.8,0.7,0.95);	//dir
+				 if (q->isDir())	   clr(0.8,0.7,0.95);  //dir
 			else if (q->prev == NULL)  clr(1.0,0.3,0.2);  //1st
 			else if (q->next == NULL)  clr(1.0,0.3,0.2);  //last
-			else if (mid && strcmp(q->next->prev->name, q->prev->next->name) != 0)  clr(1.0,0.2,0.4);  //split
+			else if (mid && strcmp(q->next->prev->name, q->prev->next->name) != 0)					clr(1.0,0.2,0.4);  //split
 			else if (mid && strcmp(q->next->name, pls->vList[i+1]->name) != 0&& !q->next->isDir())  clr(1.0,0.7,0.3);  //next
  			else if (mid && strcmp(q->prev->name, pls->vList[i-1]->name) != 0&& !q->prev->isDir())  clr(1.0,0.7,0.3);  //prev
 			else

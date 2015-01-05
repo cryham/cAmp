@@ -36,7 +36,6 @@ using namespace std;
 
 #define REL(p)		if(p) {  p->Release();  p = NULL;  }
 #define DEL(p)		if(p) {  delete p;   p = NULL;  }
-#define DELA(p)		if(p) {  delete[]p;  p = NULL;  }
 
 #define Wrng(b,c)					{  MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING);  rf}
 #define Info(b,c)					{  MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING);  }

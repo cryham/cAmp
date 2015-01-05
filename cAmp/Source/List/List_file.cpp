@@ -28,12 +28,11 @@ bool CList::Load()
 		{
 			if (!qq || s[0] != '<')  scpy(ss, s);  // new path
 			pTrk q = new CTrk(n,ss);
-				
-			if (ExtFind(e,iExtAud,ExtAud))  q->ext = exf;
+			q->ext = e;
 			q->type = TY_AUDIO;
 			// t,s
-			fi.getline(s,MP,'|');  q->time = cOsc::toDouble(s);
-			fi.getline(s,MP,'|');  q->size = cOsc::toInt6(s);
+			fi.getline(s,MP,'|');  q->time = cStr::toDouble(s);
+			fi.getline(s,MP,'|');  q->size = cStr::toInt6(s);
 
 			// c,h,r,b
 			fi.getline(s,80);	int t=0,h=0,r=0, b=0;
@@ -79,7 +78,7 @@ bool CList::Save()
 			of << '<';  // same path
 		else
 			of << q->path;
-		of <<'|'<< q->name <<'|'<< &ExtAud[q->ext][0] <<'|'<< q->time <<'|'<< q->size <<'|';
+		of <<'|'<< q->name <<'|'<< q->ext <<'|'<< q->time <<'|'<< q->size <<'|';
 		of << (int)q->tab <<'|'<< (int)q->hide <<'|'<< (int)q->rate <<'|'<< (int)q->bokm;
 
 		qq = q;  q = q->next;

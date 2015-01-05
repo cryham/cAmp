@@ -147,8 +147,21 @@ void cAmp::SetLoad()
 				//..
 				m = m->NextSiblingElement("View");  ++i;	}
 		}
-		
+
+		//  ext list,  optional, in ver2
+		n = root->FirstChildElement("Ext");
+		if (n)
+		{	a = n->Attribute("all");
+			sExtAll = string(a);
+		}else
+			sExtAll = cExt::sVer1;
 	}
+
+	//  init ext  . . . . . . . . . . . . . . . . . . . . . . . . 
+	if (sExtAll.empty())
+		cExt::Init();
+	else
+		cExt::Init(sExtAll);
 }
 
 

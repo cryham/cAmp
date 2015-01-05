@@ -15,15 +15,6 @@ const BYTE
 	TY_FILE=2, TY_AUDIO=3;   // files
 
 
-//  file ext
-const int  iExtAud = 9;  //, iExtPls = 4, iExtImg = 5;
-typedef char ExtTab[][ExtLen];
-
-const ExtTab ExtAud = {"WAV","FLAC","OGG","MP3","APE","WV","MPC","WMA","MP2"};  // from cAmp.xml ...
-const ExtTab ExtAudM= {"wav","flac","ogg","mp3","ape","wv","mpc","wma","mp2"};
-//mod s3m stm it xm
-
-
 //  rating   = -- -  ` ^ ~ + *
 const int cR0= 3/*- */, cR1= 5/*+*/, chRall=cR0+cR1+1;
 const char chRates[chRall] = {'=',150,'-',' ','`','^','~','+','*'};  // 176 o  183 . 215 x 149 o* 150 - 151 --

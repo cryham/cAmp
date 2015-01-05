@@ -12,11 +12,11 @@ public:
 		*next,*prev;  // list: next,prev
 
 	char* name, *path, *path2;  //sub-1
-	std::string name_pls;
+	std::string name_pls, ext;
 	double time;  INT64 size;
 	
 	//  extra
-	BYTE type, tab, ext;  //ext-ExtAud   tab--
+	BYTE type, tab;  //tab--
 	BYTE hide, sel;  char rate;  // rating
 	BYTE dis;  //err disabled
 	BYTE srch;	//match
@@ -25,7 +25,7 @@ public:
 	bool isDir() {  return  type < TY_FILE;  }
 	
 	void getFullName(char* str)  {
-		StringCbPrintfA(str,MP-1, "%s%s.%s", path, name, ExtAudM[ext]);  }
+		StringCbPrintfA(str,MP-1, "%s%s.%s", path, name, ext.c_str());  }
 	void updName();
 
 	CTrk::~CTrk();
@@ -81,9 +81,6 @@ public:
 	WIN32_FIND_DATAA fd;
 	char  sPath[MP],pp[MP], srchPath[MP],ss[MP];
 	void  InsertDir(char* Path);/*+*/  int InsM;  // top,end,cur
-	//  ext
-	bool  ExtFind(const char* ex, int iExtCnt, const ExtTab extArr);
-	int  exf;  // found
 
 	//  therads
 	HANDLE hs, thr,thrTi; // dir,timeupd

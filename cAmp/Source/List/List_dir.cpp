@@ -1,5 +1,6 @@
 #include "header.h"
 #include "List.h"
+#include "..\main\str.h"
 
 
 void CList::getNameRating(const char* name, char* pRate, BYTE* pBokm)
@@ -47,37 +48,27 @@ void CTrk::updName()
 
 
 // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 File
-
 void CList::tree1File(pTrk* tf, pTrk* qf)
 {
-	//  .Ext
-	char* pe = strrchr(/*name*/fd.cFileName,'.');
-	if (pe)  // no ext
-	if (strlen(pe+1) < ExtLen)	// too long
-	{
-		char ex[6];  strcpy(ex, pe+1);
+	string filename = fd.cFileName;
+	string path = pp, name,ext;
 
-		//  ext type find
-		BYTE ty = TY_FILE;
-		if (ExtFind(ex,iExtAud,ExtAud))  {  ty = TY_AUDIO;  }  //else
-		//if (ExtFind(ex,iExtPls,ExtPls))  {  ty = TY_PLS;  } else
-		//if (ExtFind(ex,iExtImg,ExtImg))  {  ty = TY_IMG;  allImg++;  }
+	cExt::splitExt(filename, name,ext);
+	if (!cExt::Find(ext))
+		return;  // unplayable
 
-		if (/*add*/ty == TY_AUDIO)
-		{
-			//  size
-			INT64 si = fd.nFileSizeHigh*smax+ fd.nFileSizeLow;
-			allSize += si;	dirSize += si;
-			
-			allFiles++;  pe[0]='\0';//
-			
-			pTrk n = new CTrk(fd.cFileName, pp);
-			if (*qf)  (*qf)->nx = n;  else  /*1st*/*tf = n;  (*qf) = n;  //list
-			(*qf)->pv = ww;   (*qf)->time = 0.0;
-			(*qf)->type = ty;  (*qf)->size = si;  (*qf)->tab = lev;  (*qf)->ext = exf;
-			getNameRating(n->name, &n->rate, &n->bokm);
-		}
-	}
+	//  size inc
+	INT64 si = fd.nFileSizeHigh*smax + fd.nFileSizeLow;
+	allSize += si;	dirSize += si;
+	allFiles++;
+	//  add
+	pTrk n = new CTrk(name.c_str(), path.c_str());  n->ext = ext;
+	n->type = TY_AUDIO;
+	n->pv = ww;
+	n->size = si;
+	getNameRating(n->name, &n->rate, &n->bokm);
+	if (*qf)  (*qf)->nx = n;  else  *tf = n;  /*1st*/
+	(*qf) = n;  //list
 }
 
 // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 Dir drop

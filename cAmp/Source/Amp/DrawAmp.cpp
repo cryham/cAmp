@@ -53,7 +53,7 @@ void cAmp::DrawAmpText()
 
 		//cf->StrWr(ExtAud[tkPl->ext], 1,yBvi);
 		cf->StrWr(tk->path, 3,yB_vis+cf->Fy/2);
-		cf->Format("%s.%s",tk->name, ExtAud[tk->ext]);
+		cf->Format("%s.%s",tk->name, tk->ext.c_str());
 		//cf->StrCopy(tk->name);  cf->StrAdd(".");  cf->StrAdd(ExtAud[tk->ext]);
 		cf->Write(3,yB_vis+4*cf->Fy-cf->Fy/2);
 		cf->bSl=true;
@@ -63,7 +63,7 @@ void cAmp::DrawAmpText()
 	if (bPlay && plsPl)
 	if (plsPl->idPl >=0 && plsPl->idPl <= plsPl->listLen-1)//-
 	{	cf->Fclr = D3DXCOLOR(0.7,0.8,1,1);  pTrk tkPl = plsPl->vList[plsPl->idPl];
-		cf->StrWr(ExtAud[tkPl->ext], 1,yB_fi+1);
+		cf->StrWr(tkPl->ext.c_str(), 1,yB_fi+1);
 		cf->StrWr(sPlInf, 36,yB_fi+1);  cf->Fclr = D3DXCOLOR(1,1,1,1);
 
 /* Time 1:23  total,cur */
