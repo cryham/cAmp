@@ -8,8 +8,9 @@
 void CList::Bookm(int lev)  // toggle
 {
 	if (ll==NULL)  return;
-	if (vList[lCur]->bokm == lev)  vList[lCur]->bokm = 0;
-	else  vList[lCur]->bokm = lev;
+	char b = vList[lCur]->bokm;
+	b += lev;  b = mia(0,6, b);
+	vList[lCur]->bokm = b;
 }
 
 void CList::BookmPrev(int lev, bool bSrch)

@@ -128,8 +128,8 @@ void cAmp::DrawHelpText()									//  help  //
 		sc("  ctrl- upper Filter");		wr(x1,y);  y+=Fy*4/2;	clr(0.7,0.5,0.8);
 
 		x2=x1+40;  clr(0.3,0.65,0.75);
-		sc("\\");	wR(x1,y);	sc("toggle Bookmark at cursor");		wR(x2,y);  y+=Fy;  clr(0.2,0.55,0.65);
-		sc("  ctrl- level 2  alt- level 3");	wR(x1,y);	y+=Fy;  clr(0.3,0.65,0.75);
+		sc("\\");	wR(x1,y);	sc("inc Bookmark at cursor");		wR(x2,y);  y+=Fy;  clr(0.2,0.55,0.65);
+		sc("  ctrl- dec");	wR(x1,y);	y+=Fy;  clr(0.3,0.65,0.75);
 		sc("/  .");	wR(x1,y);	sc("next/prev Bookmark in playlist or");	wR(x2,y);  y+=Fy;  clr(0.2,0.85,0.65);
 		sc("next/prev Search result, when showing");  wR(x2,y);  y+=Fy*2;  clr(1,1,1);
 

@@ -133,7 +133,7 @@ bool cAmp::Keys(WPARAM k)
 				pls->Clear();  pls->Load();  if (b) Play(0);  }  rt
 			
 			//  bookmark
-			case VK_OEM_5:  pls->Bookm(alt ? 3 : ctrl ? 2 : 1);  bDrawPlst = true;  rt  // backslash
+			case VK_OEM_5:  pls->Bookm(ctrl||shift ? -1 : 1);  bDrawPlst = true;  rt  // backslash
 			//  goto prev/next
 			case VK_OEM_PERIOD:	pls->BookmPrev(alt ? 3 : ctrl ? 2 : 1, bShowSrch);  rt
 			case VK_OEM_2:		pls->BookmNext(alt ? 3 : ctrl ? 2 : 1, bShowSrch);  rt  // slash
