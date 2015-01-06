@@ -87,7 +87,7 @@ void cAmp::DrawAmpText()
 	}
 	if (!bPlay)  // logo not playing
 	{	cf->Fclr = D3DXCOLOR(0.7,0.8,1,1);
-		cf->StrWr("Crystal  AMP  1.07", 1,yB_fi+1);  cf->Fclr = D3DXCOLOR(1,1,1,1);  }
+		cf->StrWr("Crystal  AMP  1.08", 1,yB_fi+1);  cf->Fclr = D3DXCOLOR(1,1,1,1);  }
 
 	//  pls inf  rate filters  =*
 	if (!pls)  return;
