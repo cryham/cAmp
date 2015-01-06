@@ -16,11 +16,11 @@ public:
 	double time;  INT64 size;
 	
 	//  extra
-	BYTE type, tab;  //tab--
-	BYTE hide, sel;  char rate;  // rating
-	BYTE dis;  //err disabled
-	BYTE srch;	//match
-	BYTE bokm;  //bookmark
+	byte type, tab;  //tab--
+	byte hide, sel;  char rate;  // rating
+	byte dis;  //err disabled
+	byte srch;	//match
+	byte bokm;  //bookmark
 
 	bool isDir() {  return  type < TY_FILE;  }
 	
@@ -71,7 +71,7 @@ public:
 	void  treeCrt(), listCrt();
 
 	void  tree1File(pTrk* t, pTrk* q, const char* fullpath=0);  bool trGet,trRem;
-	void  getNameRating(const char* name, char* pRate, BYTE* pBokm);
+	void  getNameRating(const char* name, char* pRate, byte* pBokm);
 	pTrk  tree1Dir(const char* subPath),  tt,ww, ll;  /*1st(root): tt-tree, ww-back, ll-list*/
 	pTrk  tree1Dir(pTrk* t, pTrk* q); //drop
 	bool  Next(pTrk& cur), NextLev(pTrk& q);  int lev; // move

@@ -10,7 +10,7 @@ const INT64 smax = INT64(MAXDWORD)+1;
 
 
 //  enum CTrk type
-const BYTE
+const byte
 	TY_DIR_unv=0, TY_DIR=1,  // dir unvisited
 	TY_FILE=2, TY_AUDIO=3;   // files
 

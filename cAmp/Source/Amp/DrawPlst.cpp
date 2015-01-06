@@ -146,16 +146,20 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			xmt = q->isDir() /*|| !bRep1*/ ? view.xSize-view.xWplS-2-12/**/ : xTm-46/**/;
 			cf->dir = 1;  cf->xmax = xmt;
 			cf->Fs[' '] = cf->Fs['0']/2;
-			#if 1  // normal
+			#if 1
+				//  normal
 				if (CList::iDirView == 2 && q->isDir())
 					cf->Format("%s", q->path.c_str());
 				else
 					cf->Format("%s", q->name_pls.c_str());  // offset long.. shift wheel
-			#else  // debug list
-				if (q->isDir())  p(cf->s) "%s  %s", q->name.c_str(),  pls->ll->name.c_str());  else
-				p(cf->s) "%s <   %s   > %s",
-					!q->prev ? "-" : q->prev->name.c_str(),  q->name.c_str(),
-					!q->next ? "-" : q->next->name.c_str() );
+			#else
+				//  debug list
+				if (q->isDir())
+					p(cf->s) "%s  %s", q->name.c_str(),  pls->ll->name.c_str());
+				else
+					p(cf->s) "%s <   %s   > %s",
+						!q->prev ? "-" : q->prev->name.c_str(),  q->name.c_str(),
+						!q->next ? "-" : q->next->name.c_str() );
 			#endif
 			
 			//  dir adds

@@ -10,7 +10,7 @@ bool CList::RenameRate(pTrk t)
 	//  empty list or bad file
 	if (ll==NULL || t==NULL || t->dis > 0)  rf
 	
-	char o_rate = 0;  BYTE o_bokm = 0;
+	char o_rate = 0;  byte o_bokm = 0;
 	size_t posB = 0;
 	getNameRating(t->name.c_str(), &o_rate, &o_bokm);
 	string old = t->getFullPath();
@@ -144,35 +144,13 @@ void CList::listUpd(bool bUpdCur)
 			char p[MP];  scpy(p, q->path.c_str());  p[strlen(p)-1]=0;
 			char* pe = strrchr(p,'\\');  if (!pe)  {  scpy(p,"no dir");  pe = p;  }
 			d = new CTrk(pe+1, q->path);
+			d->type = TY_DIR;
 
 			//  subdir-1
 			pe[0] = 0;
 			char* p2 = strrchr(p,'\\');
 			if (p2)  d->path2 = p2+1;
 
-			/*string p0,p1;
-			int l = q->path.length()-1;
-			int p = l, u = 0;
-			while (p >= 0 && u < 2)
-			{
-				char c = q->path[p];
-				if (c=='\\'||c=='/')
-				{
-					if (p==l)  --l;
-					else
-					{	string pa = q->path.substr(p+1,l-1);
-						if (u==0)  p0 = pa;
-						else if (u==1)  p1 = pa;
-						l = p;  ++u;
-					}
-				}	--p;
-			}
-
-			d = new CTrk(p0, q->path);
-			d->type = TY_DIR;
-			d->path2 = p1;*/
-			d->type = TY_DIR;
-			
 			vDirs.push_back(d);  //for delete
 			vList.push_back(d);
 			++listLen;  ++i;  /// Add Dir

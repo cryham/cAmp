@@ -45,7 +45,7 @@ public:
 	
 	//  Keys hook  ----
 	/*HHOOK hKbd;*/  bool bHKeys;
-	bool KeysHook(DWORD vk,DWORD sc,DWORD fl);
+	bool KeysHook(byte vk, byte sc, byte fl);
 	void KbdInit(), KbdDest();
 
 	CKey vKeys[FU_ALL];

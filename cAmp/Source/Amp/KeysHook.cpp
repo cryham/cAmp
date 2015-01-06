@@ -5,7 +5,7 @@
 
 
 /*-   -   -   -   -   -   -   -   -   -   -   -   -   Hook Keys  -   -   -   -   -   -   -   -   -   -   -  -*/
-bool cAmp::KeysHook(DWORD vk,DWORD sc,DWORD fl)  //BYTE
+bool cAmp::KeysHook(byte vk, byte sc, byte fl)  //byte
 {
 	bool dn = (fl & LLKHF_UP)>0 ? false: true;	//LLKHF_EXTENDED gray
 

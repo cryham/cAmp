@@ -92,7 +92,7 @@ const static char csKeyNames[256][18]=
  FF 7D  Ext E3 (Exe3)
 */
 
-const static void strKeyName(BYTE vk, BYTE sc, char* str)
+const static void strKeyName(byte vk, byte sc, char* str)
 {
 	if (vk == 0 || vk == 0xFF)
 		StringCbPrintfA(str,22,	"0x%02X %02X", vk, sc);

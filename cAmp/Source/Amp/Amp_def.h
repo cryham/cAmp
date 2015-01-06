@@ -50,7 +50,7 @@ const int cyFadd[FU_ALL] = {0,0,2, 0,1, 0,2, 0,1,0,1,0,1, 0,1,0,2, 0,1,0};  // i
 class CKey
 {
 public:
-	BYTE vk,sc, mod;
+	byte vk,sc, mod;
 	bool on;  int vis;
 	
 	CKey() :

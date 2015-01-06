@@ -3,7 +3,7 @@
 #include "..\main\str.h"
 
 
-void CList::getNameRating(const char* name, char* pRate, BYTE* pBokm)
+void CList::getNameRating(const char* name, char* pRate, byte* pBokm)
 {
 	//  get rating in file name  find # + ~ ^ ` - -- =
 	int len = strlen(name);  // no ext !
