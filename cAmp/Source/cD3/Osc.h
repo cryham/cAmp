@@ -34,6 +34,7 @@ public:
 	//  channels  ----
 	HRECORD chRec;
 	HSTREAM chPl;
+	HSYNC chSync;
 	bool bPlay, bPaused, bRec,bRecSet;  // Play state, Rec
 
 	//  snd  ----

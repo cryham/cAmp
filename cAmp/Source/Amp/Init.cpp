@@ -159,7 +159,9 @@ void cAmp::UpdDim(float rfrFq)
 
 cAmp::cAmp()
 {	bL= bR= bM= bLsl= false;  xm= 0; ym= 0;  xMs= 0; yMs= 0; yMd= 0;  bMInWnd=0;  mti=0.f;
-	chPl= NULL;  bPaused= 0;  bPlay= 0;  sPlInf[0]=0;  thrIns = 0;  appPath[0]=0;
+	chPl= 0; chRec= 0; chSync= 0;
+	bPaused= 0;  bPlay= 0;
+	sPlInf[0]=0;  thrIns = 0;  appPath[0]=0;
 	pls=plsPl=plsSel=NULL;  plsSelId=-1;
 	sed[0]=0;  ied=0;  srch[0]=0;  fTi=0.f;  Lxm=NULL;  bFInfo=0; bAllInfo=0;
 	bNextPrev=1;  bDrawPlst=1; bDrawPlst2=0;  bShowSrch=0; iSrchAll=0; bAltOld=0;

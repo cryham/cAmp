@@ -30,6 +30,10 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	if (tkPl->isDir())  rf  //-
 	//bDrawPlst = true;  // Z,X diffr--
 
+	//. rem old sync
+	if (chPl && chSync)
+		BASS_ChannelRemoveSync(chPl, chSync);
+	
 	//  get name
 	string fname = tkPl->getFullPath();
 
@@ -46,16 +50,15 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 			if (bNextPrev)	Next();  else  Prev();
 		}	rf
 		default:	// other
-		{	p(s)"%s\n (error code: %d)",
-				fname.c_str(),
-				BASS_ErrorGetCode());
-			Info(s,"Can't play file");
+		{	
+			string s = "Can't play file"+fname+"\n (error code: "+iToStr(BASS_ErrorGetCode())+")";
+			Info(s.c_str(), "Can't play file");
 		}	rf
 	}
 	else  tkPl->dis = 0;
 
-	// sync reaching end - for play next
-	/*HSYNC hsy =*/ BASS_ChannelSetSync(
+	//. sync reaching end - for play next
+	chSync = BASS_ChannelSetSync(
 		chPl, BASS_SYNC_END/*or BASS_SYNC_FREE*/, 0, EndSync, this); 
 		
 	//  get file info
