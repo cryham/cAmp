@@ -26,10 +26,10 @@ void CList::getNameRating(const char* name, char* pRate, BYTE* pBokm)
 		++r;
 	}
 	
-	//  get bookmark %1..%3
+	//  get bookmark %1..%6
 	string s(name);
 	size_t p = s.find_last_not_of(cFnCharRates);
-	if (p != string::npos && p > 1 && s[p-1]=='%' && s[p]>='1' && s[p]<='3')
+	if (p != string::npos && p > 1 && s[p-1]=='%' && s[p]>='1' && s[p]<='6')
 		*pBokm = s[p]-'0';
 }
 
@@ -39,7 +39,7 @@ void CTrk::updName()
 	size_t p = name_pls.find_last_not_of(cFnCharRates);
 	if (p == string::npos)  return;
 	
-	if (p > 1 && name_pls[p-1]=='%') // && s[p]>='1' && s[p]<='3')
+	if (p > 1 && name_pls[p-1]=='%')
 		name_pls.erase(p-1);  // = name_pls.substr(0,p-1);
 	else
 		name_pls.erase(p+1);  // = name_pls.substr(0,p+1);
