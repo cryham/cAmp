@@ -135,7 +135,7 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
-				WarningLevel="3"
+				WarningLevel="1"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4995;4996;"
@@ -330,6 +330,10 @@
 			</File>
 			<File
 				RelativePath=".\Source\List\List_adv.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\List\List_adv2.cpp"
 				>
 			</File>
 			<File
