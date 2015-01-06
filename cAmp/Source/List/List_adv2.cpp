@@ -7,12 +7,13 @@
 
 bool CList::RenameRate(pTrk t)
 {
+	//  empty list or bad file
 	if (ll==NULL || t==NULL || t->dis > 0)  rf
 	
 	char o_rate = 0;  BYTE o_bokm = 0;
 	size_t posB = 0;
 	getNameRating(t->name.c_str(), &o_rate, &o_bokm);
-	char old[MP];  t->getFullName(old);
+	string old = t->getFullPath();
 	
 	// different
 	if (t->rate != o_rate || t->bokm != o_bokm)
@@ -50,24 +51,23 @@ bool CList::RenameRate(pTrk t)
 		if (t->rate != 0)
 			sadd(s, chFRate[mia(0,chRall, t->rate+cR0)]);
 		
-		char name[MP+1];  //t->getFullName(name);
-		StringCbPrintfA(name,MP, "%s%s.%s", t->path, s, t->ext.c_str());
+		string name = t->path + s + t->ext;
 
 		// rename
 		if (t->isDir())
 		{
 		
 		}
-		if (MoveFileA(old, name)==FALSE)
+		if (MoveFileA(old.c_str(), name.c_str())==FALSE)
 		{
 			DWORD e = GetLastError()&0xFFFF;
-			p(s)"%s\nto:\n%s\nError: %d %s", old, name, e,
-				e==ERROR_SHARING_VIOLATION? "file is opened":
+			string s = old + "\nto:\n" + name + "Error: " + cStr::iToStr(e) + " " +
+				(e==ERROR_SHARING_VIOLATION? "file is opened":
 				e==ERROR_FILE_NOT_FOUND? "file not found":
 				e==ERROR_PATH_NOT_FOUND? "path not found" :"");
 			if (e==ERROR_FILE_NOT_FOUND || e==ERROR_PATH_NOT_FOUND)
 				t->dis = 1;
-			Info(s,"Can't rename file");
+			Info(s.c_str(), "Can't rename file");
 		}
 		else
 		{	// change trk name
@@ -87,13 +87,11 @@ void CList::CopySelFiles()
 	{
 		if (q->sel)
 		{
-			char pa[MP],to[MP],tp[MP];  q->getFullName(pa);
-			scpy(to,pa);  to[0] = 'd';  // drive letter
-			scpy(tp,q->path.c_str());  tp[0] = 'd';
-			///TODO from set.xml ..
-			//int i = strlen(tp);
-			//if (i > 0)  tp[i-1] = 0;
-
+			string pa = q->getFullPath();
+			string to = pa.substr(2);  // rem drive d: etc
+			to = "e:\\" + to;  // replace  ///todo from xml..
+			//  copy
+			string tp,tf;  cExt::splitPath(to, tp, tf);
 			try
 			{
 				bfs::create_directories(tp);
@@ -123,10 +121,14 @@ void CList::listUpd(bool bUpdCur)
 	bool upd = false,uc=0;	pTrk tkPl=0, tkCur=0; int lOd=0;
 	float fCur=0.f, fL= listLen-1; //rel
 	
-	if (vList.size() > 0)  {  upd = true;
+	int si = vList.size();
+	if (si > 0)
+	{	upd = true;
 		fCur = float(lCur)/fL;//rel
-		if (idPl > vList.size()-1)  idPl = vList.size()-1;//
-		tkPl = vList[idPl];  tkCur = vList[lCur];  lOd = lOfs-lCur;  }
+		if (idPl > si-1)  idPl = si-1;//
+		tkPl = vList[idPl];  tkCur = vList[lCur];
+		lOd = lOfs-lCur;
+	}
 	// move cur,idPl so they'd be in upd--
 	// show/hide empty dirs, one file dirs opts...
 	
@@ -146,28 +148,52 @@ void CList::listUpd(bool bUpdCur)
 			//  subdir-1
 			pe[0] = 0;
 			char* p2 = strrchr(p,'\\');
-			if (p2)  d->AddPath2(p2+1);
+			if (p2)  d->path2 = p2+1;
+
+			/*string p0,p1;
+			int l = q->path.length()-1;
+			int p = l, u = 0;
+			while (p >= 0 && u < 2)
+			{
+				char c = q->path[p];
+				if (c=='\\'||c=='/')
+				{
+					if (p==l)  --l;
+					else
+					{	string pa = q->path.substr(p+1,l-1);
+						if (u==0)  p0 = pa;
+						else if (u==1)  p1 = pa;
+						l = p;  ++u;
+					}
+				}	--p;
+			}
+
+			d = new CTrk(p0, q->path);
+			d->type = TY_DIR;
+			d->path2 = p1;*/
+			d->type = TY_DIR;
 			
 			vDirs.push_back(d);  //for delete
-			
-			vList.push_back(d);  listLen++;  i++;  /// Add Dir
-			allDirs++;	hid = 0;
+			vList.push_back(d);
+			++listLen;  ++i;  /// Add Dir
+			++allDirs;  hid = 0;
 		}
 		if (d)  d->next = q;  //h+
 		
 		if (q->hide > 0)  hid = q->hide;  //opt for hide/show dir
 		if (hid==0 && (q->rate >= iRFilt && q->rate <= iRFilU) || hid==2)  // rating filtering
-		{	vList.push_back(q);
+		{
+			vList.push_back(q);
 
 			if (upd)  {
 				if (q==tkPl)  idPl = i;  //_ wont work on dirs
 				if (q==tkCur && bUpdCur)
 				{  lCur = i;  lOfs = lCur+lOd;  uc=1;  }  }
 
-			listLen++;  i++;  /// Add File
-			if (bFilInf)	{	allFiles++;  allTime += q->time;  allSize += q->size;	}  // filtered
+			++listLen;  ++i;  /// Add File
+			if (bFilInf){	++allFiles;  allTime += q->time;  allSize += q->size;	}  // filtered
 		}
-		if (!bFilInf)	{	allFiles++;  allTime += q->time;  allSize += q->size;	}  // all
+		if (!bFilInf)	{	++allFiles;  allTime += q->time;  allSize += q->size;	}  // all
 
 		qo = q;  q = q->next;
 	}

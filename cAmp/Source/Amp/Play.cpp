@@ -31,12 +31,11 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	//bDrawPlst = true;  // Z,X diffr--
 
 	//  get name
-	char name[MP];
-	tkPl->getFullName(name);
+	string fname = tkPl->getFullPath();
 
 	//  create stream
 	BASS_StreamFree(chPl);  // free old	,stop
-	chPl = BASS_StreamCreateFile(FALSE,name,0,0, (bRep1? BASS_SAMPLE_LOOP: 0) | BASS_STREAM_AUTOFREE);
+	chPl = BASS_StreamCreateFile(FALSE,fname.c_str(),0,0, (bRep1? BASS_SAMPLE_LOOP: 0) | BASS_STREAM_AUTOFREE);
 	if (!chPl)
 	switch (BASS_ErrorGetCode())
 	{
@@ -47,8 +46,9 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 			if (bNextPrev)	Next();  else  Prev();
 		}	rf
 		default:	// other
-		{	p(s)"%s\n (error code: %d)",name,
-			BASS_ErrorGetCode());
+		{	p(s)"%s\n (error code: %d)",
+				fname.c_str(),
+				BASS_ErrorGetCode());
 			Info(s,"Can't play file");
 		}	rf
 	}

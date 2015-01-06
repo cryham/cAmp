@@ -205,8 +205,7 @@ void cAmp::LoadPlsts()
 		pTrk tkPl = plsPl->vList[plsPl->idPl];
 		if (tkPl && !tkPl->isDir())
 		{
-			char s[320];
-			tkPl->getFullName(s);
+			string s = tkPl->getFullPath();
 			if (boost::filesystem::exists(s))
 				PlayFrom(lastPos);
 	}	}

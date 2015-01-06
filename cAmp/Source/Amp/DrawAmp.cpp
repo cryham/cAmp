@@ -52,9 +52,9 @@ void cAmp::DrawAmpText()
 		cf->Fclr = D3DXCOLOR(0.8,0.93,1,1);  pTrk tk = pls->vList[pls->lCur];
 
 		//cf->StrWr(ExtAud[tkPl->ext], 1,yBvi);
-		cf->StrWr(tk->path, 3,yB_vis+cf->Fy/2);
-		cf->Format("%s.%s",tk->name, tk->ext.c_str());
-		//cf->StrCopy(tk->name);  cf->StrAdd(".");  cf->StrAdd(ExtAud[tk->ext]);
+		cf->StrWr(tk->path.c_str(), 3,yB_vis+cf->Fy/2);
+		cf->Format("%s.%s", tk->name.c_str(), tk->ext.c_str());
+		//cf->StrCopy(tk->name.c_str());  cf->StrAdd(".");  cf->StrAdd(ExtAud[tk->ext]);
 		cf->Write(3,yB_vis+4*cf->Fy-cf->Fy/2);
 		cf->bSl=true;
 	}

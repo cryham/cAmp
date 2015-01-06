@@ -103,24 +103,24 @@ void CList::UpdTimes()
 
 void CList::updTi()
 {
-	HSTREAM chan;  char nf[MP];
+	HSTREAM chan;
 	allTime = 0.0;
 
 	for (itu=0; itu<listLen; ++itu)
 	{	pTrk q = vList[itu];  if (q)  if (q->type == TY_AUDIO)  {
 
 		if (q->time == 0.0)
-		{	q->getFullName(nf);
+		{	string name = q->getFullPath();
 		
-			if ( chan = BASS_StreamCreateFile(FALSE, nf, 0,0,0) )
+			if ( chan = BASS_StreamCreateFile(FALSE, name.c_str(), 0,0,0) )
 			{	QWORD bytes = BASS_ChannelGetLength(chan,BASS_POS_BYTE);
 				double time = BASS_ChannelBytes2Seconds(chan,bytes);
 				q->time = time;
 				BASS_StreamFree(chan);  }
 			/*else  // ti get error ..
-			{	char s[200];
-				p(s)"(error code: %nx)",BASS_ErrorGetCode());
-				MessageBoxA(0, s, "bass", MB_OK|MB_ICONWARNING);
+			{	string s;
+				s = "error code: "+iToStr(BASS_ErrorGetCode());
+				MessageBoxA(0, s.c_str(), "bass", MB_OK|MB_ICONWARNING);
 			}/**/
 			//Sleep(200);//
 		}
@@ -187,7 +187,7 @@ CList::CList()
 	allSize=0; dirSize=0; allTime=0; allDirs=0; allFiles=0;
 	selSize=0; selTime=0;
 
-	sPath[0]=0;  pp[0]=0;  srchPath[0]=0;  ss[0]=0;
+	sPath[0]=0;  pp[0]=0;  ss[0]=0;
 	lev=0;  itu=0;  bThr=0; bThrTi=0;  bbThr=0;
 	lInsPos=0; lInsM=-1;  ylastSel, numSel=0;  InsM=-2;//top
 	iRFilt=-cR0; iRFilU=cR1; //all
@@ -198,22 +198,19 @@ CList::~CList()
 	destroyThr();	destList();
 }
 
-CTrk::CTrk(const char* Name, const char* Path)
-{	nx = p = pv = NULL;	name = NULL;  path = NULL; prev = next = NULL;  path2 = NULL;
-	time = 0; size = 0;  sel = 0;  srch = 0;  time = 0.0;
-	type = 0; tab = 0;  hide = 0;  rate = 0;  dis = 0;  bokm = 0;
-	
-	int l = strlen(Name)+1;  name = new char[l];  strcpy(name, Name);
-	int r = strlen(Path)+1;  path = new char[r];  strcpy(path, Path);
-	
+CTrk::CTrk(const string& Name, const string& Path)
+	//
+	:nx(0),pv(0),/*p(0),*/ prev(0),next(0)
+	,time(0.0), size(0L)
+	,sel(0), dis(0), tab(0)
+	,type(TY_FILE), srch(0)
+	,hide(0), rate(0), bokm(0)
+	,name(Name), path(Path)
+{
+	p=0;
 	updName();
 }
 
-void CTrk::AddPath2(const char* Path2)
-{
-	int r = strlen(Path2)+1;  path2 = new char[r];  strcpy(path2, Path2);
-}
 CTrk::~CTrk()
 {
-	delete[] name;  delete[] path;  delete[] path2;
 }

@@ -11,8 +11,9 @@ bool CList::Load()
 {
 	//**/static Timer ti;  ti.update();
 
-	ifstream fi;  char s[MP*2],ss[MP*2],n[MP*2],e[20];
+	char s[MP+2],ss[MP+2],n[MP+2],e[22];
 	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
+	ifstream fi;
 	fi.open(s,ios_base::in|ios_base::binary);
 	if (fi.fail())  {  p(n)"Can't open file\n%s",s);  Wrng(n,slp)  }
 
@@ -23,7 +24,7 @@ bool CList::Load()
 	pTrk prv = NULL, ll1 = NULL, qq = NULL;
 	while (!fi.eof())
 	{	// p,n,e
-		fi.getline(s,MP,'|');  fi.getline(n,MP,'|');  fi.getline(e,MP,'|');
+		fi.getline(s,MP,'|');  fi.getline(n,MP,'|');  fi.getline(e,20,'|');
 		if (strlen(s) > 0 && strlen(n) > 0 && strlen(e) > 0)
 		{
 			if (!qq || s[0] != '<')  scpy(ss, s);  // new path
@@ -52,7 +53,8 @@ bool CList::Load()
 	
 	if (ll1)
 	{	insertList(/*InsM*/-2, getCur(), ll1,prv);  //ins
-		listUpd(1/*0*/);  }
+		listUpd(1/*0*/);
+	}
 
 	//**/ti.update();   App::pAmp->time = ti.dt;
 	rt
@@ -74,7 +76,7 @@ bool CList::Save()
 	pTrk q = ll, qq = q; //prev
 	while (q)
 	{
-		if (q != ll && strcmp(q->path, qq->path)==0)
+		if (q != ll && q->path == qq->path)
 			of << '<';  // same path
 		else
 			of << q->path;

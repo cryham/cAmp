@@ -101,7 +101,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 
 	// search dir
 	cf->bSl = false;
-	if (!bList)	{	cf->StrWr(pls->srchPath, 0,yB_pl);  }
+	if (!bList)	{	cf->StrWr(pls->srchPath.c_str(), 0,yB_pl);  }
 	cf->bSl = true;
 	
 	// Tracks
@@ -128,9 +128,9 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 				 if (q->isDir())	   clr(0.8,0.7,0.95);  //dir
 			else if (q->prev == NULL)  clr(1.0,0.3,0.2);  //1st
 			else if (q->next == NULL)  clr(1.0,0.3,0.2);  //last
-			else if (mid && strcmp(q->next->prev->name, q->prev->next->name) != 0)					clr(1.0,0.2,0.4);  //split
-			else if (mid && strcmp(q->next->name, pls->vList[i+1]->name) != 0&& !q->next->isDir())  clr(1.0,0.7,0.3);  //next
- 			else if (mid && strcmp(q->prev->name, pls->vList[i-1]->name) != 0&& !q->prev->isDir())  clr(1.0,0.7,0.3);  //prev
+			else if (mid && q->next->prev->name != q->prev->next->name)					  clr(1.0,0.2,0.4);  //split
+			else if (mid && q->next->name != pls->vList[i+1]->name && !q->next->isDir())  clr(1.0,0.7,0.3);  //next
+ 			else if (mid && q->prev->name != pls->vList[i-1]->name && !q->prev->isDir())  clr(1.0,0.7,0.3);  //prev
 			else
 			#endif
 			///  clr
@@ -148,14 +148,14 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			cf->Fs[' '] = cf->Fs['0']/2;
 			#if 1  // normal
 				if (CList::iDirView == 2 && q->isDir())
-					cf->Format("%s", q->path);
+					cf->Format("%s", q->path.c_str());
 				else
 					cf->Format("%s", q->name_pls.c_str());  // offset long.. shift wheel
 			#else  // debug list
-				if (q->isDir())  p(cf->s) "%s  %s", q->name,  pls->ll->name);  else
+				if (q->isDir())  p(cf->s) "%s  %s", q->name.c_str(),  pls->ll->name.c_str());  else
 				p(cf->s) "%s <   %s   > %s",
-					!q->prev ? "-" : q->prev->name,  q->name,
-					!q->next ? "-" : q->next->name );
+					!q->prev ? "-" : q->prev->name.c_str(),  q->name.c_str(),
+					!q->next ? "-" : q->next->name.c_str() );
 			#endif
 			
 			//  dir adds
@@ -163,7 +163,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 				cf->StrAdd(q->next->hide==1 ? " ->":" +>");  //1hide/2show dir
 
 			if (CList::iDirView == 1)
-				if (q->path2) {  cf->StrAdd(" / ");  cf->StrAdd(q->path2);  }
+				if (!q->path2.empty()) {  cf->StrAdd(" / ");  cf->StrAdd(q->path2.c_str());  }
 			
 			//  write
 			xx = xB + c*xTab;

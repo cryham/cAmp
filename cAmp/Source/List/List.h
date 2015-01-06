@@ -11,8 +11,8 @@ public:
 	CTrk *nx,*pv,*p,  // tree: down,back, right
 		*next,*prev;  // list: next,prev
 
-	char* name, *path, *path2;  //sub-1
-	std::string name_pls, ext;
+	std::string path, name, ext;
+	std::string path2, name_pls;  // subdir-1, name shown in pls
 	double time;  INT64 size;
 	
 	//  extra
@@ -24,13 +24,11 @@ public:
 
 	bool isDir() {  return  type < TY_FILE;  }
 	
-	void getFullName(char* str)  {
-		StringCbPrintfA(str,MP-1, "%s%s.%s", path, name, ext.c_str());  }
+	string getFullPath(){  return path + name + "." + ext;  }
 	void updName();
 
 	CTrk::~CTrk();
-	CTrk::CTrk(const char* Name, const char* Path);
-	void AddPath2(const char* Path2);
+	CTrk::CTrk(const std::string& Name, const std::string& Path);
 };
 
 typedef CTrk* pTrk;
@@ -43,13 +41,19 @@ public:
 	CList();  ~CList();
 	std::string name;  //=filename
 
-	//  adv oper
-	bool RenameRate(pTrk t),
-		Load(), Save();  void  Clear(),
-		Hide(bool show), UnSel(), GotoPlay(), Center(),
-		Bookm(int lev), BookmPrev(int lev, bool bSrch),BookmNext(int lev, bool bSrch),
-		DecRatePl(),IncRatePl(),DecRate(),IncRate(),
-		DecRFil(bool upr),IncRFil(bool upr);  int iRFilt,iRFilU;
+	//  adv list
+	bool RenameRate(pTrk t);
+	bool Load(), Save();
+	void Clear(), UnSel(), GotoPlay(), Center();
+	void Hide(bool show);  //.. save in dirs
+	//  bookmarks
+	void Bookm(int lev), BookmPrev(int lev, bool bSrch), BookmNext(int lev, bool bSrch);
+
+	//  rating
+	void DecRatePl(),IncRatePl(), DecRate(),IncRate();
+	//  filtering lower,upper
+	int iRFilt,iRFilU;
+	void DecRFil(bool upr),IncRFil(bool upr);
 
 	//  select
 	void  Pick(int cr), Select1(int cr),SelRange(int cr, bool un), SelDir(int cr),
@@ -63,8 +67,10 @@ public:
 		CopySelFiles();
 	
 	//  tree, create
-	void  treeCrt(), listCrt();  int listLen;  // length
-	void  tree1File(pTrk* t, pTrk* q);  bool trGet,trRem;
+	int listLen;  // length
+	void  treeCrt(), listCrt();
+
+	void  tree1File(pTrk* t, pTrk* q, const char* fullpath=0);  bool trGet,trRem;
 	void  getNameRating(const char* name, char* pRate, BYTE* pBokm);
 	pTrk  tree1Dir(const char* subPath),  tt,ww, ll;  /*1st(root): tt-tree, ww-back, ll-list*/
 	pTrk  tree1Dir(pTrk* t, pTrk* q); //drop
@@ -75,12 +81,15 @@ public:
 	void  destList(), destDirs();  // destroy
 	pTrk  getCur();  //ins
 
-	int  idPl, getTkPlIdx();  //  playing
+	//  playing
+	int  idPl, getTkPlIdx();
 	
 	//  path
 	WIN32_FIND_DATAA fd;
-	char  sPath[MP],pp[MP], srchPath[MP],ss[MP];
-	void  InsertDir(char* Path);/*+*/  int InsM;  // top,end,cur
+	std::string srchPath, ss;
+	std::string sPath, pp;
+	int InsM;  // top,end,cur
+	void  InsertDir(const char* Path);/*+*/
 
 	//  therads
 	HANDLE hs, thr,thrTi; // dir,timeupd

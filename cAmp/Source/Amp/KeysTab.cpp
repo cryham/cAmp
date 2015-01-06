@@ -21,7 +21,7 @@ void cAmp::RenameAll(int type)
 			while (q)
 			{
 				if (!q->isDir())
-				if (type==2 || strcmp(q->path, tcur->path)==0)
+				if (type==2 || q->path == tcur->path)
 				{
 					if (e && q==tkPl)  Stop();
 					if (pls->RenameRate(q))  i++;
@@ -47,14 +47,15 @@ void cAmp::DoSearch()
 {
 	iSrchAll = 0;
 	if (srch[0]!=0)
-	for (int a=0; a < vPlst.size(); a++)
+	for (size_t a=0; a < vPlst.size(); a++)
 	{
 		CList* pl = vPlst[a];
 		int ii = 0;  // hits
 		
+		///todo: on full list..
 		for (int i=0; i < pl->listLen; i++)
 		{	pTrk q = pl->vList[i];
-			char* name = _strdup(q->name);	_strlwr(name); //no case
+			char* name = _strdup(q->name.c_str());	_strlwr(name); //no case
 			bool bSch = strstr(name, srch)!=NULL;  // found
 			q->srch = bSch ? 1:0;
 			if (bSch)  ii++;
@@ -195,9 +196,7 @@ void cAmp::tabNew(int m)
 {
 	pls->Save();
 	CList* pl = new CList();
-	char nn[10];
-	p(nn) "%d", ++cntrPls);
-	pl->name = nn;
+	pl->name = iToStr(++cntrPls);
 
 	if (m==2)
 	{	//  ctrl- at end

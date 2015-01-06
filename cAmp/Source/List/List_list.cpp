@@ -97,12 +97,15 @@ void CList::Insert1(int m, pTrk nt)
 
 	//pTrk prv = cur->prev, nxt = cur->next;
 	pTrk n;
-	if (nt == 0) {  nt = cur;  //0-dupl
+	if (nt == 0)
+	{	nt = cur;  //0-dupl
+
 		n = new CTrk(nt->name, nt->path);  // copy
-		n->type = nt->type;  n->tab = nt->tab;  n->ext = nt->ext;
+		n->ext = nt->ext;  n->type = nt->type;  n->tab = nt->tab;
 		n->time = nt->time;  n->size = nt->size;
-		n->rate = nt->rate;  n->bokm = nt->bokm;  }
-	else  n = nt;
+		n->rate = nt->rate;  n->bokm = nt->bokm;
+	}else
+		n = nt;
 
 	ins(m, cur, n);  // ins
 	itu++;
@@ -198,15 +201,15 @@ void CList::del(pTrk q, bool disk)
 	
 	if (q && disk)
 	{
-		char s[MP];  q->getFullName(s);
-		if (DeleteFileA(s)==FALSE)  //FormatMessageA()
+		string s = q->getFullPath();
+		if (DeleteFileA(s.c_str())==FALSE)  //FormatMessageA()
 		{	DWORD er = GetLastError();
 			if (er == ERROR_FILE_NOT_FOUND || er == ERROR_PATH_NOT_FOUND)
-				Info(s,"Can't delete file (File/path not found");
+				Info(s.c_str(), "Can't delete file (File/path not found");
 			else if (er == ERROR_ACCESS_DENIED)
-				Info(s,"Can't delete file (Access denied)");
+				Info(s.c_str(), "Can't delete file (Access denied)");
 			else
-				Info(s,"Can't delete file");
+				Info(s.c_str(), "Can't delete file");
 	}	}
 
 	if (q == ll) {  ll = nxt;	if (nxt) nxt->prev = NULL;  }  //1st
@@ -261,12 +264,12 @@ void CList::destThrTi()
 		TerminateThread(thrTi, 1);  }
 }
 
-void CList::InsertDir(char* Path) /*+*/
+void CList::InsertDir(const char* Path) /*+*/
 {
 	//if (!Path)  return;
 	if (Path)  {
-		scpy(sPath, Path);  // end with \ 
-		if (sPath[strlen(sPath)-1]!='\\')  sadd(sPath,"\\");	}
+		sPath = Path;  // end with \ 
+		if (sPath[sPath.length()-1] != '\\')  sPath += "\\";  }
 
 	if (bThr)  {	//WaitForSingleObject(thr, 100);
 		if (bThr)  return;  }

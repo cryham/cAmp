@@ -28,7 +28,7 @@ enum ePlrFuns
 	FU_PrevPls, FU_NextPls, 
 
 	FU_Back, FU_Forw,  FU_Back1, FU_Forw1,  FU_Back2, FU_Forw2,
-	FU_VolDn, FU_VolUp, /*FU_VolDn1,FU_VolUp1,*/ FU_VolDn2, FU_VolUp2,
+	FU_VolDn, FU_VolUp, FU_VolDn2, FU_VolUp2,
 	FU_RatInc, FU_RatDec, FU_Rep1, FU_ALL
 };
 
@@ -39,7 +39,7 @@ const char cswFuns[FU_ALL][24] =
 	"Prev < playlist", "Next > playlist",
 
 	"Backward <<", "Forward  >>",  "Bck  << small", "Frw >> small",  "Bck  << big", "Frw >> big",
-	"Volume Down", "Volume Up ^",  /*"Vol Dn small","Vol Up small",*/  "Vol Dn big", "Vol Up big", 
+	"Volume Down", "Volume Up ^",  "Vol Dn big", "Vol Up big", 
 	"Inc + Rating", "Dec - Rating", "Repeat 1 One"
 };
 

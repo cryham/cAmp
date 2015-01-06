@@ -48,7 +48,7 @@ LRESULT cAmp::OnDropFiles(WPARAM wParam, LPARAM lParam)
 	char sFile[MAX_PATH];
 	HDROP hDrop = (HDROP)wParam;
 
-	// chg icon...  show _
+	// change icon...  show _
 	// none- after cur,  shift- top, ctrl- end
 	if (!pls->ll) pls->InsM = 2; else
 	if (shift)	pls->InsM = -2; else	if (ctrl)	pls->InsM = 2; else
@@ -68,11 +68,10 @@ LRESULT cAmp::OnDropFiles(WPARAM wParam, LPARAM lParam)
 	if (nFiles==1)	// --------- 1 ---------
 	{
 		dragGetName(0);  if (dir) {  //  Dir
-			scpy(pls->sPath, sFile);	sadd(pls->sPath,"\\");  //end\ 
+			pls->sPath = string(sFile) + "\\";  //end\ 
 			pls->tt = pls->tree1Dir("");  pls->trGet = true;  pls->InsertDir(0);
-		}else{  //  File   drop pls-..
-			scpy(pls->pp, sFile);  char* pe = strrchr(pls->pp,'\\');  if (pe)  pe[1]=0;  //get path
-			pls->tree1File(&tf, &qf);	if (tf)  {
+		}else{  //  File
+			pls->tree1File(&tf, &qf, sFile);	if (tf)  {
 				pls->ins(pls->InsM, pls->getCur(), tf);  //ins
 				pls->listUpd(1);  pls->UpdTimes();  }
 		}
@@ -80,24 +79,24 @@ LRESULT cAmp::OnDropFiles(WPARAM wParam, LPARAM lParam)
 	if (pls->InsM == 2) // || pls->InsM == -1)
 	{
 		for (i = 0; i < nFiles; i++) {	dragGetName(i);  if (dir)	//  Dirs
-			{	scpy(pls->sPath, sFile);	sadd(pls->sPath,"\\");
+			{	pls->sPath = string(sFile) + "\\";
 				pls->trGet = true;  pls->InsertDir(0);	//Sleep(100);
 				while (pls->bbThr)  Sleep(10);  // <!>
 			}	}
 		for (i = 0; i < nFiles; i++) {	dragGetName(i);  if (!dir)	//  Files
-			{	scpy(pls->pp, sFile);	char* pe = strrchr(pls->pp,'\\');  if (pe)  pe[1]=0;
-				pls->tree1File(&tf, &qf);	files=true;
+			{
+				pls->tree1File(&tf, &qf, sFile);	files=true;
 			}	}
 		if (files) {  pls->tt = tf;  pls->trGet = false;  pls->InsertDir(0);  }
 	}else{
 		for (i = 0; i < nFiles; i++) {	dragGetName(i);  if (!dir)	//  Files
-			{	scpy(pls->pp, sFile);	char* pe = strrchr(pls->pp,'\\');  if (pe)  pe[1]=0;
-				pls->tree1File(&tf, &qf);	files=true;
+			{
+				pls->tree1File(&tf, &qf, sFile);	files=true;
 			}	}
 		if (files) {  pls->tt = tf;  pls->trGet = false;  pls->InsertDir(0);  }
 
 		for (i = nFiles-1; i >= 0; i--) {	dragGetName(i);  if (dir)	//  Dirs
-			{	scpy(pls->sPath, sFile);	sadd(pls->sPath,"\\");
+			{	pls->sPath = string(sFile) + "\\";
 				pls->trGet = true;  pls->InsertDir(0);	//Sleep(100);
 				while (pls->bbThr)  Sleep(10);  // <!>
 			}	}

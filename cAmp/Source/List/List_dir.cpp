@@ -48,12 +48,17 @@ void CTrk::updName()
 
 
 // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 File
-void CList::tree1File(pTrk* tf, pTrk* qf)
+void CList::tree1File(pTrk* tf, pTrk* qf, const char* fullpath)
 {
-	string filename = fd.cFileName;
-	string path = pp, name,ext;
-
-	cExt::splitExt(filename, name,ext);
+	string path, filename;
+	if (fullpath)
+		cExt::splitPath(string(fullpath), path,filename);
+	else
+	{	filename = fd.cFileName;
+		path = pp;
+	}
+	string fname,ext;
+	cExt::splitExt(filename, fname,ext);
 	if (!cExt::Find(ext))
 		return;  // unplayable
 
@@ -62,11 +67,11 @@ void CList::tree1File(pTrk* tf, pTrk* qf)
 	allSize += si;	dirSize += si;
 	allFiles++;
 	//  add
-	pTrk n = new CTrk(name.c_str(), path.c_str());  n->ext = ext;
+	pTrk n = new CTrk(fname, path);  n->ext = ext;
 	n->type = TY_AUDIO;
 	n->pv = ww;
 	n->size = si;
-	getNameRating(n->name, &n->rate, &n->bokm);
+	getNameRating(n->name.c_str(), &n->rate, &n->bokm);
 	if (*qf)  (*qf)->nx = n;  else  *tf = n;  /*1st*/
 	(*qf) = n;  //list
 }
@@ -118,9 +123,9 @@ pTrk CList::tree1Dir(const char* subPath)
 	dirSize = 0;
 	
 	/* Path */
-	char pp1[MP];
-	strcpy(pp,sPath);  strcat(pp,subPath);  scpy(pp1,pp);	strcat(pp1,"*.*");
-	hs = FindFirstFileA(pp1,&fd);
+	string pp1;
+	pp = sPath + subPath;  pp1 = pp + "*.*";
+	hs = FindFirstFileA(pp1.c_str(),&fd);
 	if (hs == INVALID_HANDLE_VALUE)  return t;
 	
 	bool done = true;
@@ -131,10 +136,11 @@ pTrk CList::tree1Dir(const char* subPath)
 			if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)  //  Dir
 			{
 				pTrk n = new CTrk(fd.cFileName, pp);
-				if (q)  q->nx = n;  else  /*1st*/t = n;  q = n;
+				if (q)  q->nx = n;  else  /*1st*/t = n;
+				q = n;
 				q->pv = ww;  q->type = TY_DIR_unv;
 				q->size = 0;  q->tab = lev;
-				getNameRating(n->name, &n->rate, &n->bokm);  // dir rating
+				getNameRating(n->name.c_str(), &n->rate, &n->bokm);  // dir rating
 			}
 			else  //  File
 				tree1File(&tf, &qf);
@@ -144,7 +150,7 @@ pTrk CList::tree1Dir(const char* subPath)
 	FindClose(hs);
 	
 	//  add files
-	if (tf) if (q)  q->nx = tf;  else  t = tf;
+	if (tf)  if (q)  q->nx = tf;  else  t = tf;  /*1st*/
 	return t;
 }
 
@@ -166,11 +172,15 @@ void CList::treeCrt()
 		{
 			q->type = TY_DIR;	ww = q;
 			
-			/* path+ */o = q;	srchPath[0] = 0;
-			do {  strcpy(ss, o->name);  strcat(ss,"\\");
-				strcat(ss,srchPath);  strcpy(srchPath,ss);  o = o->pv;  } while(o);
+			/* path+ */
+			srchPath = "";
+			o = q;
+			do {
+				ss = o->name + "/" + srchPath;
+				srchPath = ss;  o = o->pv;
+			}while(o);
 
-			q->p = tree1Dir(ss);
+			q->p = tree1Dir(ss.c_str());
 			
 			/* add allSize */
 			o = q;

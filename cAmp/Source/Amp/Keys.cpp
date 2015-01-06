@@ -202,7 +202,7 @@ bool cAmp::Keys(WPARAM k)
 				if (rem) {	pls->UnSel();  clrSelId();  pls->SelDir(pls->lCur);  }
 
 				pls->trGet = true;  pls->trRem = true;
-				pls->InsertDir(pls->vList[pls->lCur]->path);
+				pls->InsertDir(pls->vList[pls->lCur]->path.c_str());
 
 				// delete duplicated-
 				//if (rem) {	int i=0;
