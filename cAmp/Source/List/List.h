@@ -24,7 +24,7 @@ public:
 
 	bool isDir() {  return  type < TY_FILE;  }
 	
-	string getFullPath(){  return path + name + "." + ext;  }
+	std::string getFullPath(){  return path + name + "." + ext;  }
 	void updName();
 
 	CTrk::~CTrk();

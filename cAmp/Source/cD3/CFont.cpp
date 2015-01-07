@@ -1,6 +1,6 @@
 #include "header.h"
-
 #include "CFont.h"
+using namespace std;
 
 
 #define InfMsg(b, c)	{	MessageBoxA(0, b, c, MB_OK/*|MB_RIGHT*/|MB_ICONINFORMATION );  }

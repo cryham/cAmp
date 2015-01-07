@@ -1,9 +1,9 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\main\App.h"
 #include "..\cD3\Graphics.h"
 #include "MMSystem.h"
+using namespace std;
 
 
 ///* - -  -   -                                -  - -- Begin -- -  -                                 -  -  - - */
@@ -25,12 +25,10 @@ DWORD WINAPI VprThread(LPVOID lpParam)
 
 bool cAmp::Begin()
 {
-	GetModuleFileNameA(0,s,sizeof(s));
-	scpy(appPath, s);  char* pe = strrchr(appPath,'\\')+1;  pe[0]=0;  //ends with\ 
-
 	ScrSize();
 	SetLoad();	// set
 	ClrLoad();
+	
 	SetPriorityClass(GetCurrentProcess(),  // not here-
 		iPriority>=2 ? REALTIME_PRIORITY_CLASS :
 		(iPriority==1 ? HIGH_PRIORITY_CLASS : NORMAL_PRIORITY_CLASS) );
@@ -158,20 +156,38 @@ void cAmp::UpdDim(float rfrFq)
 }
 
 cAmp::cAmp()
-{	bL= bR= bM= bLsl= false;  xm= 0; ym= 0;  xMs= 0; yMs= 0; yMd= 0;  bMInWnd=0;  mti=0.f;
-	chPl= 0; chRec= 0; chSync= 0;
-	bPaused= 0;  bPlay= 0;
-	sPlInf[0]=0;  thrIns = 0;  appPath[0]=0;
-	pls=plsPl=plsSel=NULL;  plsSelId=-1;
-	sed[0]=0;  ied=0;  srch[0]=0;  fTi=0.f;  Lxm=NULL;  bFInfo=0; bAllInfo=0;
-	bNextPrev=1;  bDrawPlst=1; bDrawPlst2=0;  bShowSrch=0; iSrchAll=0; bAltOld=0;
-	yPickKey=-1; bPickingKey=0; btnKeysOk=btnKeysOn=0;
-	clear=1;  hlpPg=0;  hpr = NULL;
-	ed=ED_Pls;  //ed=ED_Set1;  //*
-	gpg=0;
+	:hpr(0), run(0)
+	,bDrawPlst(1), bDrawPlst2(0)
+	,xm(0),ym(0),xms(0),yms(0), xMs(0),yMs(0),yMd(0)
+	,yMFvi(0), xLs(0),yLs(0)
+	,bLsl(0), bMInWnd(0), mti(0.f),mtiv(0)
+	,bHKeys(0), iPriority(0)
+	,yPickKey(-1), bPickingKey(0), btnKeysOk(0),btnKeysOn(0)
+	,bWasPlay(0), bRepAll(0),bRep1(0), fVol(1.f)
+	,tmPl(0), tmTot(0), lastPos(0), time(0), bNextPrev(1)
+	,thrIns(0)
+	,fTi(0.01f)
+	,ed(ED_Pls), hlpPg(0)
+	,ied(0), Lxm(0)
+	,nTabMov(0)
+	,pls(0),plsPl(0),plsSel(0)
+	,plsId(0),plsPlId(0),plsSelId(-1)
+	,cntrPls(0)
+	,bShowSrch(0), bAltOld(0), iSrchAll(0)
+	,thrCopy(0), copyType(0)
+	,bThrCopy(0), bCopyAbort(0)
+	,copyMBCur(0.f),copyMBAll(0.f)
+	,tmClrMode(0) //rtx
+	,aaD(0),aaF(0), aaSi(0), aaTm(0)
+	,gpg(0)
+{
+	appPath[0]=0;  sPlInf[0]=0;  sInsPath[0]=0;
+	sed[0]=0;  srch[0]=0;
 }
 cAmp::~cAmp()
-{	delete[] Lxm;	}
+{
+	delete[] Lxm;
+}
 
 
 

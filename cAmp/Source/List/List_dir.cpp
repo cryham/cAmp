@@ -1,6 +1,7 @@
 #include "header.h"
 #include "List.h"
 #include "..\main\str.h"
+using namespace std;
 
 
 void CList::getNameRating(const char* name, char* pRate, byte* pBokm)
@@ -76,44 +77,6 @@ void CList::tree1File(pTrk* tf, pTrk* qf, const char* fullpath)
 	(*qf) = n;  //list
 }
 
-// . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 Dir drop
-#if 0
-pTrk CList::tree1Dir(pTrk* t, pTrk* q)
-{
-	pTrk  /*t=NULL, q=NULL,*/  tf=NULL, qf=NULL;
-	dirSize = 0;  allImg = 0;
-	
-	/* Path */
-	char pp1[MP];
-	strcpy(pp,sPath);  strcat(pp,subPath);  scpy(pp1,pp);	strcat(pp1,"*.*");
-	hs = FindFirstFileA(pp1,&fd);
-	if (hs == INVALID_HANDLE_VALUE)  return t;
-	
-	bool done = true;
-	while (done)
-	{
-		if (fd.cFileName[0] != '.')
-		{
-			if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)  //  Dir
-			{
-				pTrk n = new CTrk(fd.cFileName, pp);
-				if (q)  q->nx = n;  else  /*1st*/t = n;  q = n;
-				q->pv = ww;  q->type = TY_DIR_unv;
-				q->size = 0;  q->tab = lev;
-				q->rate = getNameRating(q);  // dir rating
-			}
-			else  //  File
-				tree1File(&tf, &qf);
-		}
-		if (!FindNextFileA(hs,&fd))  done = false;
-	}
-	FindClose(hs);
-	
-	//  add files
-	if (tf) if (q)  q->nx = tf;  else  t = tf;
-	return t;
-}
-#endif
 
 // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 Dir
 

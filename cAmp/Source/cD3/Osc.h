@@ -41,11 +41,11 @@ public:
 	int nDev, nFreq;
 	void bErr(const char *s);
 	char* GetErrStr(int err);
-	vector<char*> sDevs;
+	std::vector<char*> sDevs;
  
   //  Lin =
 	float  dt;  //, xL,xR, Ladd,Lsub;
 	float  A[sWAV], C[PrLin][sWAV];  //fft,wav clr
 
 	DWORD  pcl[PrClrs];  void UpdPClr();
- };
+};

@@ -1,6 +1,7 @@
 #include "header.h"
 #include "List.h"
 #include "..\main\App.h"
+using namespace std;
 
 
 ///  Rename file with rating  ------------------------------------------------------------------------
@@ -76,38 +77,6 @@ bool CList::RenameRate(pTrk t)
 		}
 	}	rf
 }
-
-
-namespace bfs = boost::filesystem;
-
-void CList::CopySelFiles()
-{
-	pTrk q = ll;
-	while (q)
-	{
-		if (q->sel)
-		{
-			string pa = q->getFullPath();
-			string to = pa.substr(2);  // rem drive d: etc
-			to = "e:\\" + to;  // replace  ///todo from xml..
-			//  copy
-			string tp,tf;  cExt::splitPath(to, tp, tf);
-			try
-			{
-				bfs::create_directories(tp);
-
-				if (!bfs::exists(to))
-					bfs::copy_file(pa, to);  //bfs::copy_option::overwrite_if_exists
-			}
-			catch (const bfs::filesystem_error & ex)
-			{
-				MessageBoxA(0, ex.what(), "copy fail", 0);
-			}
-		}
-		q = q->next;
-	}
-}
-
 
 
 ///  list update  ------------------------------------------------------------------------

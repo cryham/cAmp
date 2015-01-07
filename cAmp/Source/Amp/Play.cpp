@@ -1,8 +1,8 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\main\App.h"
 #include "..\cD3\Graphics.h"
+using namespace std;
 
 
 void CALLBACK EndSync(HSYNC handle, DWORD channel, DWORD data, void *user)
