@@ -51,7 +51,7 @@ bool CList::RenameRate(pTrk t)
 		if (t->rate != 0)
 			sadd(s, chFRate[mia(0,chRall, t->rate+cR0)]);
 		
-		string name = t->path + s + t->ext;
+		string name = t->path + s + "." + t->ext;
 
 		// rename
 		if (t->isDir())
