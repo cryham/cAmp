@@ -1,9 +1,9 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\main\App.h"
 #include "..\cD3\Osc.h"
 #include "..\cD3\Graphics.h"
+using namespace std;
 
 											///\\\  Set  \\\///
 
@@ -66,7 +66,12 @@ void cAmp::SetLoad()
 			a = n->Attribute("priority");	if (a)  iPriority = toInt(a);
 			a = n->Attribute("sndDev");		if (a)  nDev = mia(-1,100/*sDevs.size()-1*/, toInt(a));
 			a = n->Attribute("sndFreq");	if (a)  nFreq = toInt(a);
-			a = n->Attribute("insPath");	if (a)  scpy(sInsPath, a);
+		}
+		
+		n = root->FirstChildElement("Path");	//if (!n)  Info("No <Path>",sle);
+		if (n)  {
+			a = n->Attribute("ins");	if (a)  scpy(sInsPath, a);
+			a = n->Attribute("copy");	if (a)  copyPath = string(a);
 		}
 
 		n = root->FirstChildElement("Last");	if (!n)  Info("No <Last>",sle);
@@ -88,7 +93,7 @@ void cAmp::SetLoad()
 			
 			m = n->FirstChildElement("Pls");  //if (!m)  N("No <Pls>",sle)
 			while (m)
-			{	a = m->Attribute("name");	vPlsNames.push_back(std::string(a));
+			{	a = m->Attribute("name");	vPlsNames.push_back(string(a));
 				m = m->NextSiblingElement("Pls");
 		}	}
 
@@ -217,8 +222,12 @@ void cAmp::SetSave()
 		Plr.SetAttribute("priority",strI(iPriority));
 		Plr.SetAttribute("sndDev",  strI(nDev));
 		Plr.SetAttribute("sndFreq", strI(nFreq));
-		Plr.SetAttribute("insPath",	sInsPath);
 	root.InsertEndChild(Plr);
+
+	TiXmlElement Pth("Path");
+		Pth.SetAttribute("ins",	sInsPath);
+		Pth.SetAttribute("copy",copyPath);
+	root.InsertEndChild(Pth);
 
 	TiXmlElement Last("Last");
 		Last.SetAttribute("volume",	strF(fVol));
@@ -256,6 +265,10 @@ void cAmp::SetSave()
 			Keys.InsertEndChild(key);
 		}
 	root.InsertEndChild(Keys);
+
+	TiXmlElement eExt("Ext");
+		eExt.SetAttribute("all",	sExtAll.c_str());
+	root.InsertEndChild(eExt);
 
 	TiXmlElement Views("Views");
 		//Views.SetAttribute("last",	strI(vcur));
