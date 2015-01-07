@@ -2,6 +2,7 @@
 #include "List.h"
 #include "..\cD3\Osc.h"
 #include "..\main\App.h"
+using namespace std;
 
 											///\\\  List  \\\///
 
@@ -29,13 +30,13 @@ bool CList::Load()
 		{
 			if (!qq || s[0] != '<')  scpy(ss, s);  // new path
 			pTrk q = new CTrk(n,ss);
-			q->ext = e;
+			q->ext = cStr::lower(e);  //fix old pls, had all upper-
 			q->type = TY_AUDIO;
 			// t,s
 			fi.getline(s,MP,'|');  q->time = cStr::toDouble(s);
 			fi.getline(s,MP,'|');  q->size = cStr::toInt6(s);
 
-			// c,h,r,b
+			// t,h,r,b
 			fi.getline(s,80);	int t=0,h=0,r=0, b=0;
 			sscanf(s,"%d|%d|%d|%d", &t, &h, &r, &b);
 			q->tab=t;  q->hide=h;  q->rate=r;  q->bokm=b;
