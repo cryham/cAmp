@@ -286,22 +286,22 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Osc"
+			Name="Snd"
 			>
 			<File
-				RelativePath=".\Source\cD3\Osc.h"
+				RelativePath=".\Source\cD3\Snd.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Source\cD3\OscInit.cpp"
+				RelativePath=".\Source\cD3\SndInit.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Source\cD3\OscUpd.cpp"
+				RelativePath=".\Source\cD3\SndUpd.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Source\cD3\OscWave.cpp"
+				RelativePath=".\Source\cD3\SndVis.cpp"
 				>
 			</File>
 			<File
