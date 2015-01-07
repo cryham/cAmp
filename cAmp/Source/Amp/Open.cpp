@@ -124,23 +124,22 @@ void cAmp::CopyPls(bool b, CList* l)
 			to = copyPath + to;  // replace
 			//  copy
 			string tp,tf;  cExt::splitPath(to, tp, tf);
+
 			if (!b)  // sum size
 			{	if (!exists(to))
 					copyMBAll += float(q->size)/1000000.f;
 			}else
 			try
-			{
-				create_directories(tp);
+			{	create_directories(tp);
 				if (!exists(to))
 				{
 					copy_file(pa, to);  //copy_option::overwrite_if_exists
 					//Sleep(10); //test
 					copyMBCur += float(q->size)/1000000.f;
 				}
-			}
-			catch (const filesystem_error & ex)
+			}catch (const filesystem_error & ex)
 			{	if (b)
-				MessageBoxA(0, ex.what(), "copy fail", 0);  // log only..
+				log(string("copy fail: ") + ex.what());
 			}
 		}
 		if (b && bCopyAbort)

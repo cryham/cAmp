@@ -1,4 +1,5 @@
 #pragma once
+class TiXmlElement;  class D3;
 
 
 enum EVis
@@ -12,29 +13,31 @@ const int MaxViews = 8;
 class CViewSet
 {
 public:
-	CViewSet() :
-		xSize(360),ySize(900), xPos(0),yPos(0),
-		iSleep(10), vsync(true), pr_fq(100.f),
-		visH(96), fftSize(1), eVis(viFFT), fftMul(69.f),
-		bSlDrawR(1), xWplS(14),
-		cfP(1),cfA(0),cfT(1),cfH(1),cfG(1),
-		xNpt(5),yNpt(2),ofsTab(0)
-	{}
+	CViewSet();
+	void Defaults();
+
+	void LoadXml(const TiXmlElement* m, const D3* ap);
+	void SaveXml(TiXmlElement* m);
+
 
 	//  window
 	int xSize,ySize, xPos,yPos;
-	int iSleep;
+
+	int iSleep;  // in ms
+	bool vsync;
 
 	//  vis
-	int visH, fftSize;  float fftMul;
+	int visH;  // draw height
+	int fftSize;  // samples (fft quality)
+	float fftMul;  // multiply y (scale)
 	/*EVis*/ int eVis;
-	bool vsync;
-	float pr_fq;
+	float pr_fq;  // voice print freq (speed)
 
 	//  slider
-	bool bSlDrawR;  int xWplS;
-	//  tabs
+	bool bSlDrawR;  int xW_plS;
+	//  tabs count
 	int xNpt, yNpt, ofsTab;
+
 	//  font sizes
 	int cfP,cfA,cfT,cfH,cfG;  // pls,amp,tabs,hlp,gui
 

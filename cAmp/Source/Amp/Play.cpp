@@ -44,22 +44,21 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	switch (BASS_ErrorGetCode())
 	{
 		case BASS_ERROR_FILEOPEN:
-		case BASS_ERROR_FILEFORM: // unsup format
-		{	// cant open, not found
+		case BASS_ERROR_FILEFORM:  // unsup format
+		{	//  cant open, not found
 			tkPl->dis = 1;
 			if (bNextPrev)	Next();  else  Prev();
 		}	rf
-		default:	// other
-		{	
-			string s = "Can't play file"+fname+"\n (error code: "+iToStr(BASS_ErrorGetCode())+")";
-			Info(s.c_str(), "Can't play file");
+		default:  // other
+		{	int er = BASS_ErrorGetCode();
+			string s = "Can't play file: " + fname + "\n  error code: " + iToStr(er) + ": " + GetErrStr(er);
+			log(s);
 		}	rf
 	}
 	else  tkPl->dis = 0;
 
 	//. sync reaching end - for play next
-	chSync = BASS_ChannelSetSync(
-		chPl, BASS_SYNC_END/*or BASS_SYNC_FREE*/, 0, EndSync, this); 
+	chSync = BASS_ChannelSetSync(chPl, BASS_SYNC_END/*or BASS_SYNC_FREE*/, 0, EndSync, this); 
 		
 	//  get file info
 	int bitr=0;
@@ -108,8 +107,6 @@ void cAmp::chVol(float add)  //  ^_
 	fVol = mia(0.f,1.f, fVol);	tmd = tmD;
 	if (bPlay)
 		BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);
-	//BASS_ChannelSlideAttribute(channel, BASS_ATTRIB_VOL, 0, 1000);  
-	//a negative volume value can be used to fade-out and then stop the channel.
 }
 
 
