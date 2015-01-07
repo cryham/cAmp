@@ -370,7 +370,7 @@ void cAmp::ClrSave()  // unused
 	TiXmlElement Rclrs("RatingColors");
 		for (size_t i = 0; i < vRclr.size(); i++)
 		{	TiXmlElement rclr("Rclr");
-				p(s) "%.3f %.3f %.3f", vRclr[i].r, vRclr[i].g, vRclr[i].b);
+				sfmt(s) "%.3f %.3f %.3f", vRclr[i].r, vRclr[i].g, vRclr[i].b);
 				rclr.SetAttribute("rgb", s);
 			Rclrs.InsertEndChild(rclr);
 		}
@@ -389,7 +389,7 @@ void cAmp::ClrSave()  // unused
 		for (size_t i = 0; i < vTclr.size(); i++)
 		{	TiXmlElement tclr("Tclr");
 				tclr.SetAttribute("time", strF(vTclr[i].a));
-				p(s) "%.3f %.3f %.3f", vTclr[i].r, vTclr[i].g, vTclr[i].b);
+				sfmt(s) "%.3f %.3f %.3f", vTclr[i].r, vTclr[i].g, vTclr[i].b);
 				tclr.SetAttribute("rgb", s);
 			Tclrs.InsertEndChild(tclr);
 		}

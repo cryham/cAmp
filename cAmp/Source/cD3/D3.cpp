@@ -133,3 +133,11 @@ bool D3::Check()
 }
 
 char D3::appPath[MAX_PATH] = {0};
+
+
+//  log
+void AppWnd::log(string s)
+{
+	*flog << s << endl;
+	(*flog).flush();
+}

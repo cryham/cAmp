@@ -23,7 +23,7 @@ int APIENTRY wWinMain(HINSTANCE hInst, HINSTANCE hPrev, LPTSTR lpCmdLine, int nC
 	char* pe = strrchr(s,'\\')+1;  pe[0]=0;  //ends with\ 
 	scpy(pA->appPath, s);
 
-	// log
+	//  log
 	sadd(s,"cAmp.log");
 	ofstream of(s);
 	if (!of)

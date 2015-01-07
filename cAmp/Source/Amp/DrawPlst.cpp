@@ -63,13 +63,13 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 	//  size
 	char st[60];
 	int sg = aSi/1000;  float fsm = aSi/1000.f;
-	if (sg < 1)		p(st) "%3d MB", aSi);  else
-	if (sg < 10)	p(st) "%4.3f GB", fsm); else
-	if (sg < 100)	p(st) "%4.2f GB", fsm);  else
-					p(st) "%.1f GB", fsm);
+	if (sg < 1)		sfmt(st) "%3d MB", aSi);  else
+	if (sg < 10)	sfmt(st) "%4.3f GB", fsm); else
+	if (sg < 100)	sfmt(st) "%4.2f GB", fsm);  else
+					sfmt(st) "%.1f GB", fsm);
 	
-	//*L*/p(cf->s) "L ofs %3d  cur %3d  Lin %3d  all %3d", plst->lOfs, plst->lCur, yLpl, plst->listLen);  cf->Write(0, yBpli);
-	//*M*/p(cf->s) "xm %4d ym %3d %d%d%d yMd %d %6.3f", xm,ym, bL,bR,bM, yMd, mtiv);  cf->Write(0, yBpli);
+	//*L*/sfmt(cf->s) "L ofs %3d  cur %3d  Lin %3d  all %3d", plst->lOfs, plst->lCur, yLpl, plst->listLen);  cf->Write(0, yBpli);
+	//*M*/sfmt(cf->s) "xm %4d ym %3d %d%d%d yMd %d %6.3f", xm,ym, bL,bR,bM, yMd, mtiv);  cf->Write(0, yBpli);
 	if (aD == 0)
 	{	cf->Format("%d  %s", aF, st);  cf->Write(20, yB_pli);  }
 	else
@@ -81,9 +81,9 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 	DWORD t = aTm, ts,tm,th,td;
 	ts= t%60;  t/=60;  tm= t%60;  t/=60;  th= t%24;  td= t/24;
 	
-		p(st) "%c%c", tm%10+'0', tm/10+'0');  cf->StrCopy(st);	if (th > 0 || td > 0) {  
-	  p(st) " h%c%c", th%10+'0', th>9? th/10+'0': td>0?'0':' ');  cf->StrAdd(st);	if (td > 0) {  
-	p(st) " d%c%c%c", td%10+'0', td>9? td/10%10+'0':' ', td>99? td/100%10+'0':' ');  cf->StrAdd(st);	 }  }
+		sfmt(st) "%c%c", tm%10+'0', tm/10+'0');  cf->StrCopy(st);	if (th > 0 || td > 0) {  
+	  sfmt(st) " h%c%c", th%10+'0', th>9? th/10+'0': td>0?'0':' ');  cf->StrAdd(st);	if (td > 0) {  
+	sfmt(st) " d%c%c%c", td%10+'0', td>9? td/10%10+'0':' ', td>99? td/100%10+'0':' ');  cf->StrAdd(st);	 }  }
 	cf->dir = -1;  cf->Write(xTm, yB_pli);  cf->dir = 1;
 	
 	//  num sel
@@ -155,9 +155,9 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			#else
 				//  debug list
 				if (q->isDir())
-					p(cf->s) "%s  %s", q->name.c_str(),  pls->ll->name.c_str());
+					sfmt(cf->s) "%s  %s", q->name.c_str(),  pls->ll->name.c_str());
 				else
-					p(cf->s) "%s <   %s   > %s",
+					sfmt(cf->s) "%s <   %s   > %s",
 						!q->prev ? "-" : q->prev->name.c_str(),  q->name.c_str(),
 						!q->next ? "-" : q->next->name.c_str() );
 			#endif

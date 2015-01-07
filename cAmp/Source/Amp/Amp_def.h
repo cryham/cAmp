@@ -1,5 +1,4 @@
 #pragma once
-#include "../main/def.h"
 
 
 //  application edit modes, focus

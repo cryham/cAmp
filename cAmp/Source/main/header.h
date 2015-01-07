@@ -31,7 +31,7 @@ typedef unsigned char  byte;
 #define rt  return true;
 #define rf  return false;
 
-#define p(a)		StringCbPrintfA(a,sizeof(a)-1,
+#define sfmt(a)		StringCbPrintfA(a,sizeof(a)-1,
 #define scpy(a,b)	StringCbCopyA(a,sizeof(a)-1, b)
 #define sadd(a,b)	StringCbCatA(a,sizeof(a)-1, b)
 

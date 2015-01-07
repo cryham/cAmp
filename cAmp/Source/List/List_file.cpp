@@ -16,7 +16,7 @@ bool CList::Load()
 	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
 	ifstream fi;
 	fi.open(s,ios_base::in|ios_base::binary);
-	if (fi.fail())  {  p(n)"Can't open file\n%s",s);  Wrng(n,slp)  }
+	if (fi.fail())  {  sfmt(n)"Can't open file\n%s",s);  Wrng(n,slp)  }
 
 	fi.getline(s,20);  if (strcmp(s,"cAmpPls")!=0)  Wrng("Not cAmpPls",slp)
 	fi.getline(s,60);
@@ -70,7 +70,7 @@ bool CList::Save()
 	ofstream of;  char s[MP*2],n[MP*2];
 	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
 	of.open(s, ios_base::out|ios_base::binary|ios_base::trunc);
-	if (of.fail())  {  p(n) "Can't open file\n%s",s);  Wrng(n,"Pls Save error")  }
+	if (of.fail())  {  sfmt(n) "Can't open file\n%s",s);  Wrng(n,"Pls Save error")  }
 	of << "cAmpPls\n";
 	of << iRFilt <<'|'<< lCur <<'|'<< lOfs <<'|'<< idPl <<'|'<< iRFilU <<"\n";
 	

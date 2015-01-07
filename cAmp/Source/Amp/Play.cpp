@@ -73,7 +73,7 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	
 	//  ext  kbps  freq  size
 	BASS_CHANNELINFO info;	BASS_ChannelGetInfo(chPl, &info);
-	p(sPlInf) "%4d %2d  %3.1f", bitr/*info.origres*/, info.freq/1000, double(tkPl->size-44)/1000000.0 );
+	sfmt(sPlInf) "%4d %2d  %3.1f", bitr/*info.origres*/, info.freq/1000, double(tkPl->size-44)/1000000.0 );
 	
 	//  play
 	BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);  //,bal
