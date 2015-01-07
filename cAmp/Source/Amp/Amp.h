@@ -12,6 +12,7 @@ public:
 	cAmp();  ~cAmp();
 	HANDLE hpr;  bool run;
 
+
 	///  main  ------------------------------------------------
 	bool Begin();
 	void End(), ReInit(bool reset);
@@ -22,8 +23,8 @@ public:
 
 	//  Draw  --------
 	bool bDrawPlst,bDrawPlst2;
-	void DrawPlsText(), DrawPlstRect(), DrawSlider(), DrawHelpText(), //draw
-		DrawAmpRect(), DrawAmpText(),  DrawKeysRect(), DrawKeysText();
+	void DrawPlsText(), DrawPlstRect(), DrawSlider(), DrawHelpText();
+	void DrawAmpRect(), DrawAmpText(),  DrawKeysRect(), DrawKeysText();
 
 	//  set
 	void SetLoad(), SetSave(),  ClrLoad(), ClrSave();
@@ -62,12 +63,12 @@ public:
 	
 	double tmPl, tmTot, lastPos;  //play, total time, relpos
 	double time; //save time
+	bool bNextPrev;  //last dir for next>
 
 	bool Play(bool get=true,bool fget=false), PlayFrom(double t);
-	bool bNextPrev;  //last dir for next>
-	void chPos(double add),chPosAbs(double pos), chVol(float add),
-		Pause(),Stop(), Prev(),Next(), PlayPrevTab(),PlayNextTab(),
-		repAll(),rep1();  //toggle repeat
+	void chPos(double add),chPosAbs(double pos), chVol(float add);
+	void Pause(),Stop(), Prev(),Next(), PlayPrevTab(),PlayNextTab();
+	void repAll(),rep1();  //toggle repeat
 
 	//  System  ----
 	HANDLE thrIns;
@@ -88,14 +89,23 @@ public:
 	std::vector<CList*> vPlst;  int nTabMov;
 	CList* pls,*plsPl,*plsSel;  //cur, playing, copy from
 	int plsId,plsPlId,plsSelId;
-	void plsChg(int clrSel=0), plsPlChg(int id),
-		updSelId(int clear=0), clrSelId();
+	void plsChg(int clrSel=0), plsPlChg(int id);
+	void updSelId(int clear=0), clrSelId();
 
 	void LoadPlsts(), DestPlsts();  int cntrPls;  //for new
 	std::vector<std::string> vPlsNames;  //set load
 
 	void RenameAll(int type), DoSearch();
 	bool bShowSrch, bAltOld;  int iSrchAll;
+	
+	//  copy  ---
+	std::string copyPath;
+	int copyType;
+	HANDLE thrCopy;
+	bool bThrCopy,bCopyAbort;
+	float copyMBCur,copyMBAll;
+	void CopyThread(), destCopyThr();
+	void CopyAll(), CopyPls(bool b, CList* l);
 
 
 	///  colors, set  ------------------------------------------------

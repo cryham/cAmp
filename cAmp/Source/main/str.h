@@ -1,5 +1,5 @@
 #pragma once
-#include "../main/def.h"
+#define Usize  boost::uintmax_t  // file,total size
 
 
 //  string utilities
@@ -18,14 +18,14 @@ public:
 	//  convert old, for set xml
 	static char s[512];
 	static char* strI(int i),    *strF(float i),  *strB(bool b);  // uses s
-	static char* strI6(Usize i), *strD(double d), *strHex(byte b);
+	static char* strI6(INT64 i), *strD(double d), *strHex(byte b);
 
 	#define chs  const char* str
 	static int   toInt(chs);   static float toFloat(chs);    static bool toBool(chs);
-	static Usize toInt6(chs);  static double toDouble(chs);  static byte toByteHex(chs);
+	static INT64 toInt6(chs);  static double toDouble(chs);  static byte toByteHex(chs);
 
 	//  time
-	static void strTime(char* s, double ti, bool d=false);  //old
+	static void strTime(char* s, double ti, bool dec=false);  //old
 	//static std::string strTime(double ti, bool dec=false);  // dec - for < 10s, with dot, eg. 9.5
 	static std::string strTimeTot(long ti);
 

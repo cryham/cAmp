@@ -63,7 +63,7 @@ void cAmp::DrawAmpText()
 	if (bPlay && plsPl)
 	if (plsPl->idPl >=0 && plsPl->idPl <= plsPl->listLen-1)//-
 	{	cf->Fclr = D3DXCOLOR(0.7,0.8,1,1);  pTrk tkPl = plsPl->vList[plsPl->idPl];
-		cf->StrWr(tkPl->ext.c_str(), 1,yB_fi+1);
+		cf->StrWr( cStr::upper(tkPl->ext).c_str(), 1,yB_fi+1);
 		cf->StrWr(sPlInf, 36,yB_fi+1);  cf->Fclr = D3DXCOLOR(1,1,1,1);
 
 /* Time 1:23  total,cur */
@@ -109,7 +109,14 @@ void cAmp::DrawAmpText()
 // search results
 	if (bShowSrch)
 	{	cf->Fclr = D3DXCOLOR(0.3,1,0,1);
-		cf->Format("Found: %d / %d",pls->iSrch,iSrchAll);  cf->Write(21,yB_fi+18);  //cf->Write(3,yw-17);
+		cf->Format("Found: %d / %d",pls->iSrch,iSrchAll);  cf->Write(21,yB_fi+18);
+	}
+
+// copy progress
+	if (bThrCopy)
+	{	cf->Fclr = D3DXCOLOR(0.6,1,0.5,1);
+		cf->Format("Copying: %3.1f%%", 100.f * copyMBCur/copyMBAll);  cf->Write(121,yB_fi+18);
+		cf->Format("  MiB: %3.1f / %3.1f", copyMBCur, copyMBAll);  cf->Write(121,yB_fi+18+cf->Fy);
 	}
 
 	//cf->Fclr = D3DXCOLOR(0.3,1,0,1);

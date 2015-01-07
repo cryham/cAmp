@@ -17,13 +17,16 @@
 #include <map>
 #include <fstream>
 #include <tinyxml.h>
-using namespace std;
+//using namespace std;
 
 #include <bass.h>
 #include <d3dx9.h>
 #if defined(DEBUG) | defined(_DEBUG)
 	#include <crtdbg.h>
 #endif
+
+typedef unsigned int   uint;
+typedef unsigned char  byte;
 
 #define rt  return true;
 #define rf  return false;
@@ -37,8 +40,9 @@ using namespace std;
 #define REL(p)		if(p) {  p->Release();  p = NULL;  }
 #define DEL(p)		if(p) {  delete p;   p = NULL;  }
 
-#define Wrng(b,c)					{  MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING);  rf}
-#define Info(b,c)					{  MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING);  }
+#define Wrng(b,c)	{	MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING);  rf}
+#define Info(b,c)		MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING)
+
 
 #if defined(DEBUG) || defined(_DEBUG)
 #include <dxerr.h>
@@ -49,6 +53,7 @@ using namespace std;
 
 #define  PTex  LPDIRECT3DTEXTURE9
 #define  PDev  LPDIRECT3DDEVICE9
+
 
 static int __declspec(naked) __fastcall NextPow2(unsigned n)
 {  _asm  {

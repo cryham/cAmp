@@ -115,7 +115,7 @@ string cStr::fToStr(const float v, const char precision, const char width, const
 ///  Old
 //  from str
 int		cStr::toInt(chs)	{	return (int)strtol(str, NULL, 0);	}
-Usize   cStr::toInt6(chs)	{	return		strtol(str, NULL, 0);	}
+INT64	cStr::toInt6(chs)	{	return		strtol(str, NULL, 0);	}
 float	cStr::toFloat(chs)	{	return (float)atof(str);	}
 double	cStr::toDouble(chs)	{	return		  atof(str);	}
 bool	cStr::toBool(chs)	{	return ((int)strtol(str, NULL, 0) > 0) ? true : false;	}
@@ -123,7 +123,7 @@ bool	cStr::toBool(chs)	{	return ((int)strtol(str, NULL, 0) > 0) ? true : false;	
 //  to str
 char cStr::s[512]={0};
 char* cStr::strI(int i)		{	sprintf(s,"%d", i);		return s;	}
-char* cStr::strI6(Usize i)	{	sprintf(s,"%d", i);		return s;	}
+char* cStr::strI6(INT64 i)	{	sprintf(s,"%d", i);		return s;	}
 char* cStr::strF(float f)	{	sprintf(s,"%.3f", f);	return s;	}
 char* cStr::strD(double d)	{	sprintf(s,"%f", d);		return s;	}
 char* cStr::strB(bool b)	{	sprintf(s,"%d", b?1:0);	return s;	}
