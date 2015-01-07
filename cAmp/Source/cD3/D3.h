@@ -76,6 +76,11 @@ class D3
 public:
 	D3();
 
+	//  log file
+	void log(std::string s);
+	std::ofstream* flog;
+
+
 	Timer Tim;  HHOOK hKbd;
 	HINSTANCE hInst;  HWND hWnd;
 	CRITICAL_SECTION cs,csNext;

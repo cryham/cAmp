@@ -109,6 +109,7 @@ void D3::Destroy()
 
 D3::D3()	// ctor default
 {
+	flog=0;
 	xScreen=800;yScreen=600; fRfq=60.f;
 	xMold=yMold=xMpos=yMpos=xWclick=yWclick=0; act=0;  iResets=0;
 	bLs=bL=0; bRs=bR=0; bMs=bM=0;  shift=ctrl=alt=0;  hKbd = 0;
