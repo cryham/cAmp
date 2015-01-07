@@ -14,10 +14,10 @@ const static int fts[fftNum] = {
 	BASS_DATA_FFT512, BASS_DATA_FFT1024, BASS_DATA_FFT2048, BASS_DATA_FFT4096, BASS_DATA_FFT8192};
 
 
-class cOsc : public D3, public cStr
+class cSnd : public D3, public cStr
 {
 public:
-	cOsc();
+	cSnd();
 	
   //  Main
 	bool InitSnd();  void DestSnd();
@@ -38,10 +38,10 @@ public:
 	bool bPlay, bPaused, bRec,bRecSet;  // Play state, Rec
 
 	//  snd  ----
-	int nDev, nFreq;
+	int nDev, nFreq, errCnt;
 	void bErr(const char *s);
 	char* GetErrStr(int err);
-	std::vector<char*> sDevs;
+	std::vector<std::string> sDevs;
  
   //  Lin =
 	float  dt;  //, xL,xR, Ladd,Lsub;

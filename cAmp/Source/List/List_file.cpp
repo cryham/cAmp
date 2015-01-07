@@ -13,7 +13,7 @@ bool CList::Load()
 	//**/static Timer ti;  ti.update();
 
 	char s[MP+2],ss[MP+2],n[MP+2],e[22];
-	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
+	scpy(s,cSnd::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
 	ifstream fi;
 	fi.open(s,ios_base::in|ios_base::binary);
 	if (fi.fail())  {  sfmt(n)"Can't open file\n%s",s);  Wrng(n,slp)  }
@@ -68,7 +68,7 @@ bool CList::Save()
 	if (name[0]==0)  rt  // empty
 
 	ofstream of;  char s[MP*2],n[MP*2];
-	scpy(s,cOsc::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
+	scpy(s,cSnd::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
 	of.open(s, ios_base::out|ios_base::binary|ios_base::trunc);
 	if (of.fail())  {  sfmt(n) "Can't open file\n%s",s);  Wrng(n,"Pls Save error")  }
 	of << "cAmpPls\n";

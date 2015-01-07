@@ -2,6 +2,7 @@
 #include "..\cD3\D3.h"
 #include "..\main\resource.h"
 #include "..\main\App.h"
+using namespace std;
 
 
 //  Init D3D
@@ -39,7 +40,7 @@ bool D3::Init2()
 	for (int i=0; i<NumFnt; ++i)
 	{
 		cfont[i] = new CFont();
-		p(cfont[i]->Fname) "%sMedia\\fonts\\%d", appPath,i);
+		sfmt(cfont[i]->Fname) "%sMedia\\fonts\\%d", appPath,i);
 		scpy(cfont[i]->Fext, ".png");  cfont[i]->Init(pDev);
 	}
 	cfdig = new CFont();  scpy(cfdig->Fname, appPath);
@@ -136,7 +137,7 @@ char D3::appPath[MAX_PATH] = {0};
 
 
 //  log
-void AppWnd::log(string s)
+void D3::log(string s)
 {
 	*flog << s << endl;
 	(*flog).flush();

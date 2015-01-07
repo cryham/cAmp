@@ -253,7 +253,7 @@ void cAmp::PlsOpen()
 	ofn.lpstrFilter = "cAmp Playlists (*.cp)\0*.cp\0";	ofn.nFilterIndex=1;
 	ofn.lpstrFileTitle = NULL;	ofn.nMaxFileTitle = 0;
 
-	scpy(sDir, cOsc::appPath);  sadd(sDir, "playlists");
+	scpy(sDir, cSnd::appPath);  sadd(sDir, "playlists");
 	ofn.lpstrInitialDir = sDir;
 	ofn.Flags = OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST|OFN_ENABLESIZING|
 		OFN_NOCHANGEDIR|OFN_NONETWORKBUTTON|OFN_HIDEREADONLY/*|OFN_ALLOWMULTISELECT*/;

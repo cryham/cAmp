@@ -6,7 +6,7 @@
 #include "Amp_def.h"
 
 
-class cAmp : public cOsc
+class cAmp : public cSnd
 {
 public:
 	cAmp();  ~cAmp();

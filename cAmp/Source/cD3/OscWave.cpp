@@ -9,7 +9,7 @@
 ///  Voice print . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 //
 #define  PlR  (bPaused ? false : (bPlay || bRec))
-void cOsc::Vpr()
+void cSnd::Vpr()
 {
 	//  get data
 	if (view.eVis==viPrint && surf && PlR)
@@ -37,7 +37,7 @@ void cOsc::Vpr()
 
 ///  FFT / Osc  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 //
-void cOsc::Vis(IDirect3DDevice9* pDev, float y1,float y2)
+void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 {
 	DWORD chan = bPlay ? chPl : chRec;
 
