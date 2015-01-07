@@ -1,11 +1,11 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\main\App.h"
+using namespace std;
 
 
 //  Insert Dir dialog
-///-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+///-   -   -   -   -   -   -   -   -   -   -   -   -   -   -    -
 
 static int CALLBACK BrowseCallbackProc(HWND hwnd,UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
@@ -103,4 +103,85 @@ LRESULT cAmp::OnDropFiles(WPARAM wParam, LPARAM lParam)
 	}
 	DragFinish(hDrop);
 	return 0;
+}
+
+
+///  Copy files to other path  -   -   -   -   -   -   -   -   -
+using namespace boost::filesystem;
+
+void cAmp::CopyPls(bool b, CList* l)
+{
+	if (!l)  return;
+	//note: dont do anything on pls during copy
+	for (int i=0; i < l->vList.size(); ++i)
+	{
+		pTrk q = l->vList[i];
+		if (!q->isDir())
+		if (copyType > 0 || q->sel)  // 0 only selected
+		{
+			string pa = q->getFullPath();
+			string to = pa.substr(2);  //par? rem drive d: etc
+			to = copyPath + to;  // replace
+			//  copy
+			string tp,tf;  cExt::splitPath(to, tp, tf);
+			if (!b)  // sum size
+			{	if (!exists(to))
+					copyMBAll += float(q->size)/1000000.f;
+			}else
+			try
+			{
+				create_directories(tp);
+				if (!exists(to))
+				{
+					copy_file(pa, to);  //copy_option::overwrite_if_exists
+					//Sleep(10); //test
+					copyMBCur += float(q->size)/1000000.f;
+				}
+			}
+			catch (const filesystem_error & ex)
+			{	if (b)
+				MessageBoxA(0, ex.what(), "copy fail", 0);  // log only..
+			}
+		}
+		if (b && bCopyAbort)
+		{	bCopyAbort = false;  q = 0;  }
+	}
+}
+
+void cAmp::CopyAll()
+{
+	copyMBCur=0.f;  copyMBAll=0.f;
+	bCopyAbort = false;
+	
+	for (int b=0; b<2; ++b)  // 0 sum size, 1 copy
+	{
+		if (copyType < 2)  // 0,1 cur playlist (visible)
+			CopyPls(b>0, pls);
+		else	// 2 all playlists
+		for (size_t i=0; i < vPlst.size(); ++i)
+			CopyPls(b>0, vPlst[i]);
+	}
+	bThrCopy = false;
+}
+
+
+DWORD WINAPI CopyThr(LPVOID lpParam)
+{ 
+	cAmp* a = (cAmp*)lpParam;
+	a->CopyAll();
+    return 0;
+}
+
+void cAmp::CopyThread()
+{
+	destCopyThr();
+	thrCopy = CreateThread(NULL,0,CopyThr,(LPVOID)this,0,NULL);
+	bThrCopy = true;
+}
+
+void cAmp::destCopyThr()
+{
+	if (bThrCopy)
+	{	bThrCopy = false;
+		TerminateThread(thrCopy, 1);  }
 }

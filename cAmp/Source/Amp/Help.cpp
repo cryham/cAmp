@@ -158,7 +158,7 @@ void cAmp::DrawHelpText()									//  help  //
 		x1=20; x2=x1+35;  y1 = y;			//  Player visual
 		sc("O,P");	wr(x1,y);  sc("prev/next Visualization");		wr(x2,y);  y+=Fy*3/2;
 		
-		sc("3");	wr(x1,y);  sc("show path,filename info");		wr(x2,y);  y+=Fy;	clr(0.8,0.7,0.9);
+		sc("3");	wr(x1,y);  sc("show path, filename info");		wr(x2,y);  y+=Fy;	clr(0.8,0.7,0.9);
 		sc("2");	wr(x1,y);  sc("change dir/path display");		wr(x2,y);  y+=Fy*3/2;
 		
 		sc("4");	wr(x1,y);  sc("all playlists info");		wr(x2,y);  y+=Fy;
@@ -187,15 +187,17 @@ void cAmp::DrawHelpText()									//  help  //
 		sc("F3  F");	wR(x1,y);  sc("Search name");	wR(x2,y);  y+=Fy;
 		sc("  shift-  hide/show results");				wR(x1,y);  y+=Fy*2;	 clr(1,1,1);
 
-		sc("F11");	wr(x1,y);  sc("Reload resources,check window");	wr(x2,y);  y+=Fy*2;
-		
 		clr(0.7,0.9,0.8);
 		sc("alt 1..8");  wr(x1,y);  sc("load View 1..8");	wR(x2+10,y);  y+=Fy;
 		sc("ctrl 1..8");  wr(x1,y);  sc("save View 1..8");	wR(x2+10,y);  y+=Fy;
-		sc("  window position,size,visualization etc.");  wr(x1,y);  y+=Fy;
+		sc("  window position,size,visualization etc.");  wr(x1,y);  y+=Fy*2;
+
+		clr(0.8,0.8,0.6);
+		sc("F11");	wr(x1,y);  sc("Reload resources, check window");	wr(x2,y);  y+=Fy*2;
 		
-		//  alt 1..8 load 
-		//ctrl -view 
+		clr(0.6,0.8,0.8);
+		sc("F12");	wr(x1,y);  sc("Copy selected to other path");	wr(x2,y);  y+=Fy;
+		sc("  shift-  whole playlist  ctrl- all  alt- abort");		wr(x1,y);  y+=Fy*2;	 clr(1,1,1);
 		break;
 	}
 }

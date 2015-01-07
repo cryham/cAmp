@@ -151,12 +151,8 @@ bool cAmp::Keys(WPARAM k)
 			case VK_SPACE:  pls->UnSel();  clrSelId();  rt
 			//  back gotoPlay
 			case VK_BACK:  if (ctrl) {  plsId = plsPlId;  plsChg();  }  pls->GotoPlay();  rt
+
 			
-			/// new copy files			
-			case VK_F12:
-				pls->CopySelFiles();  rt
-
-
 			//  del
 			case VK_DELETE:  //none- del one/sel  shift- from disk  ctrl- clear plst
 				if (ctrl)  {  pls->Clear();  clrSelId();  }  else
@@ -218,7 +214,13 @@ bool cAmp::Keys(WPARAM k)
 			//  Rename all + save
 			case VK_F10:
 			{	RenameAll(2);	pls->Save();  SetSave();  }  rt
-			
+
+			//  copy files			
+			case VK_F12:
+				if (alt)  bCopyAbort = true;  else
+				if (!bThrCopy)
+				{	copyType = ctrl? 2: shift? 1: 0;  CopyThread();  }  rt
+
 		}	}	break;
 
 		
