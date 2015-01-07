@@ -1,5 +1,4 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\main\App.h"
 #include "..\cD3\Graphics.h"
@@ -40,7 +39,7 @@ GuiPg(1);  // vis
 	gi = g->AddInt(0,y,xs, "Visualization", &view.eVis, 0, viALL-1);  y+=ya;
 	gi->imap[0]="Off";	gi->imap[1]="Frequency FFT";  gi->imap[2]="Wave Oscilloscope";  gi->imap[3]="Voice Print FFT";
 
-	gi = g->AddInt(0,y,xs, "FFT vis size", &view.fftSize, 0, fftNum-1);  y+=ya;
+	gi = g->AddInt(0,y,xs, "FFT vis size", &view.fftSize, 0, FFTNum-1);  y+=ya;
 	gi->imap[0]="512";	gi->imap[1]="1024";  gi->imap[2]="2048";  gi->imap[3]="4096";  gi->imap[4]="8192";
 				  //_
 	sl = g->AddSld(0,y,500, "Print move freq", &view.pr_fq, 10.f, 300.f, xs-10, 160, 15, "%6.1f");  y+=ya;
@@ -51,7 +50,7 @@ GuiPg(2);	//  pls
 	tx = g->AddText(0,y,xs, "Playlist");  y+=ya*2/2;  tx->tclr = D3DXCOLOR(1,1,1,1);
 	g->AddInt(0,y,xs, "Tabs X columns",	&view.xNpt, 1, 100);  y+=ya;
 	g->AddInt(0,y,xs, "Tabs Y row",		&view.yNpt, 0, 100);  y+=ya;
-	g->AddInt(0,y,xs, "Slider width",	&view.xWplS, 1, 100);  y+=ya*3/2;
+	g->AddInt(0,y,xs, "Slider width",	&view.xW_plS, 1, 100);  y+=ya*3/2;
 	
 	//  fonts
 	tx = g->AddText(0,y,xs, "Font sizes");  y+=ya*2/2;  tx->tclr = D3DXCOLOR(1,1,1,1);

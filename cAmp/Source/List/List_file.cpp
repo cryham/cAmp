@@ -1,6 +1,6 @@
 #include "header.h"
 #include "List.h"
-#include "..\cD3\Osc.h"
+#include "..\cD3\Snd.h"
 #include "..\main\App.h"
 using namespace std;
 

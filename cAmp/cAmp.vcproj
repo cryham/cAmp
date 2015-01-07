@@ -289,6 +289,10 @@
 			Name="Snd"
 			>
 			<File
+				RelativePath=".\Media\rate.fx"
+				>
+			</File>
+			<File
 				RelativePath=".\Source\cD3\Snd.h"
 				>
 			</File>
@@ -302,10 +306,6 @@
 			</File>
 			<File
 				RelativePath=".\Source\cD3\SndVis.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Media\rate.fx"
 				>
 			</File>
 			<File
@@ -378,6 +378,10 @@
 			</File>
 			<File
 				RelativePath=".\Source\Amp\InitGui.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Source\cD3\View.cpp"
 				>
 			</File>
 			<File

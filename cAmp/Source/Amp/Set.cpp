@@ -1,7 +1,7 @@
 #include "header.h"
 #include "Amp.h"
 #include "..\main\App.h"
-#include "..\cD3\Osc.h"
+#include "..\cD3\Snd.h"
 #include "..\cD3\Graphics.h"
 using namespace std;
 
@@ -34,8 +34,8 @@ void cAmp::SetLoad()
 			a = n->Attribute("posX");	if (a)  view.xPos = toInt(a);
 			a = n->Attribute("posY");	if (a)  view.yPos = toInt(a);
 			a = n->Attribute("visH");	if (a)  view.visH  = mia(0, yScreen, toInt(a));
-			a = n->Attribute("fftSize");if (a)  view.fftSize = mia(0,fftNum-1, toInt(a));
-			a = n->Attribute("slider");	if (a)  view.xWplS = max(0,toInt(a));
+			a = n->Attribute("fftSize");if (a)  view.fftSize = mia(0,FFTNum-1, toInt(a));
+			a = n->Attribute("slider");	if (a)  view.xW_plS = max(0,toInt(a));
 		}
 		
 		n = root->FirstChildElement("Fonts");	if (!n)  Info("No <Fonts>",sle);
@@ -133,9 +133,9 @@ void cAmp::SetLoad()
 				a = m->Attribute("visH");	if (a)  v->visH = mia(0, yScreen, toInt(a));
 				a = m->Attribute("eVis");	if (a)  v->eVis = (EVis)mia(0,viALL, toInt(a));
 				a = m->Attribute("sleep");	if (a)  v->iSleep = toInt(a);
-				a = m->Attribute("fft");	if (a)  v->fftSize = mia(0,fftNum-1, toInt(a));
+				a = m->Attribute("fft");	if (a)  v->fftSize = mia(0,FFTNum-1, toInt(a));
 				
-				a = m->Attribute("sldr");	if (a)  v->xWplS = max(0,toInt(a));
+				a = m->Attribute("sldr");	if (a)  v->xW_plS = max(0,toInt(a));
 				a = m->Attribute("sldr");	if (a)  v->bSlDrawR = max(0,toInt(a));
 
 				a = m->Attribute("Fp");		if (a)  v->cfP = mia(0,NumFnt-1, toInt(a));
@@ -194,7 +194,7 @@ void cAmp::SetSave()
 		Wnd.SetAttribute("posY",	strI(view.yPos));
 		Wnd.SetAttribute("visH",	strI(view.visH));
 		Wnd.SetAttribute("fftSize",	strI(view.fftSize));
-		Wnd.SetAttribute("slider",	strI(view.xWplS));
+		Wnd.SetAttribute("slider",	strI(view.xW_plS));
 	root.InsertEndChild(Wnd);
 		
 	TiXmlElement fnt("Fonts");
@@ -286,7 +286,7 @@ void cAmp::SetSave()
 			vw.SetAttribute("sleep",	strI(v.iSleep));
 			vw.SetAttribute("fft",		strI(v.fftSize));
 
-			vw.SetAttribute("sldr",		strI(v.xWplS));
+			vw.SetAttribute("sldr",		strI(v.xW_plS));
 			vw.SetAttribute("slR",		strB(v.bSlDrawR));
 
 			vw.SetAttribute("Fp",	strI(v.cfP));

@@ -1,5 +1,4 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\cD3\Graphics.h"
 #include "..\main\App.h"
@@ -143,7 +142,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			else					clr(0.75,0.9,1);	// norm
 
 			///  Name
-			xmt = q->isDir() /*|| !bRep1*/ ? view.xSize-view.xWplS-2-12/**/ : xTm-46/**/;
+			xmt = q->isDir() /*|| !bRep1*/ ? view.xSize-view.xW_plS-2-12/**/ : xTm-46/**/;
 			cf->dir = 1;  cf->xmax = xmt;
 			cf->Fs[' '] = cf->Fs['0']/2;
 			#if 1
@@ -194,7 +193,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 		{	q = pls->vList[i];  if (q)  {
 
 			///  Time
-			cf2->dir = -1;  cf2->xmax = view.xSize-view.xWplS-2;
+			cf2->dir = -1;  cf2->xmax = view.xSize-view.xW_plS-2;
 			cf2->Fs[' '] = cf2->Fs['0'];
 			xx = xTm;
 			double ti = q->time;

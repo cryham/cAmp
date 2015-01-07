@@ -1,5 +1,4 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\cD3\Graphics.h"
 

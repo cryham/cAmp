@@ -1,6 +1,5 @@
 #include "header.h"
-
-#include "Osc.h"
+#include "Snd.h"
 
 
 

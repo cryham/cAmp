@@ -1,5 +1,4 @@
 #include "header.h"
-
 #include "D3.h"
 #include "Graphics.h"
 

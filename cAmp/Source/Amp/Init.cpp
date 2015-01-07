@@ -139,7 +139,7 @@ void cAmp::UpdDim(float rfrFq)
 	yE_pl = yL_pl*cfont[view.cfP]->Fy+yB_pl;  yH_pl = yE_pl-1-yB_pl;
 
 	/*xWplS = 14;*/  xW_plSm = 40;  //|sliderW, mW
-	xTm = view.xSize - view.xWplS-3;  //|
+	xTm = view.xSize - view.xW_plS-3;  //|
 	CList::Lin = yL_pl;
 
 	if (rfrFq > 0.f)

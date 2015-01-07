@@ -1,5 +1,5 @@
 #include "header.h"
-#include "Osc.h"
+#include "Snd.h"
 #include "..\main\App.h"
 using namespace std;
 

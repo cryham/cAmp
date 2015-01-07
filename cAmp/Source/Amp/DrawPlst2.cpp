@@ -1,5 +1,4 @@
 #include "header.h"
-
 #include "Amp.h"
 #include "..\cD3\Graphics.h"
 #include "..\main\App.h"
@@ -47,7 +46,7 @@ void cAmp::DrawPlstRect()
 	if (pls->vList.size()>0 && bList /*&& !plst->bThr..*/)
 	{
 		int i = pls->lOfs, y = yB_pl, im = min(pls->listLen, i+yL_pl);
-		float fxw = view.xSize-view.xWplS;
+		float fxw = view.xSize-view.xW_plS;
 		int Fy = cfont[view.cfP]->Fy;
 
 		for (i = pls->lOfs; i < im; i++)	/**/if (i < pls->vList.size())
@@ -73,6 +72,10 @@ void cAmp::DrawPlstRect()
 					0.f, yf, fxw, (yf+Fy), rtx.r, rtx.g, rtx.b, rtx.a);
 				e->EndPass();  e->End();
 			}
+			
+			///  show+/hide-
+			//if (q->isDir() && q->size)
+			//					Rtex(pDev, Tex, TX_PlsP, 0.f, yf, fxw, (yf+Fy));	//  play
 
 			y += Fy;
 		}  }
@@ -85,7 +88,7 @@ void cAmp::DrawPlstRect()
 void cAmp::DrawSlider()
 {
 	if (!pls)  return;
-	if (yB_pli >= view.ySize || view.xWplS <= 0)  return;
+	if (yB_pli >= view.ySize || view.xW_plS <= 0)  return;
 
 	/* Pls slider | */
 		if (pls->listLen <= yL_pl/2)  return;
@@ -96,10 +99,10 @@ void cAmp::DrawSlider()
 		int c1 = fc1 *yH_pl+yB_pl, c2 = fc2 *yH_pl+yB_pl;  if (c2-c1<2)  c2=c1+2;  // min h = 2 pix _
 		int s1 = fs1 *yH_pl+yB_pl, s2 = fs2 *yH_pl+yB_pl;  if (s2-s1<2)  s2=s1+2;
 
-		float xk1 = (view.xSize-view.xWplS+1),	  xk2 = view.xSize;
-		float xp1 = (view.xSize-2*view.xWplS/3+1), xp2 = (view.xSize-view.xWplS/2+1);
+		float xk1 = (view.xSize-view.xW_plS+1),	  xk2 = view.xSize;
+		float xp1 = (view.xSize-2*view.xW_plS/3+1), xp2 = (view.xSize-view.xW_plS/2+1);
 
-		D3DRECT rAll= {view.xSize-view.xWplS+1, yB_pl, view.xSize, yE_pl};  pDev->Clear(1, &rAll, clFl, 0, 1.f, 0);
+		D3DRECT rAll= {view.xSize-view.xW_plS+1, yB_pl, view.xSize, yE_pl};  pDev->Clear(1, &rAll, clFl, 0, 1.f, 0);
 		if (pls->listLen > yL_pl)
 		Rtex(pDev, Tex, TX_Slid, xk1, float(s1), xk2, float(s2));
 		Rtex(pDev, Tex, TX_SliC, xk1, float(c1), xk2, float(c2));

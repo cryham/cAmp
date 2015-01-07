@@ -1,7 +1,6 @@
 #include "header.h"
-
 #include "Graphics.h"
-#include "Osc.h"
+#include "Snd.h"
 #include "D3.h"
 #include "..\main\App.h"
 

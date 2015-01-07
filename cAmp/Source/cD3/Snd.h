@@ -9,8 +9,8 @@
 #define PrClrs  1024   // print colors
 #define PrLin   24     // max new print lines
 
-const static int fftNum = 5;
-const static int fts[fftNum] = {
+const static int FFTNum = 5;
+const static int fts[FFTNum] = {
 	BASS_DATA_FFT512, BASS_DATA_FFT1024, BASS_DATA_FFT2048, BASS_DATA_FFT4096, BASS_DATA_FFT8192};
 
 

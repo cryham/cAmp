@@ -1,6 +1,6 @@
 #pragma once
 #include "..\cD3\D3.h"
-#include "..\cD3\Osc.h"
+#include "..\cD3\Snd.h"
 #include "..\List\List.h"
 #include "..\cD3\GuiSys.h"
 #include "Amp_def.h"
