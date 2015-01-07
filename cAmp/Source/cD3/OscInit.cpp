@@ -1,20 +1,21 @@
 #include "header.h"
-
 #include "Osc.h"
 #include "..\main\App.h"
+using namespace std;
 
 
-//                                             . .:  rec-  :. .
 BOOL CALLBACK  Recording(HRECORD handle, const void *buffer, DWORD length, void *user)
 {
-	return TRUE;	// continue
+	return TRUE;  // continue
 }
 
 //                                           - -=  init Snd  =- -
-bool cOsc::InitSnd()
+bool cSnd::InitSnd()
 {
+	log("Init Snd ----");
 	bRec = 0;
-	if (HIWORD(BASS_GetVersion())!=BASSVERSION)  Wrng("Incorrect bass.dll","snd init")
+	if (HIWORD(BASS_GetVersion()) != BASSVERSION)
+	{	log("Incorrect bass.dll");  rf  }
 
 	//  find all devs
 	sDevs.clear();
@@ -22,13 +23,13 @@ bool cOsc::InitSnd()
 	for (int n=0; BASS_RecordGetDeviceInfo(n,&di); n++)
 	if (di.flags & BASS_DEVICE_ENABLED)
 	{
-		sDevs.push_back(strdup(di.name));
-		//if (di.flags & BASS_DEVICE_DEFAULT)	sadd(s, "(def)  \n")  else  sadd(s, "\n")
+		sDevs.push_back(di.name);
+		log("Device " + iToStr(n) + ": " + di.name + (di.flags & BASS_DEVICE_DEFAULT ? " (default)": ""));
 	}
 	nDev = mia(-1, sDevs.size()-1, nDev);
 	
-	//  init
-	//if (!BASS_SetConfig(BASS_CONFIG_REC_BUFFER, 1537)) {  bErr("Set config");  /**/}
+	//  Init
+	//?if (!BASS_SetConfig(BASS_CONFIG_REC_BUFFER, 1537)) {  bErr("Set config");  /**/}
 	if (!BASS_Init(nDev,nFreq, 0,hWnd,NULL)) {  bErr("Can't initialize bass");  rf}
 	
 	//  Load Plugins 
@@ -36,40 +37,45 @@ bool cOsc::InitSnd()
 
 	WIN32_FIND_DATAA fd;
 	HANDLE fh = FindFirstFileA(s, &fd);
-	if (fh != INVALID_HANDLE_VALUE)  {
-		do {
-			HPLUGIN plug;
+	log("Loading plugins");
+	if (fh != INVALID_HANDLE_VALUE)
+	{	do
+		{	HPLUGIN plug;
+			if (strcmp(fd.cFileName,"bass.dll")!=0)
 			if (plug = BASS_PluginLoad(fd.cFileName,0))
 			{	//  plugin loaded
-				/*const BASS_PLUGININFO *pinfo = BASS_PluginGetInfo(plug);
-				for (int a=0; a < pinfo->formatc; a++) {  // format description
-					fp += sprintf(fp,"%s (%s) - %s",pinfo->formats[a].name, pinfo->formats[a].exts, fd.cFileName)+1;
-					fp += sprintf(fp,"%s",pinfo->formats[a].exts)+1; // extension filter
-				}/**/
-				// add plugin to the list
-				//MESS(20,LB_ADDSTRING,0,fd.cFileName);
-			}
+				const BASS_PLUGININFO *pinfo = BASS_PluginGetInfo(plug);
+				for (int a=0; a < pinfo->formatc; a++)
+					log(string("plugin: ") + fd.cFileName + " " + pinfo->formats[a].name +" (" + pinfo->formats[a].exts + ")");
+			}else
+				log(string("plugin load error:")+fd.cFileName);
 		} while (FindNextFileA(fh,&fd));
-		FindClose(fh);	}
-		
-	//  get freq info..
-	//BASS_INFO info;
-	//BOOL b = BASS_GetInfo(&info);
-	//if (b)
-		//info.maxrate
+		FindClose(fh);
+	}
 	
-	//  rec init
-	if (bRecSet) {  bRec = 1;
-		if (!BASS_RecordInit(nDev)) {  bErr("Can't init record");  bRec=0;  }
-		if (!(chRec = BASS_RecordStart(nFreq,2, 0, &Recording,this))) {  bErr("Can't start record");  bRec=0;  }
-	}else  bRec = 0;
+	//  get freq info-
+	BASS_INFO in;
+	BOOL b = BASS_GetInfo(&in);
+	if (b)
+	{	log("speakers: "+iToStr(in.speakers));
+		log("max freq: "+iToStr(in.maxrate));
+		log("cur freq: "+iToStr(in.freq));
+	}
+	
+	//  record init (for vis when not playing)
+	if (bRecSet)
+	{	bRec = 1;
+		if (!BASS_RecordInit(nDev))
+		{	bErr("Can't init record");  bRec=0;  }
+		if (!(chRec = BASS_RecordStart(nFreq,2, 0, &Recording,this)))
+		{	bErr("Can't start record");  bRec=0;  }
+	}else
+		bRec = 0;
 	rt
 }
 
-void cOsc::DestSnd()
+void cSnd::DestSnd()
 {
-	for (int i=0; i < sDevs.size(); i++)
-		delete sDevs[i];  //[]?
 	if (bRecSet)
 		BASS_RecordFree();
 	BASS_Free();
@@ -78,15 +84,17 @@ void cOsc::DestSnd()
 
 //  err msg
 //----------------------------------------------------------------------------------------
-void cOsc::bErr(const char *se)
+void cSnd::bErr(const char *se)
 {
 	int ec = BASS_ErrorGetCode();
-	p(s)"%s\n (code: %d)\n%s", se, ec, GetErrStr(ec));
-	MessageBoxA(hWnd, s, "bass error", MB_OK|MB_ICONWARNING);
+	sfmt(s)"%s\n (code: %d)\n%s", se, ec, GetErrStr(ec));
+	log(s);
+	++errCnt;  //todo: draw text..
+	//MessageBoxA(hWnd, s, "bass error", MB_OK|MB_ICONWARNING);
 }
 
 //  util-
-char* cOsc::GetErrStr(int err)
+char* cSnd::GetErrStr(int err)
 {
 	switch (err)  {
 	case BASS_OK				: return "all is OK";

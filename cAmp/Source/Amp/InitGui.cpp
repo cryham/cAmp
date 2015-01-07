@@ -21,7 +21,7 @@ GuiPg(0);
 	gi = g->AddInt(0,y,xs, "Sound Device", &nDev, -1, sDevs.size()-1);  y+=ya;
 	gi->imap[-1] = "Default";
 	for (size_t i=0; i < sDevs.size(); i++)
-		gi->imap[i] = sDevs[i];
+		gi->imap[i] = sDevs[i].c_str();
 
 	gi = g->AddInt(0,y,xs, "Frequency [kHz]", &nFreq, 0, 2, true);  //y+=ya;
 	gi->imap[44100]="44.1";  //..get from snd
