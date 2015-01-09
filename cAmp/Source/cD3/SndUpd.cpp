@@ -13,10 +13,10 @@ cSnd::cSnd()
 	,bPlay(0),bPaused(0), bRec(0),bRecSet(0)
 	,nDev(0), nFreq(0)
 	,dt(0.01f)
-	////float  A[sWAV], C[PrLin][sWAV];  //fft,wav clr
 {
-	view.fftSize=1;
+	view.fftSize = 1;
 	memset(A,0,sizeof(A));
+	//C, fft,fftB,wav
 	UpdPClr();
 }
 
@@ -28,12 +28,9 @@ void cSnd::UpdPClr()
 	float f, l = PrClrs-1, r,g,b, h,s,v;
 	for (int i=0; i < PrClrs; ++i)
 	{
-		f = float(i)/l;
-		//float r = 0.5*f, g = 0.78*f, b = 1.0*f;
-		//pcl[i] = D3DCOLOR_COLORVALUE(r,g,b,0);
-		//_par
+		f = float(i)/l;  //_par
 		h = 0.65f - 0.13f * pow(f, 1.2f);
-		s = 0.9f - 0.8f * pow(f, 1.6f);
+		s = 0.9f - 0.9f * pow(f, 1.8f);
 		v = pow(f, 0.4f);
 		hsv2rgb(h,s,v,&r,&g,&b);
 		pcl[i] = D3DCOLOR_COLORVALUE(r,g,b,0);

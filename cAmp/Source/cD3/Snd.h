@@ -6,7 +6,7 @@
 #define sWAV   4096  // wav data, max screen
 #define sFFT  10240  // fft data
 
-#define PrClrs  1024   // print colors
+#define PrClrs  8192  // print colors
 #define PrLin   24     // max new print lines
 
 const static int FFTNum = 5;
@@ -19,17 +19,22 @@ class cSnd : public D3, public cStr
 public:
 	cSnd();
 	
-  //  Main
-	bool InitSnd();  void DestSnd();
+    //  Main
+	bool InitSnd();
+	void DestSnd();
 	void Vis(IDirect3DDevice9* pDev, float y1,float y2);
+
 	bool bFps, bFInfo,bAllInfo;  // on/off
 	
-	void Vpr();  int xpr,xpn;
+	//  spectrogram (voice print)
+	void Vpr();
+	int xpr, xpn;
 	bool lock;  Timer TimPr;
 
-  //  Osc ~
-	int /*time add str*/tmd,tmD,xt_;
-	float fft[sFFT],fftB[sFFT];  short wav[sFFT];
+    //  Osc/FFT ~
+	int tmd,tmD,xt_;  // time add str
+	float fft[sFFT],fftB[sFFT];
+	short wav[sFFT];
  
 	//  channels  ----
 	HRECORD chRec;
@@ -37,15 +42,16 @@ public:
 	HSYNC chSync;
 	bool bPlay, bPaused, bRec,bRecSet;  // Play state, Rec
 
-	//  snd  ----
+	//  sound  ----
 	int nDev, nFreq;
 	void bErr(const char *s);
 	char* GetErrStr(int err);
 	std::vector<std::string> sDevs;
  
-  //  Lin =
-	float  dt;  //, xL,xR, Ladd,Lsub;
-	float  A[sWAV], C[PrLin][sWAV];  //fft,wav clr
+    //  wav data =
+	float dt;  //, xL,xR, Ladd,Lsub;
+	float A[sWAV], C[PrLin][sWAV];  //fft,wav clr
 
-	DWORD  pcl[PrClrs];  void UpdPClr();
+	DWORD pcl[PrClrs];
+	void UpdPClr();
 };

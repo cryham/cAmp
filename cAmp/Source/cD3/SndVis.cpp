@@ -56,7 +56,6 @@ void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 			INT Omax = d.Height * yO - 1;
 			if (hr == D3D_OK)
 			{
-				float l = PrClrs-1;  // vertical |
 				//**/if (xpr + (view.ySize-1)*yO < Omax)
 				{
 					for (UINT x = 0; x <= xpn-1; ++x)
@@ -64,7 +63,7 @@ void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 					{
 						float f = C[x][view.ySize-1-y];
 						O[min(Omax, max(0, xpr-xpn-1+x) + y*yO)] =
-							pcl[ (int)(l*f) ];  // split end 2x..
+							pcl[ (int)((PrClrs-1)*f) ];  // split end 2x..
 					}
 				}
 				xpn = 0;
