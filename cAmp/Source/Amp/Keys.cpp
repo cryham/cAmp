@@ -86,6 +86,8 @@ bool cAmp::Keys(WPARAM k)
 			break;
 
 		case VK_F11:  ReInit(false);  rt
+		
+		case VK_ESCAPE:  errCnt = 0;  rt
 
 		// rename file,dir ...
 	}
