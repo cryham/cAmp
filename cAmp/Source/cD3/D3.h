@@ -81,8 +81,10 @@ public:
 	D3();
 
 	//  log file
-	void log(std::string s);
 	std::ofstream* flog;
+	int errCnt;
+	void log(std::string s);
+	void Err(std::string s);
 
 
 	Timer Tim;  HHOOK hKbd;
@@ -102,7 +104,7 @@ public:
 	int mod, act, clear, iSize, iResets;
 
 	//  str
-	static char appPath[MAX_PATH];
+	std::string appPath;
 	
 	//  d3d
 	LPDIRECT3D9 pD3d;  PDev pDev;

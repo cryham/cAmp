@@ -230,9 +230,9 @@ void cAmp::tabClose()
 			plsSel = vPlst[plsSelId];	}
 	
 	if (plsId == vPlst.size()-1)
-	{	DEL(pls);	vPlst.pop_back();	plsId--;  }
+	{	delete pls;  vPlst.pop_back();  plsId--;  }
 	else
-	{	DEL(pls);	vPlst.erase(vPlst.begin() + plsId);  }
+	{	delete pls;  vPlst.erase(vPlst.begin() + plsId);  }
 		
 	pls = vPlst[plsId];  //plsChg(1);
 	/**/if (e==1)  plsPlId = plsId;

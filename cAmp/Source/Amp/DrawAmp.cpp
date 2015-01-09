@@ -118,8 +118,8 @@ void cAmp::DrawAmpText()
 		cf->Format("  MiB: %3.1f / %3.1f", copyMBCur, copyMBAll);  cf->Write(121,yB_fi+18+cf->Fy);
 	}
 
-// errors etc
-	if (errCnt >= 0)
+// errors
+	if (errCnt > 0)
 	{	cf->Fclr = D3DXCOLOR(1,0.95,0.9,1);
 		cf->Format("Errors: %d", errCnt);  cf->Write(141,yB_fi);
 	}

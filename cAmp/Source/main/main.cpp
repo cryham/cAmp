@@ -15,7 +15,7 @@ int APIENTRY wWinMain(HINSTANCE hInst, HINSTANCE hPrev, LPTSTR lpCmdLine, int nC
 
 	//  Init
 	cAmp* pA = App::pAmp = new cAmp();
-	if (pA == NULL)  {  MessageBoxA(0, "New cAmp !","main Init", MB_OK|MB_ICONSTOP);  return -3;  }
+	if (pA == NULL)  {  MessageBoxA(0, "New cAmp !","main Init", MB_OK|MB_ICONSTOP);  return -1;  }
 	
 	//  app
 	char s[300];
@@ -52,6 +52,7 @@ int APIENTRY wWinMain(HINSTANCE hInst, HINSTANCE hPrev, LPTSTR lpCmdLine, int nC
 	//  destroy
 	pA->End();
 	delete pA;
+	of << "deleted\n";
 	return 0;
 }
 

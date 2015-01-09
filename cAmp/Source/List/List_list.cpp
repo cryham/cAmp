@@ -193,7 +193,7 @@ void CList::Del(bool disk)	// one
 	if (cur->isDir())  {  Dn(1);  return;  }
 	
 	// ... disk del plTrk
-	del(cur, disk);  DEL(cur)  //  del trk
+	del(cur, disk);  delete cur;  // del trk
 	listUpd(0);
 }
 
@@ -230,7 +230,7 @@ void CList::DelSel(bool disk)  // selected
 		pTrk qn = q->next;  //cur
 		if (!q->isDir() && q->sel > 0)
 		{
-			del(q, disk);  DEL(q)  // del trk
+			del(q, disk);  delete q;  // del trk
 		}
 		q = qn;
 	}

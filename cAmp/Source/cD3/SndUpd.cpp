@@ -14,7 +14,6 @@ cSnd::cSnd()
 	,nDev(0), nFreq(0)
 	,dt(0.01f)
 	////float  A[sWAV], C[PrLin][sWAV];  //fft,wav clr
-	,errCnt(0)
 {
 	view.fftSize=1;
 	memset(A,0,sizeof(A));

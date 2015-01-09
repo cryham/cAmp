@@ -15,7 +15,7 @@ bool cSnd::InitSnd()
 	log("Init Snd ----");
 	bRec = 0;
 	if (HIWORD(BASS_GetVersion()) != BASSVERSION)
-	{	log("Incorrect bass.dll");  rf  }
+	{	Err("Incorrect bass.dll");  rf  }
 
 	//  find all devs
 	sDevs.clear();

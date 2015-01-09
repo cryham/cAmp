@@ -17,7 +17,6 @@
 #include <map>
 #include <fstream>
 #include <tinyxml.h>
-//using namespace std;
 
 #include <bass.h>
 #include <d3dx9.h>
@@ -25,8 +24,9 @@
 	#include <crtdbg.h>
 #endif
 
-typedef unsigned int   uint;
-typedef unsigned char  byte;
+
+typedef unsigned int   uint;    typedef LPDIRECT3DTEXTURE9 PTex;
+typedef unsigned char  byte;    typedef LPDIRECT3DDEVICE9  PDev;
 
 #define rt  return true;
 #define rf  return false;
@@ -38,10 +38,6 @@ typedef unsigned char  byte;
 #define mia(a,b,x)  max(a, min(b, x))
 
 #define REL(p)		if(p) {  p->Release();  p = NULL;  }
-#define DEL(p)		if(p) {  delete p;   p = NULL;  }
-
-#define Wrng(b,c)	{	MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING);  rf}
-#define Info(b,c)		MessageBoxA(App::pAmp->hWnd, b,c, MB_OK|MB_ICONWARNING)
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -50,9 +46,6 @@ typedef unsigned char  byte;
 #else
 	#define Vd(x)    {  hr = (x);  }
 #endif
-
-#define  PTex  LPDIRECT3DTEXTURE9
-#define  PDev  LPDIRECT3DDEVICE9
 
 
 static int __declspec(naked) __fastcall NextPow2(unsigned n)

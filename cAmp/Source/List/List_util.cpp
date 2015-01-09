@@ -118,11 +118,8 @@ void CList::updTi()
 				double time = BASS_ChannelBytes2Seconds(chan,bytes);
 				q->time = time;
 				BASS_StreamFree(chan);  }
-			/*else  // ti get error ..
-			{	string s;
-				s = "error code: "+iToStr(BASS_ErrorGetCode());
-				MessageBoxA(0, s.c_str(), "bass", MB_OK|MB_ICONWARNING);
-			}/**/
+			//else  // ti get error ..
+			//	log("ti error: "+iToStr(BASS_ErrorGetCode()));
 			//Sleep(200);//
 		}
 		allTime += q->time;
@@ -164,18 +161,19 @@ void CList::destList()
 	pTrk q = ll, qd;
 	while (q)
 	{	qd = q->next;
-		DEL(q)	q = qd;
+		delete q;  q = qd;
 	}
 	ll = NULL;  //end list
 
 	destDirs();
 }
 
-/// auto save opts to new dirs-... new dir creation
+///TODO: auto save opts to new dirs-... new dir creation
 void CList::destDirs()
 {
 	for (size_t i=0; i<vDirs.size(); i++)
-		DEL(vDirs[i])
+		delete vDirs[i];
+	vDirs.clear();
 }
 
 

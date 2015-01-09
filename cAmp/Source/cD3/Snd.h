@@ -38,7 +38,7 @@ public:
 	bool bPlay, bPaused, bRec,bRecSet;  // Play state, Rec
 
 	//  snd  ----
-	int nDev, nFreq, errCnt;
+	int nDev, nFreq;
 	void bErr(const char *s);
 	char* GetErrStr(int err);
 	std::vector<std::string> sDevs;

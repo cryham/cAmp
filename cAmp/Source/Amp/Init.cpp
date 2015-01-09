@@ -75,6 +75,8 @@ void cAmp::ReInit(bool reset)
 
 void cAmp::End()
 {
+	log("----\nDestroy");
+
 	run = false;
 	/**/TerminateThread(hpr, 1);
 

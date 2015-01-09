@@ -1,34 +1,33 @@
 #include "header.h"
 #include "CFont.h"
+#include "..\main\App.h"
 using namespace std;
 
 
-#define InfMsg(b, c)	{	MessageBoxA(0, b, c, MB_OK/*|MB_RIGHT*/|MB_ICONINFORMATION );  }
-#define WrnMsg(b, c)	{	MessageBoxA(0, b, c, MB_OK|MB_ICONWARNING );  return false;  }
-#define Warng( a, b, c )	if( FAILED(a) ) {  MessageBoxA(0, b, c, MB_OK|MB_ICONWARNING );	return false;  }
-static const char* sErrFnt = "create font error";
+#define Log(s)  App::pAmp->log(s)
+#define Err(s)  App::pAmp->Err(s)
 
-LPD3DXSPRITE CFont::Fspr = NULL;	bool CFont::begin = false;
+bool CFont::begin = false;
+LPD3DXSPRITE CFont::Fspr = NULL;
 LPD3DXBUFFER CFont::buf = NULL;
 
 
-bool CFont::LoadFX( PDev dev, LPCSTR na, LPD3DXEFFECT& fx )
+bool CFont::LoadFX( PDev dev, const string& path, LPD3DXEFFECT& fx )
 {
-	if (FAILED( D3DXCreateEffectFromFileA(dev, na, 0, 0, 0, 0, &fx, &buf) ))
+	if (FAILED( D3DXCreateEffectFromFileA(dev, path.c_str(), 0, 0, 0, 0, &fx, &buf) ))
 		if (buf)
 		{
 			char *p = strstr( (char*) buf->GetBufferPointer(), "error" );
 			if (p)
-				InfMsg(p, "fx"/*na*/)
+				Log("!Load .fx " + path + "\n  " + p + "\n"+path);
 			else
-				InfMsg( (char*)buf->GetBufferPointer(), "fx"/*na*/ );
-
-			REL(buf);
-			return false;
+				Log(string("!Load .fx " + path + "\n  " + string((char*)buf->GetBufferPointer()) ) + "\n"+path);
+			REL(buf)
+			rf
 		}
 		else
-			WrnMsg( "fx", "create fx" );
-	return true;
+			Log("!Load .fx error \n  " + path);
+	rt
 }
 
 
@@ -36,19 +35,18 @@ bool CFont::LoadFX( PDev dev, LPCSTR na, LPD3DXEFFECT& fx )
 
 bool CFont::Init( PDev dev )
 {
-	char Fcf[90], Ftx[90];
-	
-	strcpy(Fcf, Fname);	strcat(Fcf, ".cf");
-	strcpy(Ftx, Fname);	strcat(Ftx, Fext);
+	string Fcf, Ftx;
+	Fcf = Fname + ".cf";
+	Ftx = Fname + Fext;
 	
 	//  get dim
 	D3DXIMAGE_INFO ii;
-	D3DXGetImageInfoFromFileA(Ftx, &ii);
+	D3DXGetImageInfoFromFileA(Ftx.c_str(), &ii);
 	Fxw = ii.Width;  Fyw = ii.Height;
 	
 	//  read CFont data
 	ifstream fi;	char s[96];
-	fi.open(Fcf);
+	fi.open(Fcf.c_str());
 	fi.getline(s,90);  //CrystalFont 4.45
 	fi.getline(s,90);		Fy = atoi(s);
 	fi.getline(s,90,' ');	z1 = atoi(s);
@@ -64,24 +62,25 @@ bool CFont::Init( PDev dev )
 
 	/*Font sprite & texture*/
 	Fclr = D3DXCOLOR(1.f,1.f,1.f, 1.f);
-	if (Fspr == NULL)	{
-	/*Warng(*/	D3DXCreateSprite(dev, &Fspr);//,	"sprite", sErrFnt );	}
-	}
-	/*Warng(*/	D3DXCreateTextureFromFileExA(dev, Ftx, Fxw, Fyw, 1, 
+	if (Fspr == NULL)
+		if (FAILED( D3DXCreateSprite(dev, &Fspr) ))
+			Err("!CFont: Can't create sprite");
+
+	if (FAILED( D3DXCreateTextureFromFileExA(dev, Ftx.c_str(), Fxw, Fyw, 1, 
 			D3DPOOL_DEFAULT, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, D3DX_DEFAULT, 
-			/*alpha*/RGB( 255, 33, 255 ) , 0, 0, &Ftex);
-		//,Ftx, "load font texture" );
+			/*alpha*/RGB( 255, 33, 255 ) , 0, 0, &Ftex) ))
+		Err("!CFont: Can't load texture from: " + Ftx);
 	pTexCur = Ftex;
 	
 	//  white texture copy  --------------
-	/*Warng(*/	D3DXCreateTexture(dev, Fxw, /*Fyw*/Fxw, 1, 
-			D3DPOOL_DEFAULT, /*D3DFMT_UNKNOWN*/D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, &FtexW);
-		//,"fail", "create font texture w" );
+	if (FAILED( D3DXCreateTexture(dev, Fxw, /*Fyw*/Fxw, 1, 
+			D3DPOOL_DEFAULT, /*D3DFMT_UNKNOWN*/D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, &FtexW) ))
+		Err("!CFont: Can't create white texture" );
 		
 	if (Ftex && FtexW)
 	{	D3DLOCKED_RECT lr,lrW;
-		Warng(	Ftex->LockRect(0, &lr, 0, D3DLOCK_READONLY), "font copy lock", sErrFnt);
-		Warng(	FtexW->LockRect(0, &lrW, 0, D3DLOCK_DISCARD|D3DLOCK_NOOVERWRITE), "font copy W lock", sErrFnt);
+		if (FAILED( Ftex->LockRect(0, &lr, 0, D3DLOCK_READONLY) ))  Err("CFont copy can't lock");
+		if (FAILED( FtexW->LockRect(0, &lrW, 0, D3DLOCK_DISCARD|D3DLOCK_NOOVERWRITE) ))  Err("font copy W can't lock");
 
 		UINT* o = static_cast<UINT*>(lr.pBits);  //, yO = lr.Pitch>>2;
 		UINT* oW= static_cast<UINT*>(lrW.pBits);
@@ -94,10 +93,10 @@ bool CFont::Init( PDev dev )
 			oW[a] = 0xFF000000+ w*0x010101;
 		}
 
-		Warng(	Ftex->UnlockRect(0), "font copy unlock", sErrFnt);
-		Warng(	FtexW->UnlockRect(0),"font copy W unlock", sErrFnt);
-		//**/if (strstr(Fname, "Tac16n"))
-		//**/D3DXSaveTextureToFileA("white.png", D3DXIFF_PNG, FtexW, 0);
+		if (FAILED( Ftex->UnlockRect(0) ))  Err("CFont copy can't unlock");
+		if (FAILED( FtexW->UnlockRect(0) ))  Err("CFont copy W can't unlock");
+		//if (strstr(Fname, "Tac16n"))  // test
+		//	D3DXSaveTextureToFileA("white.png", D3DXIFF_PNG, FtexW, 0);
 	}
 
 	return true;
@@ -119,9 +118,9 @@ void CFont::OnReset()
 
 void CFont::Destroy()
 {	
-   	REL(FtexW);
- 	REL(Ftex);
-	REL(Fspr);
+   	REL(FtexW)
+ 	REL(Ftex)
+	REL(Fspr)
 }
 
 

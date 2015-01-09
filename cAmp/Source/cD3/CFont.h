@@ -26,7 +26,7 @@ public:
 
 	/* effect: */
 	static LPD3DXBUFFER buf;
-	static bool LoadFX( PDev dev, LPCSTR na, LPD3DXEFFECT& fx );
+	static bool LoadFX( PDev dev, const std::string& path, LPD3DXEFFECT& fx );
 	
 
 	//  CFont
@@ -38,7 +38,7 @@ public:
 	// string
 	static const int strSize = 300;
 	char str[strSize+1];
-	char Fname[280], Fext[6];  // font file name
+	std::string Fname, Fext;  // font file name
 
 	//  init
 	static bool begin;
