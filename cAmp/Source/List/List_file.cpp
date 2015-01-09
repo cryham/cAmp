@@ -3,22 +3,22 @@
 #include "..\cD3\Snd.h"
 #include "..\main\App.h"
 using namespace std;
+#define Err(s)  App::pAmp->Err(s)
 
 											///\\\  List  \\\///
 
 ///------------------------------------------------  Load  ------------------------------------------------
-const static char* slp = "Pls Load error";
 bool CList::Load()
 {
 	//**/static Timer ti;  ti.update();
 
 	char s[MP+2],ss[MP+2],n[MP+2],e[22];
-	scpy(s,cSnd::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
+	string p = App::pAmp->appPath + "playlists\\" + name + ".cp";
 	ifstream fi;
-	fi.open(s,ios_base::in|ios_base::binary);
-	if (fi.fail())  {  sfmt(n)"Can't open file\n%s",s);  Wrng(n,slp)  }
+	fi.open(p.c_str(), ios_base::in|ios_base::binary);
+	if (fi.fail())  {  Err(string("!Load playlist: Can't open file: ")+p);  rf  }
 
-	fi.getline(s,20);  if (strcmp(s,"cAmpPls")!=0)  Wrng("Not cAmpPls",slp)
+	fi.getline(s,20);  if (strcmp(s,"cAmpPls")!=0)  {  Err("!Load playlist: Not cAmpPls");  rf  }
 	fi.getline(s,60);
 	sscanf(s,"%d|%d|%d|%d|%d", &iRFilt, &lCur, &lOfs, &idPl, &iRFilU);
 	
@@ -68,9 +68,9 @@ bool CList::Save()
 	if (name[0]==0)  rt  // empty
 
 	ofstream of;  char s[MP*2],n[MP*2];
-	scpy(s,cSnd::appPath);  sadd(s,"playlists\\");  sadd(s,name.c_str());  sadd(s,".cp");
-	of.open(s, ios_base::out|ios_base::binary|ios_base::trunc);
-	if (of.fail())  {  sfmt(n) "Can't open file\n%s",s);  Wrng(n,"Pls Save error")  }
+	string p = App::pAmp->appPath + "playlists\\" + name + ".cp";
+	of.open(p.c_str(), ios_base::out|ios_base::binary|ios_base::trunc);
+	if (of.fail())  Err("Can't save pls, file: "+p);
 	of << "cAmpPls\n";
 	of << iRFilt <<'|'<< lCur <<'|'<< lOfs <<'|'<< idPl <<'|'<< iRFilU <<"\n";
 	

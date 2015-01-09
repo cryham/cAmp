@@ -20,8 +20,8 @@ void cAmp::SetLoad()
 
 	vRclr.clear();  vTclr.clear();  rtx=D3DXCOLOR(0,1,0,1);  tmClrMode=0;
 	
-	scpy(s,appPath);  sadd(s,"cAmp.xml");
-	TiXmlDocument xml;  xml.LoadFile(s);
+	string p = appPath + "cAmp.xml";
+	TiXmlDocument xml;  xml.LoadFile(p.c_str());
 	TiXmlElement* root = xml.RootElement(), *n = NULL, *m = NULL;
 	if (!root) {	log(sle+"No set file cAmp.xml");  }
 	else
@@ -221,8 +221,8 @@ void cAmp::SetSave()
 	root.InsertEndChild(eExt);
 
 
-	scpy(s,appPath);  sadd(s,"cAmp.xml");
-	xml.InsertEndChild(root);  xml.SaveFile(s);
+	string p = appPath + "cAmp.xml";
+	xml.InsertEndChild(root);  xml.SaveFile(p.c_str());
 }
 
 
@@ -234,8 +234,8 @@ void cAmp::ClrLoad()
 {
 	vRclr.clear();  vTclr.clear();  rtx=D3DXCOLOR(0,1,0,1);  tmClrMode=0;
 
-	scpy(s,appPath);  sadd(s,"Media\\colors.xml");
-	TiXmlDocument xml;  xml.LoadFile(s);
+	string p = appPath + "Media\\colors.xml";
+	TiXmlDocument xml;  xml.LoadFile(p.c_str());
 	TiXmlElement* root = xml.RootElement(), *n = NULL, *m = NULL;
 	if (!root) {	log(sce+"No set file cAmp.xml");  }
 	else
@@ -311,6 +311,6 @@ void cAmp::ClrSave()  // unused
 		}
 	root.InsertEndChild(Tclrs);
 
-	scpy(s,appPath);  sadd(s,"Media\\colors.xml");
-	xml.InsertEndChild(root);  xml.SaveFile(s);
+	string p = appPath + "Media\\colors.xml";
+	xml.InsertEndChild(root);  xml.SaveFile(p.c_str());
 }

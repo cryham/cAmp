@@ -21,7 +21,7 @@ int APIENTRY wWinMain(HINSTANCE hInst, HINSTANCE hPrev, LPTSTR lpCmdLine, int nC
 	char s[300];
 	GetModuleFileNameA(0,s,sizeof(s));
 	char* pe = strrchr(s,'\\')+1;  pe[0]=0;  //ends with\ 
-	scpy(pA->appPath, s);
+	pA->appPath = string(s);
 
 	//  log
 	sadd(s,"cAmp.log");

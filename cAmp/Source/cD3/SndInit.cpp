@@ -30,13 +30,13 @@ bool cSnd::InitSnd()
 	
 	//  Init
 	//?if (!BASS_SetConfig(BASS_CONFIG_REC_BUFFER, 1537)) {  bErr("Set config");  /**/}
-	if (!BASS_Init(nDev,nFreq, 0,hWnd,NULL)) {  bErr("Can't initialize bass");  rf}
+	if (!BASS_Init(nDev,nFreq, 0,hWnd,NULL)) {  bErr("Can't initialize bass");  rf  }
 	
 	//  Load Plugins 
-	scpy(s,appPath);  sadd(s,"bass*.dll");
+	string p = appPath + "bass*.dll";
 
 	WIN32_FIND_DATAA fd;
-	HANDLE fh = FindFirstFileA(s, &fd);
+	HANDLE fh = FindFirstFileA(p.c_str(), &fd);
 	log("Loading plugins");
 	if (fh != INVALID_HANDLE_VALUE)
 	{	do
@@ -46,9 +46,9 @@ bool cSnd::InitSnd()
 			{	//  plugin loaded
 				const BASS_PLUGININFO *pinfo = BASS_PluginGetInfo(plug);
 				for (int a=0; a < pinfo->formatc; a++)
-					log(string("plugin: ") + fd.cFileName + " " + pinfo->formats[a].name +" (" + pinfo->formats[a].exts + ")");
+					log(string("  ") + fd.cFileName + " " + pinfo->formats[a].name +" (" + pinfo->formats[a].exts + ")");
 			}else
-				log(string("plugin load error:")+fd.cFileName);
+				log(string("plugin load error:") + fd.cFileName);
 		} while (FindNextFileA(fh,&fd));
 		FindClose(fh);
 	}
@@ -87,10 +87,7 @@ void cSnd::DestSnd()
 void cSnd::bErr(const char *se)
 {
 	int ec = BASS_ErrorGetCode();
-	sfmt(s)"%s\n (code: %d)\n%s", se, ec, GetErrStr(ec));
-	log(s);
-	++errCnt;  //todo: draw text..
-	//MessageBoxA(hWnd, s, "bass error", MB_OK|MB_ICONWARNING);
+	Err(string(se) + "\n code: " + iToStr(ec) + "\n " + GetErrStr(ec));
 }
 
 //  util-

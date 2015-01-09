@@ -2,6 +2,7 @@
 #include "List.h"
 #include "..\main\App.h"
 using namespace std;
+#define Err(s)  App::pAmp->Err(s)
 
 
 ///  Move
@@ -206,11 +207,11 @@ void CList::del(pTrk q, bool disk)
 		if (DeleteFileA(s.c_str())==FALSE)  //FormatMessageA()
 		{	DWORD er = GetLastError();
 			if (er == ERROR_FILE_NOT_FOUND || er == ERROR_PATH_NOT_FOUND)
-				Info(s.c_str(), "Can't delete file (File/path not found");
+				Err("Can't delete file (File/path not found: "+s);
 			else if (er == ERROR_ACCESS_DENIED)
-				Info(s.c_str(), "Can't delete file (Access denied)");
+				Err("Can't delete file (Access denied): "+s);
 			else
-				Info(s.c_str(), "Can't delete file");
+				Err("Can't delete file: "+s);
 	}	}
 
 	if (q == ll) {  ll = nxt;	if (nxt) nxt->prev = NULL;  }  //1st
