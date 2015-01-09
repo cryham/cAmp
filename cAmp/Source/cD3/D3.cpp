@@ -12,6 +12,7 @@ bool D3::Init()
 {
 	ScrSize();
 	if (!CreateWnd())  Wrng("Can't CreateWindow !","init D3D")
+
 	DragAcceptFiles(hWnd, true);
 	InitializeCriticalSection(&cs);
 	InitializeCriticalSection(&csNext);
@@ -61,14 +62,14 @@ bool D3::Init2()
 		for (int y=0; y < view.ySize; ++y)	{  a = y*yO;
 		for (int x=0; x < view.xSize; ++x,++a)	Os[a] = 0;  }
 		surf->UnlockRect();  }
-	//if (!surf)	Info("Can't create voice print surface", "Init D3D 2");
+	//if (!surf)	log("D3 Can't create voice print surface");
 
 	//  Vis Tex
 	D3DFORMAT fmt = bFltTex ? D3DFMT_R32F : D3DFMT_X8R8G8B8;
 	Vd( D3DXCreateTexture( pDev, NextPow2(view.xSize), 1, 0,	D3DUSAGE_DYNAMIC, fmt, D3DPOOL_DEFAULT, &visTex ) );
-	//if (!visTex)	Info("Can't create vis Texture", "Init D3D 2");
+	//if (!visTex)	log("D3 Can't create vis Texture");
 	Vd( D3DXCreateTexture( pDev, NextPow2(view.xSize), 1, 0,	D3DUSAGE_DYNAMIC, fmt, D3DPOOL_DEFAULT, &visTex2 ) );
-	//if (!visTex2)	Info("Can't create vis Texture", "Init D3D 2");
+	//if (!visTex2)	log("D3 Can't create vis Texture");
 
 	//  Vis Fx
 	scpy(s,appPath);  sadd(s,"Media\\vis-fft.fx");	CFont::LoadFX( pDev, s, fx[FX_fft] );

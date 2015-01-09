@@ -73,9 +73,9 @@ void cAmp::DrawPlstRect()
 				e->EndPass();  e->End();
 			}
 			
-			///  show+/hide-
-			//if (q->isDir() && q->size)
-			//					Rtex(pDev, Tex, TX_PlsP, 0.f, yf, fxw, (yf+Fy));	//  play
+			//  dir show+ hide-
+			if (q->isDir() && q->next && (i+1 < im) && q->next->hide > 0)  // _1st char?
+				Rtex(pDev, Tex, q->next->hide==1 ? TX_DHide : TX_DShow, fxw-Fy, yf, fxw, (yf+Fy));
 
 			y += Fy;
 		}  }

@@ -10,6 +10,7 @@ enum eETex {
 	TX_BackPlr, TX_BackBtm, TX_BackHelp,
 	TX_PlsC, TX_PlsP, TX_PlsS, //TX_PlsF,
 	TX_Slid, TX_SliC, TX_SliP, TX_SliF,
+	TX_DShow, TX_DHide,
 	TX_PlsB1, TX_PlsB2, TX_PlsB3, TX_PlsB4, TX_PlsB5, TX_PlsB6,
 	TX_SliB1, TX_SliB2, TX_SliB3, TX_SliB4, TX_SliB5, TX_SliB6,
 	TX_Rate1, TX_Rate2, TX_Rate3, TX_Rate4, TX_Rate5,  NumTex };
@@ -42,6 +43,9 @@ const int texUV[NumTex+1][4] =  // size x,y, pos x,y on player.png texture, in p
 	16, 24,		250, 40,	// slid_cur
 	16, 24,		270, 40,	// slid_play
 	16, 24,		290, 40,	// slid_find
+	
+	14, 14,     262,380,    // dir show+
+	14, 14,     262,400,    // dir hide-
 
 	252, 13,	0, 360,		// 1 pls_bookm
 	252, 13,	0, 380,		// 2

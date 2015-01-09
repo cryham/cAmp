@@ -96,7 +96,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 	//  Tracks  dir, file  :time
 	//--------------------------------------------------------------------------------------------------
 	pTrk q = NULL;
-	int j=0, xB=1, xx=0, xmt, xTab = 10, yins=-1;
+	int j=0, xB=2, xx=0, xmt, xTab = 12, yins=-1;
 
 	// search dir
 	cf->bSl = false;
@@ -111,20 +111,20 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 		for (i = pls->lOfs; i < im; i++,j++)	/**/if (i < pls->vList.size())
 		{	q = pls->vList[i];  if (q)  {
 
-			int c = /*q->tab+*/ q->isDir()?0:1;
+			bool d = q->isDir();
 			bool bPl = bPlay && i == pls->idPl;  //q == plst->tkPl;
 			
 			///  rating
 			int r = q->rate+cR0;
-			if (!q->isDir())  {
-				clr(0.6,0.7,0.9);
+			if (!d)  {
+				clr(0.95,0.95,0.9);
 				if (r != cR0 && r >= 0 && r < chRall)  {
-				cf->Format("%c", chRates[r]);  cf->Write(0,y);  }  }
+				cf->Format("%c", chRates[r]);  cf->Write(xB, y);  }  }
 
 			///  dbg pls  clr
 			#if 0
 			bool mid = i > 0 && i < pls->vList.size()-1;
-				 if (q->isDir())	   clr(0.8,0.7,0.95);  //dir
+				 if (d)	               clr(0.8,0.7,0.95);  //dir
 			else if (q->prev == NULL)  clr(1.0,0.3,0.2);  //1st
 			else if (q->next == NULL)  clr(1.0,0.3,0.2);  //last
 			else if (mid && q->next->prev->name != q->prev->next->name)					  clr(1.0,0.2,0.4);  //split
@@ -134,7 +134,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			#endif
 			///  clr
 			if (bShowSrch && q->srch > 0)	clr(0.2,1,0);  // search
-			else if (q->isDir())	clr(0.9,0.8,1.0);	//dir
+			else if (d)				clr(0.9,0.8,1.0);	//dir
 			else if (q->dis == 1)	clr(0.4,0.6,0.9);	// dis
 			else if (q->sel > 0)	clr(0.0,1.0,0.9);	// sel
 			else if (i==pls->lCur)	clr(0.9,0.9,1);		// cur
@@ -142,18 +142,18 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			else					clr(0.75,0.9,1);	// norm
 
 			///  Name
-			xmt = q->isDir() /*|| !bRep1*/ ? view.xSize-view.xW_plS-2-12/**/ : xTm-46/**/;
+			xmt = d /*|| !bRep1*/ ? view.xSize-view.xW_plS-2-12 -cf->Fy/**/ : xTm-46/**/;
 			cf->dir = 1;  cf->xmax = xmt;
 			cf->Fs[' '] = cf->Fs['0']/2;
 			#if 1
 				//  normal
-				if (CList::iDirView == 2 && q->isDir())
+				if (CList::iDirView == 2 && d)
 					cf->Format("%s", q->path.c_str());
 				else
 					cf->Format("%s", q->name_pls.c_str());  // offset long.. shift wheel
 			#else
 				//  debug list
-				if (q->isDir())
+				if (d)
 					sfmt(cf->s) "%s  %s", q->name.c_str(),  pls->ll->name.c_str());
 				else
 					sfmt(cf->s) "%s <   %s   > %s",
@@ -161,20 +161,16 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 						!q->next ? "-" : q->next->name.c_str() );
 			#endif
 			
-			//  dir adds
-			if (q->isDir() && q->next && (i+1 < im) && q->next->hide > 0)  // _1st char?
-				cf->StrAdd(q->next->hide==1 ? " ->":" +>");  //1hide/2show dir
-
 			if (CList::iDirView == 1)
 				if (!q->path2.empty()) {  cf->StrAdd(" / ");  cf->StrAdd(q->path2.c_str());  }
 			
 			//  write
-			xx = xB + c*xTab;
+			xx = d ? xB : xB + xTab;
 			int cfw = cf->GetWidth()+xx;
 			Lxm[j] = (cfw >= xmt) ?1:0;
 			cf->Write(xx, y);
 			
-			if (Lxm[j] && q->isDir())  {
+			if (Lxm[j] && d)  {
 				cf->xmax = view.xSize;  //|
 				cf->StrWr("..", /*cfw*/xmt,y);	}
 			y += cf->Fy;

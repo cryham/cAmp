@@ -66,7 +66,7 @@ LRESULT CALLBACK kpH(int code, WPARAM wp, LPARAM lp)
 void cAmp::KbdInit()
 {
 	hKbd = SetWindowsHookEx(WH_KEYBOARD_LL, kpH, GetModuleHandle(0), 0);
-	if (!hKbd)  Info("Can't hook keyboard.","Init");
+	if (!hKbd)  log("Can't hook keyboard!");
 }
 void cAmp::KbdDest()
 {
