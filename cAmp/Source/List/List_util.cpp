@@ -190,7 +190,7 @@ CList::CList()
 	lev=0;  itu=0;  bThr=0; bThrTi=0;  bbThr=0;
 	lInsPos=0; lInsM=-1;  ylastSel, numSel=0;  InsM=-2;//top
 	iRFilt=-cR0; iRFilU=cR1; //all
-	name[0]=0;  trGet=true;  iSrch=0;  trRem=false;
+	trGet=true;  iSrch=0;  trRem=false;
 }
 CList::~CList()
 {

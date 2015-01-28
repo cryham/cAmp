@@ -65,7 +65,7 @@ bool CList::Load()
 bool CList::Save()
 {
 	//**/static Timer ti;  ti.update();
-	if (name[0]==0)  rt  // empty
+	if (name.empty())  rt
 
 	ofstream of;  char s[MP*2],n[MP*2];
 	string p = App::pAmp->appPath + "playlists\\" + name + ".cp";
