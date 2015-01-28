@@ -13,7 +13,9 @@ enum eETex {
 	TX_DShow, TX_DHide,
 	TX_PlsB1, TX_PlsB2, TX_PlsB3, TX_PlsB4, TX_PlsB5, TX_PlsB6,
 	TX_SliB1, TX_SliB2, TX_SliB3, TX_SliB4, TX_SliB5, TX_SliB6,
-	TX_Rate1, TX_Rate2, TX_Rate3, TX_Rate4, TX_Rate5,  NumTex };
+	TX_Rate1, TX_Rate2, TX_Rate3, TX_Rate4, TX_Rate5,
+	TX_TabB1, TX_TabB2, TX_TabB3, TX_TabB4, TX_TabB5, TX_TabB6,
+	NumTex };
 
 const int texUV[NumTex+1][4] =  // size x,y, pos x,y on player.png texture, in pixels
 {
@@ -66,6 +68,13 @@ const int texUV[NumTex+1][4] =  // size x,y, pos x,y on player.png texture, in p
 	252, 13,	0, 220,		// 3
 	252, 13,	0, 240,		// 4
 	252, 13,	0, 260,		// 5
+
+	26, 8,		288, 362,	// 1 tabs bookm
+	26, 8,		288, 382,	// 2
+	26, 8,		288, 402,	// 3
+	26, 8,		288, 422,	// 4
+	26, 8,		288, 442,	// 5
+	26, 8,		288, 462,	// 6
 	512,512,	0, 0,		// whole tex
 };
 

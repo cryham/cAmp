@@ -20,6 +20,11 @@ void cAmp::DrawPlstRect()
 			if (a==plsPlId)	{  plaPlx = x;  plaPly = y;  }  // play^
 			if (a==plsSelId){  selPlx = x;  selPly = y;  }  // sel^
 			if (a==nTabMov) {  movPlx = x;  movPly = y;  }  // mov
+			// bookm
+			byte b = vPlst[a]->bokm;
+			if (b > 0)  {
+				float yt= yB_pt+y*yH_pt;  float x1= x*xW_pt, x2= x1+xW_pt;
+				Rtex(pDev, Tex, TX_TabB1 + b-1, x1, yt, x2, (yt+yH_pt));  }
 		}  a++;  }
 	}
 	// cur

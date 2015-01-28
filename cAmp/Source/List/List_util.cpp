@@ -180,7 +180,7 @@ void CList::destDirs()
 //  ctors  --------------------------------------------------------------------------
 
 CList::CList()
-{	tt=NULL; ww=NULL; ll=NULL;
+{	tt=NULL; ww=NULL; ll=NULL;  bokm=0;
 	lCur=0; lOfs=0;  listLen=0;  idPl=0;
 
 	allSize=0; dirSize=0; allTime=0; allDirs=0; allFiles=0;

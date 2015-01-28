@@ -17,10 +17,11 @@ public:
 	
 	//  extra
 	byte type, tab;  //tab--
-	byte hide, sel;  char rate;  // rating
+	byte hide, sel;
+	char rate;  // rating
 	byte dis;  //err disabled
 	byte srch;	//match
-	byte bokm;  //bookmark
+	char bokm;  //bookmark
 
 	bool isDir() {  return  type < TY_FILE;  }
 	
@@ -46,8 +47,12 @@ public:
 	bool Load(), Save();
 	void Clear(), UnSel(), GotoPlay(), Center();
 	void Hide(bool show);  //.. save in dirs
+
 	//  bookmarks
-	void Bookm(int lev), BookmPrev(int lev, bool bSrch), BookmNext(int lev, bool bSrch);
+	char bokm;  //bookmark, backgr clr
+	void BookmPls(char add);
+	void Bookm(char add);  // trk
+	void BookmPrev(int lev, bool bSrch), BookmNext(int lev, bool bSrch);
 
 	//  rating
 	void DecRatePl(),IncRatePl(), DecRate(),IncRate();
@@ -71,7 +76,7 @@ public:
 	void  treeCrt(), listCrt();
 
 	void  tree1File(pTrk* t, pTrk* q, const char* fullpath=0);  bool trGet,trRem;
-	void  getNameRating(const char* name, char* pRate, byte* pBokm);
+	void  getNameRating(const char* name, char* pRate, char* pBokm);
 	pTrk  tree1Dir(const char* subPath),  tt,ww, ll;  /*1st(root): tt-tree, ww-back, ll-list*/
 	pTrk  tree1Dir(pTrk* t, pTrk* q); //drop
 	bool  Next(pTrk& cur), NextLev(pTrk& q);  int lev; // move

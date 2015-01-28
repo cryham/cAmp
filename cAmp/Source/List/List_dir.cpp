@@ -4,7 +4,7 @@
 using namespace std;
 
 
-void CList::getNameRating(const char* name, char* pRate, byte* pBokm)
+void CList::getNameRating(const char* name, char* pRate, char* pBokm)
 {
 	//  get rating in file name  find # + ~ ^ ` - -- =
 	int len = strlen(name);  // no ext !

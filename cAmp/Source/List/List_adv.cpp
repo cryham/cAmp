@@ -5,11 +5,15 @@
 
 //  bookmarks
 //-----------------------------------------------------------------
-void CList::Bookm(int lev)  // toggle
+void CList::BookmPls(char add)
+{
+	bokm += add;  bokm = mia(0,6, bokm);
+}
+void CList::Bookm(char add)
 {
 	if (ll==NULL)  return;
 	char b = vList[lCur]->bokm;
-	b += lev;  b = mia(0,6, b);
+	b += add;  b = mia(0,6, b);
 	vList[lCur]->bokm = b;
 }
 

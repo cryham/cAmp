@@ -128,9 +128,9 @@ void cAmp::DrawHelpText()									//  help  //
 
 		x2=x1+40;  clr(0.3,0.65,0.75);
 		sc("\\");	wR(x1,y);	sc("inc Bookmark at cursor");		wR(x2,y);  y+=Fy;  clr(0.2,0.55,0.65);
-		sc("  ctrl- dec");	wR(x1,y);	y+=Fy;  clr(0.3,0.65,0.75);
+		sc("  ctrl- dec   alt- playlist (tab)");		wR(x1,y);	y+=Fy;  clr(0.3,0.65,0.75);
 		sc("/  .");	wR(x1,y);	sc("next/prev Bookmark in playlist or");	wR(x2,y);  y+=Fy;  clr(0.2,0.85,0.65);
-		sc("next/prev Search result, when showing");  wR(x2,y);  y+=Fy*2;  clr(1,1,1);
+		sc("next/prev Search result, when showing");	wR(x2,y);  y+=Fy*2;  clr(1,1,1);
 
 		sc("D");	wr(x1,y);
 		sc("Duplicate track");								wr(x2,y);  y+=Fy;		dark();

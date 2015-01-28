@@ -11,7 +11,7 @@ bool CList::RenameRate(pTrk t)
 	//  empty list or bad file
 	if (ll==NULL || t==NULL || t->dis > 0)  rf
 	
-	char o_rate = 0;  byte o_bokm = 0;
+	char o_rate = 0, o_bokm = 0;
 	size_t posB = 0;
 	getNameRating(t->name.c_str(), &o_rate, &o_bokm);
 	string old = t->getFullPath();
