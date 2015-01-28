@@ -19,6 +19,7 @@ void cAmp::SetLoad()
 	bFltTex = 1;  bRecSet = 1;
 
 	vRclr.clear();  vTclr.clear();  rtx=D3DXCOLOR(0,1,0,1);  tmClrMode=0;
+	vSetPls.clear();
 	
 	string p = appPath + "cAmp.xml";
 	TiXmlDocument xml;  xml.LoadFile(p.c_str());
@@ -84,8 +85,12 @@ void cAmp::SetLoad()
 			
 			m = n->FirstChildElement("Pls");  if (!m)  log(sle+"No <Pls>");
 			while (m)
-			{	a = m->Attribute("name");
-				vPlsNames.push_back(a);
+			{
+				SetPls sp;
+				a = m->Attribute("name");	sp.name = a;
+				a = m->Attribute("bokm");	if (a)  sp.bokm = toInt(a);
+
+				vSetPls.push_back(sp);
 				m = m->NextSiblingElement("Pls");
 		}	}
 
@@ -196,6 +201,7 @@ void cAmp::SetSave()
 		{
 			TiXmlElement plst("Pls");
 				plst.SetAttribute("name",	vPlst[i]->name);
+				plst.SetAttribute("bokm",	strI(vPlst[i]->bokm));
 				// idx,cur,ofs on each playlist here--
 			ePls.InsertEndChild(plst);
 		}

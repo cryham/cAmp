@@ -6,6 +6,15 @@
 #include "Amp_def.h"
 
 
+struct SetPls  // load only
+{
+	std::string name;
+	byte bokm;
+
+	SetPls() : bokm(0) {  }
+};
+
+
 class cAmp : public cSnd
 {
 public:
@@ -93,7 +102,7 @@ public:
 	void updSelId(int clear=0), clrSelId();
 
 	void LoadPlsts(), DestPlsts();  int cntrPls;  //for new
-	std::vector<std::string> vPlsNames;  //set load
+	std::vector<SetPls> vSetPls;  //set load
 
 	void RenameAll(int type), DoSearch();
 	bool bShowSrch, bAltOld;  int iSrchAll;

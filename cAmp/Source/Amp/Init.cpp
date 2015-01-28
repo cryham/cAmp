@@ -198,17 +198,18 @@ cAmp::~cAmp()
 void cAmp::LoadPlsts()
 {
 	// load last -from set
-	if (vPlsNames.empty())
+	if (vSetPls.empty())
 	{
 		CList* pl = new CList();
 		vPlst.push_back(pl);
 		pl->Save();
 	}
 	else
-	for (size_t i=0; i < vPlsNames.size(); ++i)
+	for (size_t i=0; i < vSetPls.size(); ++i)
 	{
 		CList* pl = new CList();
-		pl->name = vPlsNames[i];
+		pl->name = vSetPls[i].name;
+		pl->bokm = vSetPls[i].bokm;
 		pl->Load();
 		vPlst.push_back(pl);
 	}
