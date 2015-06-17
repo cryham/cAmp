@@ -139,7 +139,7 @@ void CList::treeCrt()
 			srchPath = "";
 			o = q;
 			do {
-				ss = o->name + "/" + srchPath;
+				ss = o->name + "\\" + srchPath;
 				srchPath = ss;  o = o->pv;
 			}while(o);
 
