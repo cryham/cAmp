@@ -62,13 +62,15 @@ bool CList::RenameRate(pTrk t)
 		if (MoveFileA(old.c_str(), name.c_str())==FALSE)
 		{
 			DWORD e = GetLastError()&0xFFFF;
-			string s = old + "\nto:\n" + name + "Error: " + cStr::iToStr(e) + " " +
+			string s = "Can't rename file: " + old + "\nto:\n" + name +
+				"\nError: " + cStr::iToStr(e) + " " +
 				(e==ERROR_SHARING_VIOLATION? "file is opened":
 				e==ERROR_FILE_NOT_FOUND? "file not found":
 				e==ERROR_PATH_NOT_FOUND? "path not found" :"");
+
 			if (e==ERROR_FILE_NOT_FOUND || e==ERROR_PATH_NOT_FOUND)
 				t->dis = 1;
-			App::pAmp->Err(string("Can't rename file: ")+s);
+			App::pAmp->Err(s);
 		}
 		else
 		{	// change trk name
