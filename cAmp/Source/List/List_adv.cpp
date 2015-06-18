@@ -137,7 +137,11 @@ bool CList::Home	(int m)
 	case 2:  lCur = 0;  lOfs = 0;  rt  //list
 	case 1:  lCur = lOfs;  rt  //view
 
-	case 0: 
+	case 0:
+		do  lCur--;  while (lCur-1 > 0 && !vList[lCur]->isDir());
+		Up(0);  rt
+
+	case -1: 
 		if (/*vList[lCur]->prev &&*/ lCur > 1)
 		{	if (vList[lCur-1]->isDir() || vList[lCur]->isDir())
 			{	do  lCur--;  while (lCur > 0 && vList[lCur]->isDir());  }
@@ -155,6 +159,10 @@ bool CList::End		(int m)
 	case 1:  lCur = lOfs+Lin-1;  zCur(); rt  //view
 
 	case 0:
+		do  lCur++;  while (lCur+1 < listLen && !vList[lCur]->isDir());
+		Dn(0);  rt
+	
+	case -1:
 		if (/*vList[lCur]->next &&*/ lCur < listLen-1)
 		{	if (vList[lCur+1]->isDir() || vList[lCur]->isDir())
 			{	do  lCur++;  while (lCur < listLen && vList[lCur]->isDir());  }

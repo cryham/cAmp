@@ -94,8 +94,9 @@ void cAmp::DrawHelpText()									//  help  //
 		sc("  alt- offset page  alt-ctrl- offset x8");	wr(x1,y);  y+=Fy*3/2;	clr(1,1,1);
 		
 		sc("Home,End");		wr(x1,y);
-		sc("move to begin/end of dir");			wr(x2,y);  y+=Fy;		dark();
-		sc("  ctrl- of view  alt- of list");	wr(x1,y);  y+=Fy*4/2;	clr(1,1,1);
+		sc("prev/next dir");						wr(x2,y);  y+=Fy;		dark();
+		sc("  shift- move to begin/end of dir");	wr(x1,y);  y+=Fy;		
+		sc("  ctrl- of view  alt- of list");		wr(x1,y);  y+=Fy*4/2;	clr(1,1,1);
 
 		x2=x1+70;  clr(0.85,0.8,1.0);
 		sc("Space");		wr(x1,y);  sc("Unselect");					wr(x2,y);  y+=Fy;

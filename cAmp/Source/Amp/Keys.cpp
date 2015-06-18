@@ -106,8 +106,8 @@ bool cAmp::Keys(WPARAM k)
 			case VK_NEXT:	if (alt)  pls->PgOfsDn(ctrl ? 8:1);  else  pls->PgDn(ctrl ? yL_pl : yL_pl/4);  rt
 			
 			// none- move by dir   ctrl- view   alt- list
-			case VK_HOME:	pls->Home(alt ? 2: ctrl ? 1:0);  rt
-			case VK_END:	pls->End( alt ? 2: ctrl ? 1:0);  rt
+			case VK_HOME:	pls->Home(alt ? 2: ctrl ? 1: shift ? -1 : 0);  rt
+			case VK_END:	pls->End( alt ? 2: ctrl ? 1: shift ? -1 : 0);  rt
 
 
 			///  -,+ rate file
