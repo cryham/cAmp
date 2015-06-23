@@ -95,9 +95,11 @@ void CList::listUpd(bool bUpdCur)
 	int si = vList.size();
 	if (si > 0)
 	{	upd = true;
-		fCur = float(lCur)/fL;//rel
-		if (idPl > si-1)  idPl = si-1;//
-		tkPl = vList[idPl];  tkCur = vList[lCur];
+		fCur = float(lCur)/fL; //rel
+		if (idPl > si-1)  idPl = si-1; //
+		if (idPl >= 0)
+			tkPl = vList[idPl];
+		tkCur = vList[lCur];
 		lOd = lOfs-lCur;
 	}
 	// move cur,idPl so they'd be in upd--
