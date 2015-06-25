@@ -15,9 +15,9 @@
 		<View sizeX="1920" sizeY="1200" posX="   0" posY="   0" eVis="3" visH="1200" ftMul="69.000" fft="3" vpFq="196" sleep="-1" vsync="1" sldr="20" slR="1" Fp="1" Fa="0" Ft="1" Fh="1" Fg="1" tbX=" 5" tbY="2" tbO="0" />
 	</Views>
 	<Playlists counter="4">
-		<Pls name="1" />
-		<Pls name="2" />
-		<Pls name="3" />
+		<Pls name="1" bokm="0" />
+		<Pls name="2" bokm="0" />
+		<Pls name="3" bokm="0" />
 	</Playlists>
 	<GlobalKeys On="1">
 		<Key on="1" vk="A9" sc="00" mod="0" />
