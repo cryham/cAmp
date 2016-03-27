@@ -60,7 +60,9 @@ bool cAmp::Keys(WPARAM k)
 		//  show
 		case 'O':  view.eVis= (EVis)((view.eVis-1+viALL)%viALL);  UpdDim();  rt	 // vis prev
 		case 'P':  view.eVis= (EVis)((view.eVis+1)%viALL);        UpdDim();  rt  // vis next
-		case 'I':  bFps= !bFps;  rt	 // fps
+		case 'I':
+			if (ctrl)  iTimeTest = (iTimeTest+1)%3;  // time colors
+			else  bFps= !bFps;  rt	 // fps
 		
 		case '3':  bFInfo= !bFInfo;  rt  // info  file,dir
 		case '2':  if (shift)
@@ -175,7 +177,7 @@ bool cAmp::Keys(WPARAM k)
 				if (ctrl)	pls->InsM =  2; else  pls->InsM = (pls->lCur==0) ? -1 : 1;
 				
 				if (!pls->bThr && !thrIns)
-				//if (alt)
+				if (alt)
 					thrIns = CreateThread(NULL,0,BrowseDirThr,(LPVOID)this,0,NULL);
 				rt
 

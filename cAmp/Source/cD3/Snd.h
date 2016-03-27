@@ -25,6 +25,7 @@ public:
 	void Vis(IDirect3DDevice9* pDev, float y1,float y2);
 
 	bool bFps, bFInfo,bAllInfo;  // on/off
+	int iTimeTest;  // test time colors
 	
 	//  spectrogram (voice print)
 	void Vpr();

@@ -5,7 +5,7 @@
 
 //------------------------------  init
 cSnd::cSnd()
-	:bFps(0), bFInfo(0),bAllInfo(0)
+	:bFps(0), bFInfo(0),bAllInfo(0), iTimeTest(0)
 	,xpr(0),xpn(0)
 	,lock(false)
 	,tmd(0),tmD(0),xt_(0)

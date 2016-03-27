@@ -110,7 +110,7 @@ void cAmp::DrawHelpText()									//  help  //
 	
 		clr(0.7,0.7,1.0);
 		sc("Ins");		wr(x1,y);
-		sc("Insert Directory at cursor");		wr(x2,y);  y+=Fy;		dark();
+		sc("alt- Insert Directory at cursor");	wr(x2,y);  y+=Fy;		dark();
 		sc("  shift- at Top   ctrl- at End");	wr(x1,y);  y+=Fy*4/2;	clr(1,1,1);
 
 		clr(0.4,0.6,0.8);
@@ -158,15 +158,17 @@ void cAmp::DrawHelpText()									//  help  //
 		x1=20; x2=x1+35;  y1 = y;			//  Player visual
 		sc("O,P");	wr(x1,y);  sc("prev/next Visualization");		wr(x2,y);  y+=Fy*3/2;
 		
-		sc("3");	wr(x1,y);  sc("show path, filename info");		wr(x2,y);  y+=Fy;	clr(0.8,0.7,0.9);
-		sc("2");	wr(x1,y);  sc("change dir/path display");		wr(x2,y);  y+=Fy*3/2;
+		sc("3");	wr(x1,y);  sc("show path, filename info");		wr(x2,y);  y+=Fy*3/2;	clr(0.7,0.8,0.95);
+		
+		sc("2");	wr(x1,y);  sc("change dir/path display");		wr(x2,y);  y+=Fy;
+		sc("0");	wr(x1,y);  sc("draw rating on slider");	wr(x2,y);  y+=Fy*3/2;	clr(0.8,0.7,0.9);
 		
 		sc("4");	wr(x1,y);  sc("all playlists info");		wr(x2,y);  y+=Fy;
 		sc("5");	wr(x1,y);  sc("filtered playlist info");	wr(x2,y);  y+=Fy*3/2;
 
-		sc("0");	wr(x1,y);  sc("draw rating on slider");	wr(x2,y);  y+=Fy*3/2;
-		
-		sc("I");	wr(x1,y);  sc("Fps display");			wr(x2,y);  y+=Fy;	clr(1,1,1);
+		x1=20; x2=x1+50;	clr(0.6,0.7,0.7);
+		sc("I");	wr(x1,y);  sc("Fps display");			wr(x2,y);  y+=Fy;
+		sc("Ctr-I");wr(x1,y);  sc("Time colors test");		wr(x2,y);  y+=Fy;	clr(1,1,1);
 		break;
 
     case 5:  x1=20; x2=x1+50;  y1 = y;		//  Player functions
