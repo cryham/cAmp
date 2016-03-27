@@ -192,8 +192,8 @@ void CFont::Write(int x, int y)
 
 			if (dir < 0)  p.x -= w;
 
-			if (p.x +w > xmax)
-				if (bSl)  return;
+			if (p.x +w > xmax)  // dir > 0
+				if (bSl)  return;  // next line
 				else  {  p.x = x;  p.y += Fy;  }
 			
 			RECT r = { xb[c], yb[c], xb[c]+w, yb[c]+Fy };

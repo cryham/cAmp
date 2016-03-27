@@ -155,14 +155,23 @@ char* cStr::strHex(byte b)
 void cStr::strTime(char* s, double ti, bool d)
 {
 	DWORD t=ti, th = t/3600, tm = t/60%60, ts = t%60;
-	if (d)
+	if (d)  // < 10s  1.2
 	{	StringCbPrintfA(s,40, "%c.%c",
 		/*.s*/ DWORD(ti*10.0)%10+'0', /*s*/ ts%10+'0');  return;  }
 	
-	StringCbPrintfA(s,40, "%c%c:%c%c",
-		/*s*/ ts%10+'0', /*10s*/ (ts>9||tm>0||th>0)? ts/10+'0':' ',//0
-		/*m*/ (tm>0||th>0)? tm%10+'0':' ', /*10m*/(tm>9||th>0)? tm/10+'0':' ');
-	if (th > 0) {	int l=strlen(s);  s[l]='.';  s[l+1]= th%10+'0';  s[l+2]=0;  /*h*/  }
+	if (tm==0 && th==0)  // < 1m  :12
+	{	StringCbPrintfA(s,40, "%c%c: ",
+		/*s*/ ts%10+'0', /*10s*/ (ts>9)? ts/10+'0':' '/*0*/);  return;  }
+
+	if (tm <= 9 && th==0)  // < 10m  1:23
+	{	StringCbPrintfA(s,40, "%c%c:%c ",
+		/*s*/ ts%10+'0', /*10s*/ ts/10+'0', /*m*/ tm%10+'0');  return;  }
+
+	StringCbPrintfA(s,40, "%c%c:%c%c ",  // >10m  12:34
+		/*s*/ ts%10+'0', /*10s*/ ts/10+'0', /*m*/ tm%10+'0', tm/10+'0');
+		
+	if (th > 0) {	int l=strlen(s)-1;
+		s[l]='.';  s[l+1]= th%10+'0';  s[l+2]=' ';  s[l+3]=0;  /*h*/  }
 }
 
 #if 0

@@ -96,7 +96,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 	//  Tracks  dir, file  :time
 	//--------------------------------------------------------------------------------------------------
 	pTrk q = NULL;
-	int j=0, xB=2, xx=0, xmt, xTab = 12, yins=-1;
+	int j=0, xB=2, xx=0, xTab = 12, yins=-1;
 
 	// search dir
 	cf->bSl = false;
@@ -106,9 +106,64 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 	// Tracks
 	if (pls->vList.size()>0 && bList /*&& !plst->bThr..*/)
 	{
-		//cf->SetTex(1);
-		int i = pls->lOfs, y = yB_pl, im = min(pls->listLen, i+yL_pl);
-		for (i = pls->lOfs; i < im; i++,j++)	/**/if (i < pls->vList.size())
+		//----------------------------  Times  --------------------------------
+		cf2->SetTex(0);
+		int i,y, im;
+		i = pls->lOfs;  y = yB_pl;  j=0;
+		im = min(pls->listLen, i+yL_pl);
+		//**/if (bRep1)
+		for (; i < im; i++,j++)  /**/if (i < pls->vList.size())
+		{	q = pls->vList[i];  if (q)  {
+
+			///  Time
+			cf2->dir = -1;  cf2->xmax = view.xSize-view.xW_plS-2;
+			cf2->Fs[' '] = cf2->Fs['0'];
+			xx = xTm;
+			double ti = q->time;
+			if (iTimeTest > 0)  // time colors test
+				ti = iTimeTest == 1 ?
+					pow(float(i)/60.f, 1.2f) * 800.f :
+					pow(float(i)/40.f, 1.2f) * 3000.f;
+			
+			///  clr from time  . . . . .
+			int l = vTclr.size();
+			if (l > 1 && tmClrMode != 0)
+			{
+				float t = ti/60.f;
+				int i1= 0, i2= 0;
+				for (int i=1; i < vTclr.size(); ++i)
+					if (t > vTclr[i-1].a)	{	i1=i2;  i2=i;	}
+				
+				if (tmClrMode==2)  //2 lin smooth
+				{	float t2= vTclr[i2].a, t1= vTclr[i1].a, d= t2-t1, v1,v2;
+					if (d > 0.f)  {  v2= (t-t1)/d;  v1= (t2-t)/d;  }
+					else  {  v2= 1.f;  v1= 0.f;  }
+					cf2->Fclr = D3DXCOLOR( vTclr[i1].r * v1 + vTclr[i2].r * v2,
+						vTclr[i1].g * v1 + vTclr[i2].g * v2, vTclr[i1].b * v1 + vTclr[i2].b * v2, 1);
+				}else  //1 last
+					cf2->Fclr = D3DXCOLOR( vTclr[i2].r, vTclr[i2].g, vTclr[i2].b, 1);
+			}else  //0 const
+				cf2->Fclr = D3DXCOLOR(0.4,0.7,1.0,1);
+			
+			//  str
+			if (ti > 0)  strTime(cf2->str, ti);
+			else  {  xx -= xt_;  cf2->str[0]=0;  }
+
+			bool d = q->isDir();
+			if (!d)
+				cf2->Write(xx, y);
+
+			Lxm[j] = d ? cf2->xmax-20/*+*/ : cf2->xwr;  // xmax
+			//cf2->StrWr("|",Lxm[j], y);
+
+			if (i == pls->lInsPos)  yins = y;
+			y += cf->Fy;
+		}  }
+
+		//----------------------------  Tracks  --------------------------------
+		cf->SetTex(1);
+		i = pls->lOfs;  y = yB_pl;  j=0;
+		for (; i < im; i++,j++)  /**/if (i < pls->vList.size())
 		{	q = pls->vList[i];  if (q)  {
 
 			bool d = q->isDir();
@@ -142,8 +197,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			else					clr(0.75,0.9,1);	// norm
 
 			///  Name
-			xmt = d /*|| !bRep1*/ ? view.xSize-view.xW_plS-2-12 -cf->Fy/**/ : xTm-46/**/;
-			cf->dir = 1;  cf->xmax = xmt;
+			cf->dir = 1;
 			cf->Fs[' '] = cf->Fs['0']/2;
 			#if 1
 				//  normal
@@ -166,65 +220,15 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			
 			//  write
 			xx = d ? xB : xB + xTab;
-			int cfw = cf->GetWidth()+xx;
-			Lxm[j] = (cfw >= xmt) ?1:0;
+			int xw = xx + cf->GetWidth(), xwt = Lxm[j];
+			cf->xmax = xwt;
 			cf->Write(xx, y);
 			
-			if (Lxm[j] && d)  {
+			if (xw > xwt)
+			{	//  more sign
 				cf->xmax = view.xSize;  //|
-				cf->StrWr("..", /*cfw*/xmt,y);	}
-			y += cf->Fy;
-		}  }
-
-		//cf->End();
-		//----------------------------  Times  --------------------------------
-		//cf2->Begin(0);
-		cf2->SetTex(0);
-		pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
-		pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCCOLOR);
-
-		i = pls->lOfs, y = yB_pl;  j=0;
-		//**/if (bRep1)
-		for (i = pls->lOfs; i < im; i++,j++)	/**/if (i < pls->vList.size())
-		{	q = pls->vList[i];  if (q)  {
-
-			///  Time
-			cf2->dir = -1;  cf2->xmax = view.xSize-view.xW_plS-2;
-			cf2->Fs[' '] = cf2->Fs['0'];
-			xx = xTm;
-			double ti = q->time;
-			//double ti = pow(float(j)/yLpl,1.7f) *1000.f;  /*clr test*/
-			
-			///  clr from time  . . . . .
-			int l = vTclr.size();
-			if (l > 1 && tmClrMode != 0)
-			{
-				float t = ti/60.f;
-				int i1= 0, i2= 0;
-				for (int i=1; i < vTclr.size(); ++i)
-					if (t > vTclr[i-1].a)	{	i1=i2;  i2=i;	}
-				
-				if (tmClrMode==2)  //2 lin smooth
-				{	float t2= vTclr[i2].a, t1= vTclr[i1].a, d= t2-t1, v1,v2;
-					if (d > 0.f)  {  v2= (t-t1)/d;  v1= (t2-t)/d;  }
-					else  {  v2= 1.f;  v1= 0.f;  }
-					cf2->Fclr = D3DXCOLOR( vTclr[i1].r * v1 + vTclr[i2].r * v2,
-						vTclr[i1].g * v1 + vTclr[i2].g * v2, vTclr[i1].b * v1 + vTclr[i2].b * v2, 1);
-				}else  //1 last
-					cf2->Fclr = D3DXCOLOR( vTclr[i2].r, vTclr[i2].g, vTclr[i2].b, 1);
-			}else  //0 const
-				cf2->Fclr = D3DXCOLOR(0.4,0.7,1.0,1);
-			
-			//  str
-			if (ti > 0)  strTime(cf2->str, ti);
-			else  {  xx -= xt_;  cf2->str[0]=0;  }
-
-			if (Lxm[j]>0)  cf2->StrAdd("..");
-		
-			/**/if (!q->isDir())
-			cf2->Write(xx, y);
-
-			if (i == pls->lInsPos)  yins = y;
+				cf->StrWr("..", xwt, y);
+			}
 			y += cf->Fy;
 		}  }
 
@@ -241,8 +245,8 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			{	D3DRECT rIns= {0,yy-1, view.xSize,yy+1};  pDev->Clear(1, &rIns, clFl, clr, 1.f, 0);  }
 		}
 
-		//cf2->End();
+		//cf->End();
 	}/*else*/
-	cf->End();
+	//cf->End();
 	cf->SetTex(1);
 }
