@@ -10,7 +10,7 @@ void cAmp::Wheel(int nWheel)	///  Wheel
 	if (nWheel == 0)  return;
 	if (ym < yB_pt)  // plr vol
 	{
-		chVol((shift? 0.005f: ctrl? 0.05f: 0.02f)*(nWheel > 0? 1.f: -1.f));
+		chVol(nWheel < 0, shift, ctrl);
 		return;
 	}
 	//  plst scroll

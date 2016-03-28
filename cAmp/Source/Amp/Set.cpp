@@ -10,13 +10,9 @@ using namespace std;
 //------------------------------------------------  Load  ------------------------------------------------
 const static string sle = "Load cAmp.xml: ";
 void cAmp::SetLoad()
-{	//  default set
-	bFps=0;  bFInfo=0;  CList::bFilInf=1;
-	fVol=1.f;  bRepAll=1; bRep1=0;  cntrPls=0;  sInsPath[0]=0;
-	bWasPlay=0;  lastPos=0.0;  plsId=0; plsPlId=0;
-
-	iPriority=1;  nDev=-1;  nFreq=48000;  bHKeys=0;
-	bFltTex = 1;  bRecSet = 1;
+{
+	//  defaults
+	SetDefault();
 
 	vRclr.clear();  vTclr.clear();  rtx=D3DXCOLOR(0,1,0,1);  tmClrMode=0;
 	vSetPls.clear();
@@ -36,6 +32,12 @@ void cAmp::SetLoad()
 			a = n->Attribute("bFilInfo");	if (a)  CList::bFilInf = toBool(a);
 			a = n->Attribute("iDirView");	if (a)  CList::iDirView = toInt(a);
 		}
+		
+		n = root->FirstChildElement("Plr");		if (!n)  log(sle+"No <Plr>");
+		if (n)  {
+			a = n->Attribute("spdSeek");	if (a)  iSpdSeek = mia(0,2, toInt(a));
+			a = n->Attribute("spdVol");		if (a)  iSpdVol = mia(0,2, toInt(a));
+		}
 
 		n = root->FirstChildElement("App");		if (!n)  log(sle+"No <App>");
 		if (n)  {
@@ -45,7 +47,7 @@ void cAmp::SetLoad()
 			a = n->Attribute("sndDev");		if (a)  nDev = mia(-1,100/*sDevs.size()-1*/, toInt(a));
 			a = n->Attribute("sndFreq");	if (a)  nFreq = toInt(a);
 		}
-		
+
 		n = root->FirstChildElement("Path");	//if (!n)  log("No <Path>",sle);
 		if (n)  {
 			a = n->Attribute("ins");	if (a)  scpy(sInsPath, a);
@@ -158,14 +160,19 @@ void cAmp::SetSave()
 		onf.SetAttribute("bFilInfo",strB(CList::bFilInf));
 		onf.SetAttribute("iDirView",strI(CList::iDirView));
 	root.InsertEndChild(onf);
+		
+	TiXmlElement plr("Plr");
+		plr.SetAttribute("spdSeek",  strI(iSpdSeek));
+		plr.SetAttribute("spdVol", strI(iSpdVol));
+	root.InsertEndChild(plr);
 
-	TiXmlElement Plr("App");
-		Plr.SetAttribute("bRec",	strB(bRecSet));
-		Plr.SetAttribute("fltTex",	strB(bFltTex));
-		Plr.SetAttribute("priority",strI(iPriority));
-		Plr.SetAttribute("sndDev",  strI(nDev));
-		Plr.SetAttribute("sndFreq", strI(nFreq));
-	root.InsertEndChild(Plr);
+	TiXmlElement ap("App");
+		ap.SetAttribute("bRec",	strB(bRecSet));
+		ap.SetAttribute("fltTex",	strB(bFltTex));
+		ap.SetAttribute("priority",strI(iPriority));
+		ap.SetAttribute("sndDev",  strI(nDev));
+		ap.SetAttribute("sndFreq", strI(nFreq));
+	root.InsertEndChild(ap);
 
 	TiXmlElement Pth("Path");
 		Pth.SetAttribute("ins",	sInsPath);

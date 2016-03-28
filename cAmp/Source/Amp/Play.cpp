@@ -83,11 +83,15 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 
 ///  change pos,vol  - - - - 
 
-void cAmp::chPos(double add)	//  <<  >>
+  int cAmp::vSpdSeek[cAmp::aSpdSeek][3] = {{1,3,6},{1,5,15},{5,15,30}};  // s
+float cAmp::vSpdVol[ cAmp::aSpdVol ][3] = {{0.005,0.01,0.02},{0.01,0.02,0.05},{0.02,0.05,0.15}};  // %
+
+void cAmp::chPos(bool neg, bool shift, bool ctrl)  //  <<  >>
 {
 	if (!bPlay)  return;
+	double add = vSpdSeek[iSpdSeek][shift ? 0 : ctrl ? 2 : 1];
 	double pos = BASS_ChannelBytes2Seconds(chPl, BASS_ChannelGetPosition(chPl, BASS_POS_BYTE));
-	pos += add;
+	pos += neg ? -add : add;
 	if (pos < 0.0)  {  if (!bRep1) Prev();  pos += tmTot;  }  //out exact
 	if (pos >tmTot) {  pos -= tmTot;  if (!bRep1) Next();  }
 	BASS_ChannelSetPosition(chPl, BASS_ChannelSeconds2Bytes(chPl, pos), BASS_POS_BYTE);
@@ -101,9 +105,10 @@ void cAmp::chPosAbs(double pos)	//  <<| >>
 }
 
 
-void cAmp::chVol(float add)  //  ^_
+void cAmp::chVol(bool neg, bool shift, bool ctrl)  //  ^ v
 {
-	fVol += add;
+	float add = vSpdVol[iSpdVol][shift ? 0 : ctrl ? 2 : 1];
+	fVol += neg ? -add : add;
 	fVol = mia(0.f,1.f, fVol);	tmd = tmD;
 	if (bPlay)
 		BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);

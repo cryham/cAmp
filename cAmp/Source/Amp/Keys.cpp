@@ -47,8 +47,8 @@ bool cAmp::Keys(WPARAM k)
 	switch (k)  /* ALL */
 	{
 		//  player
-		case 'Q': case VK_LEFT:	if (alt)  chVol(shift?-0.005f: ctrl?-0.05f:-0.02f);  else  chPos(shift?-1: ctrl?-15:-5);  rt
-		case 'W':case VK_RIGHT:	if (alt)  chVol(shift? 0.005f: ctrl? 0.05f: 0.02f);  else  chPos(shift? 1: ctrl? 15: 5);  rt
+		case 'Q': case VK_LEFT:	if (alt)  chVol(1,shift,ctrl);  else  chPos(1,shift,ctrl);  rt
+		case 'W':case VK_RIGHT:	if (alt)  chVol(0,shift,ctrl);  else  chPos(0,shift,ctrl);  rt
 
 		case VK_RETURN:  Play(1,1);	rt
 		case 'Z':  Play(0);	rt		case 'X':  Pause();	rt		case 'C':  Stop();	rt
@@ -240,10 +240,11 @@ bool cAmp::Keys(WPARAM k)
 			switch(k)
 			{	case VK_HOME:  hlpPg = 0;	 rt
 				case VK_END:   hlpPg = HelpPages-1;  rt
+
 				case VK_PRIOR:case VK_LEFT: case VK_UP:
-					hlpPg--; if(hlpPg < 0)  hlpPg = 0;  rt
+					hlpPg--;  if(hlpPg < 0)  hlpPg = 0;  rt
 				case VK_NEXT: case VK_RIGHT:case VK_DOWN:
-					hlpPg++; if(hlpPg > HelpPages-1)  hlpPg = HelpPages-1;  rt
+					hlpPg++;  if(hlpPg > HelpPages-1)  hlpPg = HelpPages-1;  rt
 			}	break;
 	}
 	rf

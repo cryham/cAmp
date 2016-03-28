@@ -20,27 +20,42 @@ GuiPg(0);
 	gi = g->AddInt(0,y,xs, "Sound Device", &nDev, -1, sDevs.size()-1);  y+=ya;
 	gi->imap[-1] = "Default";
 	for (size_t i=0; i < sDevs.size(); i++)
-		gi->imap[i] = sDevs[i].c_str();
+		gi->imap[i] = sDevs[i];
+	gi->done();
 
 	gi = g->AddInt(0,y,xs, "Frequency [kHz]", &nFreq, 0, 2, true);  //y+=ya;
 	gi->imap[44100]="44.1";  //..get from snd
 	gi->imap[48000]="48";
 	gi->imap[96000]="96";
-	/*gi->imap[192000]="192";*/	gi->done();
+	/*gi->imap[192000]="192";*/  gi->done();
 	bt = g->AddBut(240,y,60, ya, "Apply");  y+=ya;
 	CallId(bt, 1);
 
-	gi = g->AddInt(0,y,xs, "App priority", &iPriority, 0, 2);  y+=ya;
-	gi->imap[0]="Normal";	gi->imap[1]="High";  gi->imap[2]="Realtime";
+	gi = g->AddInt(0,y,xs, "App priority", &iPriority, 0, 2);  y+=ya*3/2;
+	gi->imap[0]="Normal";	gi->imap[1]="High";  gi->imap[2]="Realtime";  gi->done();
+	
+	int v,n;  std::string s;
+	gi = g->AddInt(0,y,xs, "Seek speeds [s]", &iSpdSeek, 0, aSpdSeek-1, true);  y+=ya;
+	for (v=0; v < aSpdSeek; ++v)
+	{	s = "";
+		for (n=0; n < 3; ++n)  s += iToStr(vSpdSeek[v][n])+"  ";
+		gi->imap[v] = s;
+	}	gi->done();
+	gi = g->AddInt(0,y,xs, "Volume speeds %", &iSpdVol, 0, aSpdVol-1, true);  y+=ya;
+	for (v=0; v < aSpdVol; ++v)
+	{	s = "";
+		for (n=0; n < 3; ++n)  s += fToStr(vSpdVol[v][n]*100.f,0)+"  ";
+		gi->imap[v] = s;
+	}	gi->done();
 
 GuiPg(1);  // vis
 	tx = g->AddText(0,y,xs, "Visualization");  y+=ya*3/2;  tx->tclr = D3DXCOLOR(1,1,1,1);
 	g->AddInt(0,y,xs, "Sleep interval [ms]", &view.iSleep, -1, 200);  y+=ya*3/2;
 	gi = g->AddInt(0,y,xs, "Visualization", &view.eVis, 0, viALL-1);  y+=ya;
-	gi->imap[0]="Off";	gi->imap[1]="Frequency FFT";  gi->imap[2]="Wave Oscilloscope";  gi->imap[3]="Voice Print FFT";
+	gi->imap[0]="Off";	gi->imap[1]="Frequency FFT";  gi->imap[2]="Wave Oscilloscope";  gi->imap[3]="Spectrogram";  gi->done();
 
-	gi = g->AddInt(0,y,xs, "FFT vis size", &view.fftSize, 0, FFTNum-1);  y+=ya;
-	gi->imap[0]="512";	gi->imap[1]="1024";  gi->imap[2]="2048";  gi->imap[3]="4096";  gi->imap[4]="8192";
+	gi = g->AddInt(0,y,xs, "FFT length", &view.fftSize, 0, FFTNum-1);  y+=ya;
+	gi->imap[0]="512";	gi->imap[1]="1024";  gi->imap[2]="2048";  gi->imap[3]="4096";  gi->imap[4]="8192";  gi->done();
 				  //_
 	sl = g->AddSld(0,y,500, "Print move freq", &view.pr_fq, 10.f, 300.f, xs-10, 160, 15, "%6.1f");  y+=ya;
 	CallId(sl, 2);

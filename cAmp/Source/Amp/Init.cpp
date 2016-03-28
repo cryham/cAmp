@@ -70,6 +70,7 @@ void cAmp::ReInit(bool reset)
 	UpdDim();
 
 	ClrLoad();
+	UpdPClr();
 	clear = 2;
 }
 
@@ -117,7 +118,7 @@ void cAmp::UpdDim(float rfrFq)
 	//  file info
 	yB_fi = 0;	yE_pl_btn = 20;  // btnsH |< >|
 
-	//  visualisation
+	//  visualization
 	yB_vis = 16;  //yFvi = 64;
 	yE_vis = min(view.ySize, 28 + ((view.eVis!=viNone)? view.visH: 0));
 	
@@ -163,18 +164,14 @@ cAmp::cAmp()
 	,xm(0),ym(0),xms(0),yms(0), xMs(0),yMs(0),yMd(0)
 	,yMFvi(0), xLs(0),yLs(0)
 	,bLsl(0), bMInWnd(0), mti(0.f),mtiv(0)
-	,bHKeys(0), iPriority(0)
 	,yPickKey(-1), bPickingKey(0), btnKeysOk(0),btnKeysOn(0)
-	,bWasPlay(0), bRepAll(0),bRep1(0), fVol(1.f)
-	,tmPl(0), tmTot(0), lastPos(0), time(0), bNextPrev(1)
+	,tmPl(0), tmTot(0), time(0), bNextPrev(1)
 	,thrIns(0)
 	,fTi(0.01f)
 	,ed(ED_Pls), hlpPg(0)
 	,ied(0), Lxm(0)
 	,nTabMov(0)
-	,pls(0),plsPl(0),plsSel(0)
-	,plsId(0),plsPlId(0),plsSelId(-1)
-	,cntrPls(0)
+	,pls(0),plsPl(0), plsSel(0),plsSelId(-1)
 	,bShowSrch(0), bAltOld(0), iSrchAll(0)
 	,thrCopy(0), copyType(0)
 	,bThrCopy(0), bCopyAbort(0)
@@ -183,9 +180,23 @@ cAmp::cAmp()
 	,aaD(0),aaF(0), aaSi(0), aaTm(0)
 	,gpg(0)
 {
-	appPath[0]=0;  sPlInf[0]=0;  sInsPath[0]=0;
+	appPath[0]=0;  sPlInf[0]=0;
 	sed[0]=0;  srch[0]=0;
+	
+	SetDefault();
 }
+
+void cAmp::SetDefault()
+{
+	iPriority=1;  nDev=-1;  nFreq=48000;  bHKeys=0;
+	bFltTex = 1;  bRecSet = 1;
+	iSpdSeek = 1;  iSpdVol = 1;
+
+	bFps=0;  bFInfo=0;  CList::bFilInf=1;
+	fVol=1.f;  bRepAll=1; bRep1=0;  cntrPls=0;  sInsPath[0]=0;
+	bWasPlay=0;  lastPos=0.0;  plsId=0; plsPlId=0;
+}
+
 cAmp::~cAmp()
 {
 	delete[] Lxm;

@@ -123,7 +123,7 @@ void GuiInt::DrawText(float dt)
 	if (imap.empty())
 		ps->cfont->Format("%d", *v);  // int
 	else
-		ps->cfont->Format("%s", imap[*v]);  // enum
+		ps->cfont->Format("%s", imap[*v].c_str());  // enum
 
 	ps->cfont->Write(
 		xp + ps->xPos + 5 + xs + 60,

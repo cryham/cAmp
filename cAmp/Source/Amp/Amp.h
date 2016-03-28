@@ -36,7 +36,7 @@ public:
 	void DrawAmpRect(), DrawAmpText(),  DrawKeysRect(), DrawKeysText();
 
 	//  set
-	void SetLoad(), SetSave(),  ClrLoad(), ClrSave();
+	void SetLoad(), SetSave(), SetDefault(),  ClrLoad(), ClrSave();
 	std::string sExtAll;
 		
 	//  tabs
@@ -70,12 +70,18 @@ public:
 	bool bWasPlay, bRepAll,bRep1;
 	float fVol;
 	
+	static const int aSpdSeek = 3, aSpdVol = 3;
+	int iSpdSeek, iSpdVol;  // par
+	static int vSpdSeek[aSpdSeek][3];
+	static float vSpdVol[aSpdVol][3];
+	
 	double tmPl, tmTot, lastPos;  //play, total time, relpos
 	double time; //save time
 	bool bNextPrev;  //last dir for next>
 
 	bool Play(bool get=true,bool fget=false), PlayFrom(double t);
-	void chPos(double add),chPosAbs(double pos), chVol(float add);
+	void chPos(bool neg, bool shift, bool ctrl), chPosAbs(double pos);
+	void chVol(bool neg, bool shift, bool ctrl);
 	void Pause(),Stop(), Prev(),Next(), PlayPrevTab(),PlayNextTab();
 	void repAll(),rep1();  //toggle repeat
 
@@ -125,7 +131,7 @@ public:
 	//  dimensions  B=begin E=end W=width H=height
 	float xW_pos;  // position marker
 	int yB_fi,  // file info
-		yB_vis,yE_vis,  // visualisation
+		yB_vis,yE_vis,  // visualization
 		yB_pos,yE_pos, yE_pl_btn,  // posbar, btns
 		//  pls tabs, size, btns
 		yB_pt,yE_pt, xW_pt,yH_pt, xW_pt_btn,

@@ -1,8 +1,9 @@
 <cAmp>
 	<OnOff bRepAll="1" bRep1="0" eVis="1" bFilInfo="1" iDirView="1" />
+	<Plr spdSeek="1" spdVol="1" />
 	<App bRec="1" fltTex="1" priority="1" sndDev="-1" sndFreq="48000" />
 	<Path ins="c:\" copy="d:\" />
-	<Last volume="0.370" bPlay="0" pos="0.0" playPls="0" curPls="0" />
+	<Last volume="0.380" bPlay="0" pos="0.0" playPls="0" curPls="0" />
 	<Views>
 		<Vcur sizeX=" 354" sizeY=" 760" posX="   0" posY="   0" eVis="1" visH="  96" ftMul="69.000" fft="1" vpFq="100" sleep=" 5" vsync="1" sldr="16" slR="1" Fp="2" Fa="1" Ft="2" Fh="2" Fg="2" tbX=" 5" tbY="1" tbO="0" />
 		<View sizeX=" 354" sizeY=" 760" posX="   0" posY="   0" eVis="1" visH="  96" ftMul="69.000" fft="1" vpFq="100" sleep=" 5" vsync="1" sldr="16" slR="1" Fp="2" Fa="1" Ft="2" Fh="2" Fg="2" tbX=" 5" tbY="1" tbO="0" />

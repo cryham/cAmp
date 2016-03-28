@@ -31,7 +31,7 @@ public:
 	int fftSize;  // samples (fft quality)
 	float fftMul;  // multiply y (scale)
 	/*EVis*/ int eVis;
-	float pr_fq;  // voice print freq (speed)
+	float pr_fq;  // voice print/spectrogram freq (speed)
 
 	//  slider
 	bool bSlDrawR;  int xW_plS;
