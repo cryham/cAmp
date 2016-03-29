@@ -19,9 +19,11 @@ int CList::getTkPlIdx()  //on unhid
 	return id;
 }
 
-void CList::GotoPlay()  // move cursor to playing
+void CList::GotoPlay(bool center)  // move cursor to playing
 {
-	lCur = idPl;  Center();
+	lCur = idPl;
+	if (center)  Center();
+	else {  zOfs();  Dn(0);  Up(0);  }
 }
 void CList::Center()
 {

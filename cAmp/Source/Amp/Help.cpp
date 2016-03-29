@@ -107,7 +107,7 @@ void cAmp::DrawHelpText()									//  help  //
 		X(20,80);  clr(0.85,0.8,1.0);
 		sc("Space");		wr(x1,y);  sc("Unselect");					wr(x2,y);  y+=Fy;
 		sc("Backspace");	wr(x1,y);  sc("move cursor to playing");	wr(x2,y);  y+=Fy;
-			sc("ctrl- also change tab");	wr(xt,y);  y+=Fy*4/2;  clr(1,1,1);
+			sc("ctrl- also change tab and center");	wr(xt,y);  y+=Fy*4/2;  clr(1,1,1);
 
 		X(20,60);  clr(1,0.9,0.8);
 		sc("Delete");		wr(x1,y);  sc("Delete track/selection");	wr(x2,y);  y+=Fy;  clr(1,0.8,0.6);

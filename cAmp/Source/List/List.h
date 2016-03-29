@@ -45,7 +45,7 @@ public:
 	//  adv list
 	bool RenameRate(pTrk t);
 	bool Load(), Save();
-	void Clear(), UnSel(), GotoPlay(), Center();
+	void Clear(), UnSel(), GotoPlay(bool center), Center();
 	void Hide(bool show);  //.. save in dirs
 
 	//  bookmarks

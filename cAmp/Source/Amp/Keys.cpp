@@ -159,7 +159,7 @@ bool cAmp::Keys(WPARAM k)
 			//  spc UnSel
 			case VK_SPACE:  pls->UnSel();  clrSelId();  rt
 			//  back gotoPlay
-			case VK_BACK:  if (ctrl) {  plsId = plsPlId;  plsChg();  }  pls->GotoPlay();  rt
+			case VK_BACK:  if (ctrl) {  plsId = plsPlId;  plsChg();  }  pls->GotoPlay(ctrl);  rt
 
 			
 			//  del
