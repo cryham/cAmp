@@ -11,7 +11,7 @@ cSnd::cSnd()
 	,tmd(0),tmD(0),xt_(0)
 	,chRec(0), chPl(0), chSync(0)
 	,bPlay(0),bPaused(0), bRec(0),bRecSet(0)
-	,nDev(0), nFreq(0)
+	,nDev(0), nFreq(0), maxFreq(44100)
 	,dt(0.01f)
 {
 	view.fftSize = 1;

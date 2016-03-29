@@ -188,7 +188,7 @@ cAmp::cAmp()
 
 void cAmp::SetDefault()
 {
-	iPriority=1;  nDev=-1;  nFreq=48000;  bHKeys=0;
+	iPriority=1;  nDev=-1;  nFreq=44100;  bHKeys=0;
 	bFltTex = 1;  bRecSet = 1;
 	iSpdSeek = 1;  iSpdVol = 1;
 

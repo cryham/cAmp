@@ -20,7 +20,7 @@ bool cSnd::InitSnd()
 	//  find all devs
 	sDevs.clear();
 	BASS_DEVICEINFO di;
-	for (int n=0; BASS_RecordGetDeviceInfo(n,&di); n++)
+	for (int n=0; BASS_GetDeviceInfo(n,&di); n++)
 	if (di.flags & BASS_DEVICE_ENABLED)
 	{
 		sDevs.push_back(di.name);
@@ -30,7 +30,8 @@ bool cSnd::InitSnd()
 	
 	//  Init
 	//?if (!BASS_SetConfig(BASS_CONFIG_REC_BUFFER, 1537)) {  bErr("Set config");  /**/}
-	if (!BASS_Init(nDev,nFreq, 0,hWnd,NULL)) {  bErr("Can't initialize bass");  rf  }
+	DWORD fl = BASS_DEVICE_FREQ;
+	if (!BASS_Init(nDev,nFreq, fl, hWnd,NULL)) {  bErr("Can't initialize bass");  rf  }
 	
 	//  Load Plugins 
 	string p = appPath + "bass*.dll";
@@ -54,11 +55,12 @@ bool cSnd::InitSnd()
 	}
 	
 	//  get freq info-
+	log("Info ----");
 	BASS_INFO in;
-	BOOL b = BASS_GetInfo(&in);
+	BOOL b = BASS_GetInfo(&in);  maxFreq = 44100;
 	if (b)
 	{	log("speakers: "+iToStr(in.speakers));
-		log("max freq: "+iToStr(in.maxrate));
+		log("max freq: "+iToStr(in.maxrate));  maxFreq = in.maxrate;
 		log("cur freq: "+iToStr(in.freq));
 	}
 	
@@ -71,6 +73,8 @@ bool cSnd::InitSnd()
 		{	bErr("Can't start record");  bRec=0;  }
 	}else
 		bRec = 0;
+
+	log("----");
 	rt
 }
 

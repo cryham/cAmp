@@ -44,7 +44,7 @@ public:
 	bool bPlay, bPaused, bRec,bRecSet;  // Play state, Rec
 
 	//  sound  ----
-	int nDev, nFreq;
+	int nDev, nFreq, maxFreq;
 	void bErr(const char *s);
 	char* GetErrStr(int err);
 	std::vector<std::string> sDevs;

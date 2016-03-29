@@ -205,7 +205,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\cAmp.log"
+				>
+			</File>
+			<File
 				RelativePath=".\Source\main\cAmp.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\cAmp.xml"
 				>
 			</File>
 			<File
@@ -434,10 +442,6 @@
 			</File>
 			<File
 				RelativePath=".\Source\Amp\Amp_def.h"
-				>
-			</File>
-			<File
-				RelativePath=".\cAmp.xml"
 				>
 			</File>
 			<File

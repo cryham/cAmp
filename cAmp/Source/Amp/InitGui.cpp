@@ -23,11 +23,13 @@ GuiPg(0);
 		gi->imap[i] = sDevs[i];
 	gi->done();
 
-	gi = g->AddInt(0,y,xs, "Frequency [kHz]", &nFreq, 0, 2, true);  //y+=ya;
-	gi->imap[44100]="44.1";  //..get from snd
-	gi->imap[48000]="48";
-	gi->imap[96000]="96";
-	/*gi->imap[192000]="192";*/  gi->done();
+	const int fq[4] = {44100, 48000, 96000, 192000};  int fi,i;
+	for (i=0; i < 4; ++i)
+		if (maxFreq >= fq[i])  fi = i;
+	gi = g->AddInt(0,y,xs, "Frequency [kHz]", &nFreq, 0, fi, true);  //y+=ya;
+	for (i=0; i <= fi; ++i)
+		gi->imap[fq[i]] = fToStr(fq[i]/1000.f,0);
+	gi->done();
 	bt = g->AddBut(240,y,60, ya, "Apply");  y+=ya;
 	CallId(bt, 1);
 
