@@ -30,15 +30,19 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	if (tkPl->isDir())  rf  //-
 	//bDrawPlst = true;  // Z,X diffr--
 
-	//. rem old sync
-	if (chPl && chSync)
-		BASS_ChannelRemoveSync(chPl, chSync);
-	
+	//. rem old
+	if (chPl)
+	{
+		BASS_ChannelStop(chPl);
+		if (chSync)
+			BASS_ChannelRemoveSync(chPl, chSync);
+		BASS_StreamFree(chPl);
+	}
+
 	//  get name
 	string fname = tkPl->getFullPath();
-
+	
 	//  create stream
-	BASS_StreamFree(chPl);  // free old	,stop
 	chPl = BASS_StreamCreateFile(FALSE,fname.c_str(),0,0, (bRep1? BASS_SAMPLE_LOOP: 0) | BASS_STREAM_AUTOFREE);
 	if (!chPl)
 	switch (BASS_ErrorGetCode())
