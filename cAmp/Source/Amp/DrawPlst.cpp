@@ -162,12 +162,17 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 
 		//----------------------------  Tracks  --------------------------------
 		cf->SetTex(1);
+		cf->dir = 1;
+		cf->Fs[' '] = cf->Fs['0']/2;
+
 		i = pls->lOfs;  y = yB_pl;  j=0;
 		for (; i < im; i++,j++)  /**/if (i < pls->vList.size())
 		{	q = pls->vList[i];  if (q)  {
 
 			bool d = q->isDir();
 			bool bPl = bPlay && i == pls->idPl;  //q == plst->tkPl;
+			int xwt = Lxm[j];
+			cf->xmax = xwt;
 			
 			///  rating
 			int r = q->rate+cR0;
@@ -197,8 +202,6 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			else					clr(0.75,0.9,1);	// norm
 
 			///  Name
-			cf->dir = 1;
-			cf->Fs[' '] = cf->Fs['0']/2;
 			#if 1
 				//  normal
 				if (CList::iDirView == 2 && d)
@@ -220,8 +223,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			
 			//  write
 			xx = d ? xB : xB + xTab;
-			int xw = xx + cf->GetWidth(), xwt = Lxm[j];
-			cf->xmax = xwt;
+			int xw = xx + cf->GetWidth();
 			cf->Write(xx, y);
 			
 			if (xw > xwt)
@@ -244,9 +246,6 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			if (yins != -1 || shct)
 			{	D3DRECT rIns= {0,yy-1, view.xSize,yy+1};  pDev->Clear(1, &rIns, clFl, clr, 1.f, 0);  }
 		}
-
-		//cf->End();
-	}/*else*/
-	//cf->End();
+	}
 	cf->SetTex(1);
 }
