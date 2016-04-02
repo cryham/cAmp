@@ -63,27 +63,48 @@ public:
 	int yPickKey;  bool bPickingKey, btnKeysOk,btnKeysOn;
 
 
-	///  play bass  ------------------------------------------------
+	///  play  ------------------------------------------------
 	char sPlInf[100];  //file info
 
 	//----  play control
 	bool bWasPlay, bRepAll,bRep1;
 	float fVol;
 	
-	static const int aSpdSeek = 3, aSpdVol = 3;
-	int iSpdSeek, iSpdVol;  // par
-	static int vSpdSeek[aSpdSeek][3];
-	static float vSpdVol[aSpdVol][3];
-	
 	double tmPl, tmTot, lastPos;  //play, total time, relpos
-	double time; //save time
+	double time;  //save time
 	bool bNextPrev;  //last dir for next>
 
 	bool Play(bool get=true,bool fget=false), PlayFrom(double t);
-	void chPos(bool neg, bool shift, bool ctrl), chPosAbs(double pos);
-	void chVol(bool neg, bool shift, bool ctrl);
 	void Pause(),Stop(), Prev(),Next(), PlayPrevTab(),PlayNextTab();
-	void repAll(),rep1();  //toggle repeat
+
+	void repAll(),rep1();  // toggle repeat
+
+	//  seek  ---
+	int aSpdSeek, aSpdVol;  // all
+	int iSpdSeek, iSpdVol;  // cur
+
+	struct SpdSeek  // seek
+	{
+		int add, rnd, perc;
+		SpdSeek() : add(0), rnd(0), perc(0)
+		{	}
+	};  // const sec add, random sec, percent of track time
+
+	struct SpdSeek3
+	{	SpdSeek s[3];  // 0 slow, 1 norm, 2 fast
+	};
+	struct SpdVol3
+	{	float v[3];
+		SpdVol3()
+		{	v[0]=v[1]=v[2] = 0.f;  }
+	};
+	
+	std::vector<SpdSeek3> vSpdSeek;
+	std::vector<SpdVol3> vSpdVol;
+
+	void chPos(bool back, bool slow, bool fast), chPosAbs(double pos);
+	void chVol(bool back, bool slow, bool fast);  // seek/change position, volume
+	
 
 	//  System  ----
 	HANDLE thrIns;
@@ -112,6 +133,12 @@ public:
 
 	void RenameAll(int type), DoSearch();
 	bool bShowSrch, bAltOld;  int iSrchAll;
+	
+	//  Queue  ---
+	CList* plq;
+	void AddToQueue();
+	
+	//todo: history..
 	
 	//  copy  ---
 	std::string copyPath;

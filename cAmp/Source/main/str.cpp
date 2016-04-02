@@ -125,6 +125,7 @@ char cStr::s[512]={0};
 char* cStr::strI(int i)		{	sprintf(s,"%d", i);		return s;	}
 char* cStr::strI6(INT64 i)	{	sprintf(s,"%d", i);		return s;	}
 char* cStr::strF(float f)	{	sprintf(s,"%.3f", f);	return s;	}
+char* cStr::strF1(float f)	{	sprintf(s,"%.1f", f);	return s;	}
 char* cStr::strD(double d)	{	sprintf(s,"%f", d);		return s;	}
 char* cStr::strB(bool b)	{	sprintf(s,"%d", b?1:0);	return s;	}
 

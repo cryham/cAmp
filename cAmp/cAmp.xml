@@ -1,7 +1,6 @@
 <cAmp>
 	<OnOff bRepAll="1" bRep1="0" eVis="1" bFilInfo="1" iDirView="1" />
-	<Plr spdSeek="1" spdVol="1" />
-	<App bRec="1" fltTex="1" priority="1" sndDev="-1" sndFreq="48000" />
+	<App bRec="0" fltTex="1" priority="1" sndDev="-1" sndFreq="44100" />
 	<Path ins="c:\" copy="d:\" />
 	<Last volume="0.380" bPlay="0" pos="0.0" playPls="0" curPls="0" />
 	<Views>
@@ -15,6 +14,14 @@
 		<View sizeX="1920" sizeY="1200" posX="   0" posY="   0" eVis="3" visH=" 907" ftMul="69.000" fft="3" vpFq="168" sleep="-1" vsync="1" sldr="30" slR="1" Fp="0" Fa="0" Ft="1" Fh="1" Fg="1" tbX="29" tbY="1" tbO="0" />
 		<View sizeX="1920" sizeY="1200" posX="   0" posY="   0" eVis="3" visH="1200" ftMul="69.000" fft="3" vpFq="196" sleep="-1" vsync="1" sldr="20" slR="1" Fp="1" Fa="0" Ft="1" Fh="1" Fg="1" tbX=" 5" tbY="2" tbO="0" />
 	</Views>
+	<Seek pos="1" vol="1">
+		<Pos slow="1" norm="3" fast="6" />
+		<Pos slow="1" norm="5" fast="15" />
+		<Pos slow="5" norm="15" fast="30" />
+		<Vol slow="0.5" norm="1.0" fast="2.0" />
+		<Vol slow="1.0" norm="2.0" fast="5.0" />
+		<Vol slow="2.0" norm="5.0" fast="15.0" />
+	</Seek>
 	<Playlists counter="4">
 		<Pls name="1" bokm="0" />
 		<Pls name="2" bokm="0" />

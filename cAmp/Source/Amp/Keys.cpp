@@ -147,6 +147,10 @@ bool cAmp::Keys(WPARAM k)
 			case VK_OEM_PERIOD:	pls->BookmPrev(alt ? 3 : ctrl ? 2 : 1, bShowSrch);  rt
 			case VK_OEM_2:		pls->BookmNext(alt ? 3 : ctrl ? 2 : 1, bShowSrch);  rt  // slash
 			
+
+			//  add to queue
+			case 'L':  rt
+
 			//  duplicate  none- below   shift- top   ctrl- end
 			case 'D':  pls->Insert1(shift? -2: ctrl? 2: 1, NULL);  rt
 				// dupl sel- ..

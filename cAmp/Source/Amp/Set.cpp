@@ -14,9 +14,6 @@ void cAmp::SetLoad()
 	//  defaults
 	SetDefault();
 
-	vRclr.clear();  vTclr.clear();  rtx=D3DXCOLOR(0,1,0,1);  tmClrMode=0;
-	vSetPls.clear();
-	
 	string p = appPath + "cAmp.xml";
 	TiXmlDocument xml;  xml.LoadFile(p.c_str());
 	TiXmlElement* root = xml.RootElement(), *n = NULL, *m = NULL;
@@ -33,12 +30,6 @@ void cAmp::SetLoad()
 			a = n->Attribute("iDirView");	if (a)  CList::iDirView = toInt(a);
 		}
 		
-		n = root->FirstChildElement("Plr");		if (!n)  log(sle+"No <Plr>");
-		if (n)  {
-			a = n->Attribute("spdSeek");	if (a)  iSpdSeek = mia(0,2, toInt(a));
-			a = n->Attribute("spdVol");		if (a)  iSpdVol = mia(0,2, toInt(a));
-		}
-
 		n = root->FirstChildElement("App");		if (!n)  log(sle+"No <App>");
 		if (n)  {
 			a = n->Attribute("bRec");		if (a)  bRecSet = toBool(a);
@@ -80,6 +71,50 @@ void cAmp::SetLoad()
 				view.LoadXml(m, this);
 		}		
 
+		//  seek
+		n = root->FirstChildElement("Seek");	if (!n)  log(sle+"No <Seek>");
+		if (n)
+		{	m = n->FirstChildElement("Pos");  if (!m)  log(sle+"No <Pos>");
+			while (m)
+			{
+				SpdSeek3 s;
+				a = m->Attribute("slow");	if (a)  s.s[0].add = toInt(a);
+				a = m->Attribute("norm");	if (a)  s.s[1].add = toInt(a);
+				a = m->Attribute("fast");	if (a)  s.s[2].add = toInt(a);
+
+				vSpdSeek.push_back(s);
+				m = m->NextSiblingElement("Pos");
+			}
+			m = n->FirstChildElement("Vol");  if (!m)  log(sle+"No <Vol>");
+			while (m)
+			{
+				SpdVol3 v;
+				a = m->Attribute("slow");	if (a)  v.v[0] = toFloat(a);
+				a = m->Attribute("norm");	if (a)  v.v[1] = toFloat(a);
+				a = m->Attribute("fast");	if (a)  v.v[2] = toFloat(a);
+
+				vSpdVol.push_back(v);
+				m = m->NextSiblingElement("Vol");
+			}
+		}
+		//  empty
+		if (vSpdSeek.empty())
+		{	SpdSeek3 s;  s.s[0].add = 1;  s.s[1].add = 5;  s.s[2].add = 15;
+			vSpdSeek.push_back(s);
+		}
+		if (vSpdVol.empty())
+		{	SpdVol3 v;  v.v[0] = 1.f;  v.v[1] = 2.f;  v.v[2] = 5.f;
+			vSpdVol.push_back(v);
+		}
+		aSpdSeek = vSpdSeek.size();
+		aSpdVol = vSpdVol.size();
+
+		if (n)
+		{	a = n->Attribute("pos");	if (a)  iSpdSeek = mia(0,aSpdSeek-1, toInt(a));
+			a = n->Attribute("vol");	if (a)  iSpdVol  = mia(0,aSpdVol -1, toInt(a));
+		}
+
+
 		//  playlists
 		n = root->FirstChildElement("Playlists");	if (!n)  log(sle+"No <Playlists>");
 		if (n)
@@ -119,7 +154,8 @@ void cAmp::SetLoad()
 				m = m->NextSiblingElement("Key");
 		}	}
 		
-		//  ext list,  optional, in ver2
+		
+		//  ext list,  optional, in ver2  . . . .
 		n = root->FirstChildElement("Ext");
 		if (n)
 		{	a = n->Attribute("all");
@@ -128,7 +164,7 @@ void cAmp::SetLoad()
 			sExtAll = cExt::sVer1;
 	}
 
-	//  init ext  . . . . . . . . . . . . . . . . . . . . . . . . 
+	//  init ext  . . . . . . . . . . . 
 	if (sExtAll.empty())
 		cExt::Init();
 	else
@@ -152,6 +188,7 @@ void cAmp::ViewSave(int v)
 void cAmp::SetSave()
 {
 	TiXmlDocument xml;	TiXmlElement root("cAmp");
+	size_t i;
 
 	TiXmlElement onf("OnOff");
 		onf.SetAttribute("bRepAll",	strB(bRepAll));
@@ -161,11 +198,6 @@ void cAmp::SetSave()
 		onf.SetAttribute("iDirView",strI(CList::iDirView));
 	root.InsertEndChild(onf);
 		
-	TiXmlElement plr("Plr");
-		plr.SetAttribute("spdSeek",  strI(iSpdSeek));
-		plr.SetAttribute("spdVol", strI(iSpdVol));
-	root.InsertEndChild(plr);
-
 	TiXmlElement ap("App");
 		ap.SetAttribute("bRec",	strB(bRecSet));
 		ap.SetAttribute("fltTex",	strB(bFltTex));
@@ -192,7 +224,7 @@ void cAmp::SetSave()
 		view.SaveXml(&eVc);
 		eViews.InsertEndChild(eVc);
 		
-		for (int i = 0; i < MaxViews; i++)
+		for (i = 0; i < MaxViews; i++)
 		{
 			TiXmlElement eVw("View");
 			CViewSet& v = views[i];
@@ -201,10 +233,32 @@ void cAmp::SetSave()
 		}
 	root.InsertEndChild(eViews);
 
+	TiXmlElement eSeek("Seek");
+		eSeek.SetAttribute("pos",		strI(iSpdSeek));
+		eSeek.SetAttribute("vol",		strI(iSpdVol));
+
+		for (i=0; i < vSpdSeek.size(); i++)
+		{
+			TiXmlElement sPos("Pos");
+				sPos.SetAttribute("slow",	strI(vSpdSeek[i].s[0].add));
+				sPos.SetAttribute("norm",	strI(vSpdSeek[i].s[1].add));
+				sPos.SetAttribute("fast",	strI(vSpdSeek[i].s[2].add));
+			eSeek.InsertEndChild(sPos);
+		}
+		for (i=0; i < vSpdVol.size(); i++)
+		{
+			TiXmlElement sVol("Vol");
+				sVol.SetAttribute("slow",	strF1(vSpdVol[i].v[0]));
+				sVol.SetAttribute("norm",	strF1(vSpdVol[i].v[1]));
+				sVol.SetAttribute("fast",	strF1(vSpdVol[i].v[2]));
+			eSeek.InsertEndChild(sVol);
+		}
+	root.InsertEndChild(eSeek);
+
 	TiXmlElement ePls("Playlists");
 		ePls.SetAttribute("counter",		strI(cntrPls));
 	
-		for (size_t i=0; i < vPlst.size(); i++)
+		for (i=0; i < vPlst.size(); i++)
 		{
 			TiXmlElement plst("Pls");
 				plst.SetAttribute("name",	vPlst[i]->name);
@@ -217,7 +271,7 @@ void cAmp::SetSave()
 	TiXmlElement eKeys("GlobalKeys");
 		eKeys.SetAttribute("On",	strB(bHKeys));
 		
-		for (int i = 0; i < FU_ALL; i++)
+		for (i = 0; i < FU_ALL; i++)
 		{
 			TiXmlElement key("Key");
 				key.SetAttribute("on",	strB(vKeys[i].on));

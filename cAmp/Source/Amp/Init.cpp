@@ -190,11 +190,17 @@ void cAmp::SetDefault()
 {
 	iPriority=1;  nDev=-1;  nFreq=44100;  bHKeys=0;
 	bFltTex = 1;  bRecSet = 1;
-	iSpdSeek = 1;  iSpdVol = 1;
 
 	bFps=0;  bFInfo=0;  CList::bFilInf=1;
 	fVol=1.f;  bRepAll=1; bRep1=0;  cntrPls=0;  sInsPath[0]=0;
 	bWasPlay=0;  lastPos=0.0;  plsId=0; plsPlId=0;
+
+	vRclr.clear();  vTclr.clear();
+	rtx=D3DXCOLOR(0,1,0,1);  tmClrMode=0;
+	vSetPls.clear();
+	
+	iSpdSeek = 0;  iSpdVol = 0;  //
+	vSpdSeek.clear();  vSpdSeek.clear();
 }
 
 cAmp::~cAmp()

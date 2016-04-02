@@ -40,13 +40,15 @@ GuiPg(0);
 	gi = g->AddInt(0,y,xs, "Seek speeds [s]", &iSpdSeek, 0, aSpdSeek-1, true);  y+=ya;
 	for (v=0; v < aSpdSeek; ++v)
 	{	s = "";
-		for (n=0; n < 3; ++n)  s += iToStr(vSpdSeek[v][n])+"  ";
+		for (n=0; n < 3; ++n)
+			s += iToStr(vSpdSeek[v].s[n].add)+"  ";
 		gi->imap[v] = s;
 	}	gi->done();
 	gi = g->AddInt(0,y,xs, "Volume speeds %", &iSpdVol, 0, aSpdVol-1, true);  y+=ya;
 	for (v=0; v < aSpdVol; ++v)
 	{	s = "";
-		for (n=0; n < 3; ++n)  s += fToStr(vSpdVol[v][n]*100.f,0)+"  ";
+		for (n=0; n < 3; ++n)
+			s += fToStr(vSpdVol[v].v[n], vSpdVol[v].v[n] < 1.f ? 1 : 0)+"  ";
 		gi->imap[v] = s;
 	}	gi->done();
 

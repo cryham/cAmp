@@ -17,7 +17,7 @@ public:
 
 	//  convert old, for set xml
 	static char s[512];
-	static char* strI(int i),    *strF(float i),  *strB(bool b);  // uses s
+	static char* strI(int i),    *strF(float i),  *strF1(float i),  *strB(bool b);  // uses s
 	static char* strI6(INT64 i), *strD(double d), *strHex(byte b);
 
 	#define chs  const char* str
