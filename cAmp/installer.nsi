@@ -8,7 +8,7 @@
 ; redist path should contain both vcredist_x86.exe and
 ; DirectX files: DSETUP.dll, dsetup32.dll, DXSETUP.exe, dxupdate.cab
 ; and (depending on which DX SDK was used when compiling OGRE)
-; Aug2009_D3DCompiler_42_x86.cab, Aug2009_d3dx9_42_x86.cab
+; Jun2010_D3DCompiler_43_x86.cab, Jun2010_d3dx9_43_x86.cab
 !define REDIST_DIR "d:\redist"
 
 
