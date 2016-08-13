@@ -96,7 +96,7 @@ void cAmp::DrawKeysText()
 	int y = yB_gc, x=5;
 	clr(1,1,1);
 	cf->StrWr("Global HotKeys", 15, yB_gc-90+15);
-	cf->StrWr("OK", 150+20, yB_gc-80+5);
+	cf->StrWr("OK", 150+18, yB_gc-80+2);
 	clr(0.5,0.8,1.0);
 	cf->StrWr("Function        Shift Ctrl Alt      Key", 15, yB_gc-25);
 	clr(0.6,0.7,0.7);
