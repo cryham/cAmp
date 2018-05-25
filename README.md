@@ -12,5 +12,5 @@ check [Using](https://github.com/cryham/cAmp/wiki/Using) on how to get started.
 Screenshots
 -----------
 
-![](https://raw.githubusercontent.com/cryham/cAmp/master/cAmp/screenshots.png)
+![](https://raw.githubusercontent.com/cryham/cAmp/master/screenshots.png)
 
