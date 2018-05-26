@@ -14,7 +14,6 @@ GuiCtrl::GuiCtrl() :
 	vis(1), tclr(0.85f,0.85f,0.85f, 1.f),
 	callb(0),idC(-1),inst(0)
 {
-	name[0]=0;
 }
 GuiCtrl::~GuiCtrl() {  }
 
@@ -44,7 +43,7 @@ void GuiText::DrawRect()
 void GuiText::DrawText(float dt)
 {
 	ps->cfont->Fclr = tclr;
-	ps->cfont->StrWr(name,
+	ps->cfont->StrWr(name.c_str(),
 		xp + ps->xPos + 5,  //_par
 		yp + ps->yPos + 4);
 }
@@ -75,7 +74,7 @@ void GuiBut::DrawRect()
 void GuiBut::DrawText(float dt)
 {
 	ps->cfont->Fclr = tclr;
-	ps->cfont->StrWr(name,
+	ps->cfont->StrWr(name.c_str(),
 		xp + ps->xPos + 5,  //_par
 		yp + ps->yPos + 4);
 
@@ -116,7 +115,7 @@ void GuiInt::DrawRect()
 void GuiInt::DrawText(float dt)
 {
 	ps->cfont->Fclr = tclr;
-	ps->cfont->StrWr(name,
+	ps->cfont->StrWr(name.c_str(),
 		xp + ps->xPos + 5,  //_par
 		yp + ps->yPos + 4);
 
@@ -167,7 +166,7 @@ void GuiSld::DrawRect()
 void GuiSld::DrawText(float dt)
 {
 	ps->cfont->Fclr = tclr;
-	ps->cfont->StrWr(name,
+	ps->cfont->StrWr(name.c_str(),
 		xp + ps->xPos + 5,  //_par
 		yp + ps->yPos + 4);
 

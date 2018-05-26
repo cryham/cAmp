@@ -101,7 +101,7 @@ GuiText* GuiSys::AddText(int x, int y, int xs, const char* name)
 {
 	GuiText* c = new GuiText();  c->ps = this;
 	c->xp = x;  c->yp = y;  c->xs = xs;
-	scpy(c->name, name);  c->ReSize();
+	c->name = name;  c->ReSize();
 
 	controls.push_back((GuiCtrl*)c);
 	return c;
@@ -113,7 +113,7 @@ GuiBut* GuiSys::AddBut(int x, int y, int xs, int ys, const char* name)
 {
 	GuiBut* c = new GuiBut();  c->ps = this;
 	c->xp = x;  c->yp = y;  c->xs = xs;  c->ys = ys;
-	scpy(c->name, name);  c->ReSize();
+	c->name = name;  c->ReSize();
 
 	controls.push_back((GuiCtrl*)c);
 	return c;
@@ -126,14 +126,14 @@ GuiInt* GuiSys::AddInt(int x, int y, int xs, const char* name,
 {
 	GuiInt* c = new GuiInt();  c->ps = this;
 	c->xp = x;  c->yp = y;  c->xs = xs;
-	scpy(c->name, name);  c->ReSize();
+	c->name = name;  c->ReSize();
 	c->v = val;  c->vmin = vmin;  c->vmax = vmax;  c->enu = enu;
 
 	//  up +
 	int by = 4;
 	c->bUp = new GuiBut();	GuiBut* b = c->bUp;  b->ps = this;
 	b->xp = x + xs + 25;  b->yp = y + by;  b->xs = 18;  b->ys = 18;
-	scpy(b->name, "");  b->ReSize();  b->vis = 0;
+	b->name = "";  b->ReSize();  b->vis = 0;
 	controls.push_back((GuiCtrl*)b);
 	if (enu)	b->SetLDown(&GuiInt::minc, c);  else
 	{	b->SetLDown(&GuiInt::inc, c);	b->SetRDown(&GuiInt::end, c);	}
@@ -141,7 +141,7 @@ GuiInt* GuiSys::AddInt(int x, int y, int xs, const char* name,
 	//  dn -
 	c->bDn = new GuiBut();	b = c->bDn;  b->ps = this;
 	b->xp = x + xs;  b->yp = y + by;  b->xs = 18;  b->ys = 18;
-	scpy(b->name, "");  b->ReSize();  b->vis = 0;
+	b->name = "";  b->ReSize();  b->vis = 0;
 	controls.push_back((GuiCtrl*)b);
 	if (enu)	b->SetLDown(&GuiInt::mdec, c);  else
 	{	b->SetLDown(&GuiInt::dec, c);	b->SetRDown(&GuiInt::home, c);	}
@@ -158,7 +158,7 @@ GuiSld* GuiSys::AddSld(int x, int y, int xs, const char* name,
 {
 	GuiSld* c = new GuiSld();  c->ps = this;
 	c->xp = x;  c->yp = y;  c->xs = xs;  c->xval = valpos;
-	scpy(c->name, name);  c->ReSize();
+	c->name = name;  c->ReSize();
 	c->v = val;  c->vmin = vmin;  c->vmax = vmax;
 	
 	c->m = 15;  //marg for min max val

@@ -44,7 +44,7 @@ void CTrk::updName()
 		name_pls.erase(p-1);  // = name_pls.substr(0,p-1);
 	else
 		name_pls.erase(p+1);  // = name_pls.substr(0,p+1);
-		///TODO: bool changed rate|bokm pixel
+		//todo- bool changed rate|bokm pixel
 }
 
 

@@ -108,7 +108,7 @@ public:
 
 	//  System  ----
 	HANDLE thrIns;
-	char sInsPath[MP];
+	std::string sInsPath;
 	BOOL BrowseDir(LPCSTR sCurrent, LPSTR sPath);
 	LRESULT OnDropFiles(WPARAM wp, LPARAM lp);
 
@@ -122,7 +122,8 @@ public:
 
 
 	///  PlayLists  ------------------------------------------------
-	std::vector<CList*> vPlst;  int nTabMov;
+	std::vector<CList*> vPlst;
+    int nTabMov;
 	CList* pls,*plsPl,*plsSel;  //cur, playing, copy from
 	int plsId,plsPlId,plsSelId;
 	void plsChg(int clrSel=0), plsPlChg(int id);

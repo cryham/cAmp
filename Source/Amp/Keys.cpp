@@ -6,9 +6,9 @@ DWORD WINAPI BrowseDirThr(LPVOID lp)
 { 
 	cAmp* pA = (cAmp*)lp;
 	char pa[MP];
-	if (pA->BrowseDir(pA->sInsPath, &pa[0]))  {
+	if (pA->BrowseDir(pA->sInsPath.c_str(), &pa[0]))  {
 		pA->pls->trGet = true;
-		pA->pls->InsertDir(pa);  scpy(pA->sInsPath, pa);  }
+		pA->pls->InsertDir(pa);  pA->sInsPath = pa;  }
 	pA->thrIns = 0;
     return 0;
 }

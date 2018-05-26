@@ -21,7 +21,7 @@ class GuiCtrl
 public:
 	int xp,yp, xs,ys;  // pos,size
 	float x1,x2,y1,y2;  void ReSize();
-	char name[30];   // display text
+    std::string name;  // display text
 	bool vis;  // visible
 
 	float sel;  DWORD rgb;  //clr over

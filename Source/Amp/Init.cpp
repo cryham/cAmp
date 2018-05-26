@@ -180,7 +180,7 @@ cAmp::cAmp()
 	,aaD(0),aaF(0), aaSi(0), aaTm(0)
 	,gpg(0)
 {
-	appPath[0]=0;  sPlInf[0]=0;
+	sPlInf[0]=0;
 	sed[0]=0;  srch[0]=0;
 	
 	SetDefault();
@@ -192,7 +192,7 @@ void cAmp::SetDefault()
 	bFltTex = 1;  bRecSet = 1;
 
 	bFps=0;  bFInfo=0;  CList::bFilInf=1;
-	fVol=1.f;  bRepAll=1; bRep1=0;  cntrPls=0;  sInsPath[0]=0;
+	fVol=1.f;  bRepAll=1; bRep1=0;  cntrPls=0;
 	bWasPlay=0;  lastPos=0.0;  plsId=0; plsPlId=0;
 
 	vRclr.clear();  vTclr.clear();

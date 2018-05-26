@@ -188,7 +188,6 @@ CList::CList()
 	allSize=0; dirSize=0; allTime=0; allDirs=0; allFiles=0;
 	selSize=0; selTime=0;
 
-	sPath[0]=0;  pp[0]=0;  ss[0]=0;
 	lev=0;  itu=0;  bThr=0; bThrTi=0;  bbThr=0;
 	lInsPos=0; lInsM=-1;  ylastSel, numSel=0;  InsM=-2;//top
 	iRFilt=-cR0; iRFilU=cR1; //all

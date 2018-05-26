@@ -41,7 +41,7 @@ void cAmp::SetLoad()
 
 		n = root->FirstChildElement("Path");	//if (!n)  log("No <Path>",sle);
 		if (n)  {
-			a = n->Attribute("ins");	if (a)  scpy(sInsPath, a);
+			a = n->Attribute("ins");	if (a)  sInsPath = string(a);
 			a = n->Attribute("copy");	if (a)  copyPath = string(a);
 		}
 
