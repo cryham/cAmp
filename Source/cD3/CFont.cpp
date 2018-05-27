@@ -39,14 +39,12 @@ bool CFont::Init( PDev dev )
 	Fcf = Fname + ".cf";
 	Ftx = Fname + Fext;
 	
-	//  get dim
-	D3DXIMAGE_INFO ii;
-	D3DXGetImageInfoFromFileA(Ftx.c_str(), &ii);
-	Fxw = ii.Width;  Fyw = ii.Height;
-	
 	//  read CFont data
 	ifstream fi;	char s[96];
 	fi.open(Fcf.c_str());
+	if (!fi.good())
+		rf
+
 	fi.getline(s,90);  //CrystalFont 4.45
 	fi.getline(s,90);		Fy = atoi(s);
 	fi.getline(s,90,' ');	z1 = atoi(s);
@@ -58,7 +56,13 @@ bool CFont::Init( PDev dev )
 		fi.getline(s,90);		Fs[i] = atoi(s);
 	}
 	fi.close();
+
 	Fx = Fs[32];  //spc
+
+	//  get dim
+	D3DXIMAGE_INFO ii;
+	D3DXGetImageInfoFromFileA(Ftx.c_str(), &ii);
+	Fxw = ii.Width;  Fyw = ii.Height;
 
 	/*Font sprite & texture*/
 	Fclr = D3DXCOLOR(1.f,1.f,1.f, 1.f);
@@ -118,8 +122,8 @@ void CFont::OnReset()
 
 void CFont::Destroy()
 {	
-   	REL(FtexW)
- 	REL(Ftex)
+	REL(FtexW)
+	REL(Ftex)
 	REL(Fspr)
 }
 
@@ -146,21 +150,21 @@ void CFont::End()
 
 void CFont::Format(const char* format, ...)
 {
-    va_list args;
-    va_start(args, format);
-    StringCchVPrintfA( str, strSize, format, args );
-    str[strSize-1] = 0;
-    va_end(args);
+	va_list args;
+	va_start(args, format);
+	StringCchVPrintfA( str, strSize, format, args );
+	str[strSize-1] = 0;
+	va_end(args);
 }
 
 void CFont::StrCopy(const char* from)
 {
-    StringCchCopyA( str, strSize, from );
+	StringCchCopyA( str, strSize, from );
 }
 
 void CFont::StrAdd(const char* from)
 {
-    StringCchCatA( str, strSize, from );
+	StringCchCatA( str, strSize, from );
 }
 
 void CFont::StrWr(const char* from, int x, int y)

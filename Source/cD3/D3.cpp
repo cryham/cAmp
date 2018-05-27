@@ -46,7 +46,9 @@ bool D3::Init2()
 	{
 		cfont[i] = new CFont();
 		cfont[i]->Fname = appPath+"Media\\fonts\\" + cStr::iToStr(i);
-		cfont[i]->Fext = ".png";  cfont[i]->Init(pDev);
+		cfont[i]->Fext = ".png";
+		if (!cfont[i]->Init(pDev))
+		{	Err("D3 Can't load CFont ");  rf  }
 	}
 	cfdig = new CFont();
 	cfdig->Fname = appPath + "Media\\fonts\\dig";
