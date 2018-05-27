@@ -61,6 +61,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 
 	//  size
 	char st[60];
+	#define sfmt(s)  sprintf_s(st,sizeof(st)-1, 
 	int sg = aSi/1000;  float fsm = aSi/1000.f;
 	if (sg < 1)		sfmt(st) "%3d MB", aSi);  else
 	if (sg < 10)	sfmt(st) "%4.3f GB", fsm); else
@@ -84,6 +85,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 	  sfmt(st) " h%c%c", th%10+'0', th>9? th/10+'0': td>0?'0':' ');  cf->StrAdd(st);	if (td > 0) {  
 	sfmt(st) " d%c%c%c", td%10+'0', td>9? td/10%10+'0':' ', td>99? td/100%10+'0':' ');  cf->StrAdd(st);	 }  }
 	cf->dir = -1;  cf->Write(xTm, yB_pli);  cf->dir = 1;
+	#undef sfmt
 	
 	//  num sel
 	//if (pls->numSel > 0)
@@ -211,9 +213,9 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			#else
 				//  debug list
 				if (d)
-					sfmt(cf->s) "%s  %s", q->name.c_str(),  pls->ll->name.c_str());
+					cf->Format("%s  %s", q->name.c_str(),  pls->ll->name.c_str());
 				else
-					sfmt(cf->s) "%s <   %s   > %s",
+					cf->Format("%s <   %s   > %s",
 						!q->prev ? "-" : q->prev->name.c_str(),  q->name.c_str(),
 						!q->next ? "-" : q->next->name.c_str() );
 			#endif

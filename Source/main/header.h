@@ -32,7 +32,6 @@ typedef unsigned char  byte;    typedef LPDIRECT3DDEVICE9  PDev;
 #define rt  return true;
 #define rf  return false;
 
-#define sfmt(a)		sprintf_s(a,sizeof(a)-1,
 #define scpy(a,b)	strcpy_s(a,sizeof(a)-1, b)
 #define sadd(a,b)	strcat_s(a,sizeof(a)-1, b)
 
