@@ -31,20 +31,33 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	//bDrawPlst = true;  // Z,X diffr--
 
 	//. rem old
-	if (chPl)
+	if (chPl || chMod)
 	{
 		BASS_ChannelStop(chPl);
 		if (chSync)
-			BASS_ChannelRemoveSync(chPl, chSync);
-		BASS_StreamFree(chPl);
+			BASS_ChannelRemoveSync(ch(), chSync);
+		if (chPl)  BASS_StreamFree(chPl);
+		if (chMod) BASS_MusicFree(chMod);
+		chPl = 0;  chMod = 0;
 	}
 
 	//  get name
 	string fname = tkPl->getFullPath();
+	//if (tkPl->mod)
+	if (cExt::Find(tkPl->ext) < 0)
+	{   // load mod
+		chMod = BASS_MusicLoad(FALSE, fname.c_str(), 0,0,
+			BASS_MUSIC_STOPBACK | BASS_MUSIC_AUTOFREE | //?
+			BASS_MUSIC_RAMPS | BASS_MUSIC_SINCINTER |  // quality todo opt
+			BASS_MUSIC_FT2PAN | BASS_MUSIC_FT2MOD | //BASS_MUSIC_PT1MOD | //MODBASS_MUSIC_SURROUND | 
+			(bRep1? BASS_SAMPLE_LOOP: 0) | BASS_MUSIC_PRESCAN, 1);
+	}else
+	{   // create stream
+		chPl = BASS_StreamCreateFile(FALSE, fname.c_str(), 0,0,
+			(bRep1? BASS_SAMPLE_LOOP: 0) | BASS_STREAM_AUTOFREE);
+	}
 	
-	//  create stream
-	chPl = BASS_StreamCreateFile(FALSE,fname.c_str(),0,0, (bRep1? BASS_SAMPLE_LOOP: 0) | BASS_STREAM_AUTOFREE);
-	if (!chPl)
+	if (!chPl && !chMod)
 	switch (BASS_ErrorGetCode())
 	{
 		case BASS_ERROR_FILEOPEN:
@@ -62,26 +75,27 @@ bool cAmp::Play(bool get,bool fget)	//  |>
 	else  tkPl->dis = 0;
 
 	//. sync reaching end - for play next
-	chSync = BASS_ChannelSetSync(chPl, BASS_SYNC_END/*or BASS_SYNC_FREE*/, 0, EndSync, this); 
+	chSync = BASS_ChannelSetSync(ch(), BASS_SYNC_END/*or BASS_SYNC_FREE*/, 0, EndSync, this); 
 		
 	//  get file info
 	int bitr=0;
-	QWORD bytes = BASS_ChannelGetLength(chPl, BASS_POS_BYTE);
+	QWORD bytes = BASS_ChannelGetLength(ch(), BASS_POS_BYTE);
 	if (bytes > 0)
-	{	tmTot = BASS_ChannelBytes2Seconds(chPl, bytes);
-		/*time upd again*/plsPl->allTime -= tkPl->time;
-		tkPl->time = tmTot;  plsPl->allTime += tkPl->time;
+	{	tmTot = BASS_ChannelBytes2Seconds(ch(), bytes);
+		// time upd again // todo when needed
+		plsPl->allTime -= tkPl->time;  tkPl->time = tmTot;
+		plsPl->allTime += tkPl->time;
 		bitr = 0.008*double(tkPl->size)/tmTot;	}
 	else  tmTot = 0.0;
 	
 	//  ext  kbps  freq  size
-	BASS_CHANNELINFO info;	BASS_ChannelGetInfo(chPl, &info);
+	BASS_CHANNELINFO info;	BASS_ChannelGetInfo(ch(), &info);
 	sprintf_s(sPlInf, sizeof(sPlInf)-1,
 		"%4d %2d  %3.1f", bitr/*info.origres*/, info.freq/1000, double(tkPl->size-44)/1000000.0 );
 	
 	//  play
-	BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);  //,bal
-	BASS_ChannelPlay(chPl, TRUE);
+	BASS_ChannelSetAttribute(ch(), BASS_ATTRIB_VOL, fVol);  //,bal
+	BASS_ChannelPlay(ch(), TRUE);
 	bPlay = true;	bPaused = false;  rt
 }
 
@@ -92,18 +106,18 @@ void cAmp::chPos(bool back, bool slow, bool fast)  //  <<  >>
 {
 	if (!bPlay)  return;
 	double add = vSpdSeek[iSpdSeek].s[slow ? 0 : fast ? 2 : 1].add;
-	double pos = BASS_ChannelBytes2Seconds(chPl, BASS_ChannelGetPosition(chPl, BASS_POS_BYTE));
+	double pos = BASS_ChannelBytes2Seconds(ch(), BASS_ChannelGetPosition(ch(), BASS_POS_BYTE));
 	pos += back ? -add : add;
 	if (pos < 0.0)  {  if (!bRep1) Prev();  pos += tmTot;  }  //out exact
 	if (pos >tmTot) {  pos -= tmTot;  if (!bRep1) Next();  }
-	BASS_ChannelSetPosition(chPl, BASS_ChannelSeconds2Bytes(chPl, pos), BASS_POS_BYTE);
+	BASS_ChannelSetPosition(ch(), BASS_ChannelSeconds2Bytes(ch(), pos), BASS_POS_BYTE);
 }
 
 void cAmp::chPosAbs(double pos)	//  <<| >>
 {
 	if (!bPlay)  return;
 	if (pos > 0.999)  pos = 0.999;//
-	BASS_ChannelSetPosition(chPl, BASS_ChannelSeconds2Bytes(chPl, pos*tmTot), BASS_POS_BYTE);
+	BASS_ChannelSetPosition(ch(), BASS_ChannelSeconds2Bytes(ch(), pos*tmTot), BASS_POS_BYTE);
 }
 
 
@@ -113,7 +127,7 @@ void cAmp::chVol(bool back, bool slow, bool fast)  //  ^ v
 	fVol += back ? -add : add;
 	fVol = mia(0.f,1.f, fVol);	tmd = tmD;
 	if (bPlay)
-		BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);
+		BASS_ChannelSetAttribute(ch(), BASS_ATTRIB_VOL, fVol);
 }
 
 
@@ -127,7 +141,7 @@ void cAmp::rep1()    // @1
 {
 	bRep1 = !bRep1;  tmd = tmD;
 	if (bPlay)
-		BASS_ChannelFlags(chPl, bRep1? BASS_SAMPLE_LOOP :0, BASS_SAMPLE_LOOP);
+		BASS_ChannelFlags(ch(), bRep1? BASS_SAMPLE_LOOP :0, BASS_SAMPLE_LOOP);
 }
 
 
@@ -180,15 +194,15 @@ void cAmp::Pause()	//  ||
 	{	Play();  return;  }
 	
 	if (bPaused)
-	{	BASS_ChannelPlay(chPl,FALSE);  bPaused = false;	}
+	{	BASS_ChannelPlay(ch(),FALSE);  bPaused = false;	}
 	else
-	{	BASS_ChannelPause(chPl);	bPaused = true;  }
+	{	BASS_ChannelPause(ch());	bPaused = true;  }
 }
 
 void cAmp::Stop()	//  []
 {
 	if (bPlay)
-	{	BASS_ChannelStop(chPl);  bPlay = false;  bPaused = false;  }
+	{	BASS_ChannelStop(ch());  bPlay = false;  bPaused = false;  }
 }
 
 

@@ -60,7 +60,8 @@ void CList::tree1File(pTrk* tf, pTrk* qf, const char* fullpath)
 	}
 	string fname,ext;
 	cExt::splitExt(filename, fname,ext);
-	if (!cExt::Find(ext))
+    int mu = cExt::Find(ext);
+	if (!mu)
 		return;  // unplayable
 
 	//  size inc
@@ -72,6 +73,7 @@ void CList::tree1File(pTrk* tf, pTrk* qf, const char* fullpath)
 	n->type = TY_AUDIO;
 	n->pv = ww;
 	n->size = si;
+    n->mod = mu < 0;
 	getNameRating(n->name.c_str(), &n->rate, &n->bokm);
 	if (*qf)  (*qf)->nx = n;  else  *tf = n;  /*1st*/
 	(*qf) = n;  //list

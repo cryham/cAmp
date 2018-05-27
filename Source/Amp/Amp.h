@@ -37,7 +37,7 @@ public:
 
 	//  set
 	void SetLoad(), SetSave(), SetDefault(),  ClrLoad(), ClrSave();
-	std::string sExtAll;
+	std::string sExtAll, sModAll;
 		
 	//  tabs
 	void tabPrev(bool row, bool ofs), tabNext(bool row, bool ofs);
@@ -126,6 +126,7 @@ public:
 	int nTabMov;
 	CList* pls,*plsPl,*plsSel;  //cur, playing, copy from
 	int plsId,plsPlId,plsSelId;
+
 	void plsChg(int clrSel=0), plsPlChg(int id);
 	void updSelId(int clear=0), clrSelId();
 

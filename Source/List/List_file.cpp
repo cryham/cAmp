@@ -37,9 +37,9 @@ bool CList::Load()
 			fi.getline(s,MP,'|');  q->size = cStr::toInt6(s);
 
 			// t,h,r,b
-			fi.getline(s,80);	int t=0,h=0,r=0, b=0;
-			sscanf(s,"%d|%d|%d|%d", &t, &h, &r, &b);
-			q->tab=t;  q->hide=h;  q->rate=r;  q->bokm=b;
+			fi.getline(s,80);	int t=0,h=0,r=0, b=0, m=0;
+			sscanf(s,"%d|%d|%d|%d|%d", &t, &h, &r, &b, &m);
+			q->tab=t;  q->hide=h;  q->rate=r;  q->bokm=b;  q->mod=m;
 			
 			//  list
 			if (!ll1)  {  // new 1st
@@ -83,6 +83,7 @@ bool CList::Save()
 			of << q->path;
 		of <<'|'<< q->name <<'|'<< q->ext <<'|'<< q->time <<'|'<< q->size <<'|';
 		of << (int)q->tab <<'|'<< (int)q->hide <<'|'<< (int)q->rate <<'|'<< (int)q->bokm;
+		of << '|'<< q->mod ? '1':'0';
 
 		qq = q;  q = q->next;
 		if (q)  of << "\n";
@@ -98,7 +99,7 @@ bool CList::Save()
 void CList::Clear()
 {
 	destroyThr();
-	vList.clear();  listLen=0;  srchPath[0]=0;  //? numSel = 0;
+	vList.clear();  listLen=0;  //? numSel = 0;
 	allDirs = allFiles = 0;	allSize = 0; allTime = 0;
 	destList();
 }

@@ -156,19 +156,21 @@ void cAmp::SetLoad()
 		
 		
 		//  ext list,  optional, in ver2  . . . .
+		sExtAll = cExt::sVer1;
+		sModAll = cExt::sMod1;
+			
 		n = root->FirstChildElement("Ext");
 		if (n)
 		{	a = n->Attribute("all");
-			sExtAll = string(a);
-		}else
-			sExtAll = cExt::sVer1;
+			if (a)  sExtAll = string(a);
+	
+			a = n->Attribute("mod");
+			if (a)  sModAll = string(a);
+		}
 	}
 
 	//  init ext  . . . . . . . . . . . 
-	if (sExtAll.empty())
-		cExt::Init();
-	else
-		cExt::Init(sExtAll);
+	cExt::Init(sExtAll, sModAll);
 }
 
 

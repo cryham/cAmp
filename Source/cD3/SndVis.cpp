@@ -14,7 +14,7 @@ void cSnd::Vpr()
 	if (view.eVis==viPrint && surf && PlR)
 	{
 		EnterCriticalSection(&cs);
-		BASS_ChannelGetData(bPlay ? chPl : chRec, fftB, fts[view.fftSize] );
+		BASS_ChannelGetData(bPlay ? ch() : chRec, fftB, fts[view.fftSize] );
 
 		for (int x=0; x < view.xSize+1; x++)
 		{
@@ -22,7 +22,7 @@ void cSnd::Vpr()
 			float y = -log10(f) * view.fftMul /255.f -0.1f;  //par
 
 			y = mia(0.f,1.0f, y);
-			C[xpn][x] = 1.f-y;
+			visC[xpn][x] = 1.f-y;
 		}
 		// _ write pos
 		xpr++;  if (xpn < PrLin)  xpn++;
@@ -38,7 +38,7 @@ void cSnd::Vpr()
 //
 void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 {
-	DWORD chan = bPlay ? chPl : chRec;
+	DWORD chan = bPlay ? ch() : chRec;
 
 //  voice print
 	if (view.eVis==viPrint && surf)
@@ -61,7 +61,7 @@ void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 					for (UINT x = 0; x <= xpn-1; ++x)
 					for (UINT y=0; y < view.ySize; ++y)
 					{
-						float f = C[x][view.ySize-1-y];
+						float f = visC[x][view.ySize-1-y];
 						O[min(Omax, max(0, xpr-xpn-1+x) + y*yO)] =
 							pcl[ (int)((PrClrs-1)*f) ];  // split end 2x..
 					}
@@ -96,7 +96,7 @@ void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 				float f = fft[x+1];  if (f<0.000001f) f=0.000001f;
 				float y = -log10(f) * view.fftMul /255.f -0.1f;  //par
 
-				y = mia(0.f,1.0f, y);	A[x] = y;
+				y = mia(0.f,1.0f, y);	visA[x] = y;
 			}
 		}else
 		if (view.eVis==viOsc)
@@ -108,8 +108,8 @@ void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 			{
 				int i = w*(wav[a++] + wav[a++]) / 2;  a+=2;
 				float y = 0.5f + i/65536.f;
-				A[x] = y;
-				//A[x] = (0.5f - 0.5f*sin(float(x)/view.xSize*6.28) );  // test
+				visA[x] = y;
+				//visA[x] = (0.5f - 0.5f*sin(float(x)/view.xSize*6.28) );  // test
 			}
 		}
 
@@ -121,22 +121,22 @@ void cSnd::Vis(IDirect3DDevice9* pDev, float y1,float y2)
 		{
 			float* o = (float*)lr.pBits;
 			for (UINT x=0; x < view.xSize; ++x)
-				o[x] = A[x];  // x%2; test
+				o[x] = visA[x];  // x%2; test
 
 			if (!bFFT && visTex2)  // 2nd for Osc
 			{
 				visTex2->LockRect(0, &lr, 0, D3DLOCK_DISCARD|D3DLOCK_NOOVERWRITE);
 				float* o = (float*)lr.pBits;
 				for (UINT x=0; x < view.xSize; ++x)
-					o[x] = A[x+1];  // 0; test
+					o[x] = visA[x+1];  // 0; test
 				visTex2->UnlockRect(0);
 			}
 		}
 		else  // rgb byte textures
 		{
 			UINT* o = (UINT*)lr.pBits;
-			if (bFFT) for (UINT x=0; x < view.xSize; ++x)  o[x] = DWORD(255*A[x]);
-			else	  for (UINT x=0; x < view.xSize; ++x)  o[x] = DWORD(255*A[x]) | (DWORD(255*A[x+1])<<8 );
+			if (bFFT) for (UINT x=0; x < view.xSize; ++x)  o[x] = DWORD(255* visA[x]);
+			else	  for (UINT x=0; x < view.xSize; ++x)  o[x] = DWORD(255* visA[x]) | (DWORD(255* visA[x+1])<<8 );
 		}
 		visTex->UnlockRect(0);
 	}

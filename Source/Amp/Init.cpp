@@ -201,6 +201,8 @@ void cAmp::SetDefault()
 	
 	iSpdSeek = 0;  iSpdVol = 0;  //
 	vSpdSeek.clear();  vSpdSeek.clear();
+
+	sExtAll = "";  sModAll = "";
 }
 
 cAmp::~cAmp()
@@ -255,7 +257,7 @@ bool cAmp::PlayFrom(double t)
 	Play(false);  fVol = vol;
 	chPosAbs(t);
 	if (bPlay)
-		BASS_ChannelSetAttribute(chPl, BASS_ATTRIB_VOL, fVol);
+		BASS_ChannelSetAttribute(ch(), BASS_ATTRIB_VOL, fVol);
 	rt
 }
 

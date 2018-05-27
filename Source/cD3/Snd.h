@@ -3,11 +3,11 @@
 #include "..\main\str.h"
 
 
-#define sWAV   4096  // wav data, max screen
-#define sFFT  10240  // fft data
-
-#define PrClrs  8192  // print colors
-#define PrLin   24     // max new print lines
+const static int
+	sWAV = 4096,   // wav data, max screen width
+	sFFT = 10240,  // fft data, max fft size
+	PrClrs = 8192,  // print colors
+	PrLin  = 24;    // max new print lines
 
 const static int FFTNum = 5;
 const static int fts[FFTNum] = {
@@ -40,6 +40,8 @@ public:
 	//  channels  ----
 	HRECORD chRec;
 	HSTREAM chPl;
+	HMUSIC chMod;
+	DWORD ch() {  return chMod ? chMod : chPl;  }
 	HSYNC chSync;
 	bool bPlay, bPaused, bRec,bRecSet;  // Play state, Rec
 
@@ -51,7 +53,7 @@ public:
  
 	//  wav data =
 	float dt;  //, xL,xR, Ladd,Lsub;
-	float A[sWAV], C[PrLin][sWAV];  //fft,wav clr
+	float visA[sWAV], visC[PrLin][sWAV];  //fft,wav clr
 
 	DWORD pcl[PrClrs];
 	void UpdPClr();

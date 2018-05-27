@@ -9,15 +9,27 @@ cSnd::cSnd()
 	,xpr(0),xpn(0)
 	,lock(false)
 	,tmd(0),tmD(0),xt_(0)
-	,chRec(0), chPl(0), chSync(0)
+	,chRec(0), chPl(0), chMod(0), chSync(0)
 	,bPlay(0),bPaused(0), bRec(0),bRecSet(0)
 	,nDev(0), nFreq(0), maxFreq(44100)
 	,dt(0.01f)
 {
 	view.fftSize = 1;
-	memset(A,0,sizeof(A));
+	memset(visA,0,sizeof(visA));
 	//C, fft,fftB,wav
 	UpdPClr();
+
+	//  zero vis
+	for (int i=0; i < sFFT; ++i)
+	{
+		fft[i]=0.00001f; fftB[i]=0.00001f;  wav[i]=0;
+	}
+	for (int i = 0; i < sWAV; ++i)
+	{
+		visA[i] = 1.f;
+		for (int j = 0; j < PrLin; ++j)
+			visC[j][i] = 0.f;
+	}
 }
 
 //  update print colors

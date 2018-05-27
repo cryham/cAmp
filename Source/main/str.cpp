@@ -6,33 +6,42 @@ using namespace std;
 
 ///  file extensions
 //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-vector<string> cExt::ext, cExt::Ext;
+vector<string> cExt::ext, cExt::Ext, cExt::mod, cExt::Mod;
 
-const string cExt::sVer1 = "WAV|FLAC|OGG|MP3|APE|WV|MPC|WMA|MP2";
+const string cExt::sExt1 = "WAV|FLAC|OGG|MP3|APE|WV|MPC|WMA|MP2";
+const string cExt::sMod1 = "MOD|XM|IT|S3M|MTM|UMX";
 
 
-void cExt::Init()
+void cExt::Init(string sExtAll, string sModAll)
 {
-	Init(sVer1);
-}
+	if (sExtAll.empty())  sExtAll = sExt1;
+	if (sModAll.empty())  sModAll = sMod1;
 
-void cExt::Init(const string str)
-{
-	Ext.clear();
-	ext.clear();
+	Ext.clear();  ext.clear();
+	Mod.clear();  mod.clear();
 
-	cStr::split(str, '|', Ext);
+	cStr::split(sExtAll, '|', Ext);
 
-	for (size_t i=0; i < Ext.size(); ++i)
+	size_t i;
+	for (i=0; i < Ext.size(); ++i)
 		ext.push_back(cStr::lower(Ext[i]));
+
+	cStr::split(sModAll, '|', Mod);
+
+	for (i=0; i < Mod.size(); ++i)
+		mod.push_back(cStr::lower(Mod[i]));
 }
 
-bool cExt::Find(string s)
+int cExt::Find(string s)
 {
 	string ss = cStr::lower(s);
-	for (size_t i=0; i < ext.size(); ++i)
-		if (ss == ext[i])  rt
-	rf
+	size_t i;
+	for (i=0; i < ext.size(); ++i)
+		if (ss == ext[i])  return 1;
+
+	for (i=0; i < mod.size(); ++i)
+		if (ss == mod[i])  return -1;
+	return 0;
 }
 
 //  filename ext

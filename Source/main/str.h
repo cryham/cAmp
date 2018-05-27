@@ -39,16 +39,17 @@ public:
 class cExt
 {
 public:
-	static std::vector<std::string> ext,Ext;  // lower,upper chars
+	static std::vector<std::string>
+		ext,Ext,  // lower,upper chars
+		mod,Mod;  // mod files
 
 	static int Size()  // count
 	{	return Ext.size();  }
 	
-	static void Init(const std::string all);
-	static void Init();  // default
-	const static std::string sVer1;
+	static void Init(std::string sExtAll, std::string sModAll);
+	const static std::string sExt1, sMod1;  // defaults
 	
-	static bool Find(std::string s);  // playable, true if s in ext, ignores case
+	static int Find(std::string s);  // 0 not playable, 1 in ext, -1 in mod, ignores case
 
 	///  path,ext utils
 	static std::string getExt(const std::string& filename);

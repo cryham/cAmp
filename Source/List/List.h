@@ -22,6 +22,7 @@ public:
 	byte dis;  //err disabled
 	byte srch;	//match
 	char bokm;  //bookmark
+    bool mod;
 
 	bool isDir() {  return  type < TY_FILE;  }
 	

@@ -106,20 +106,31 @@ void CList::UpdTimes()
 
 void CList::updTi()
 {
-	HSTREAM chan;
 	allTime = 0.0;
 
 	for (itu=0; itu<listLen; ++itu)
-	{	pTrk q = vList[itu];  if (q)  if (q->type == TY_AUDIO)  {
+	{	pTrk q = vList[itu];
+		if (q)  if (q->type == TY_AUDIO)  {
 
 		if (q->time == 0.0)
 		{	string name = q->getFullPath();
+			//  get time length
+			DWORD chan;
+			//if (q->mod)
+			if (cExt::Find(q->ext) < 0)
+				chan = BASS_MusicLoad(FALSE, name.c_str(), 0,0,
+					BASS_MUSIC_NOSAMPLE | BASS_MUSIC_PRESCAN, 1);
+			else
+				chan = BASS_StreamCreateFile(FALSE, name.c_str(), 0,0,0);
 		
-			if ( chan = BASS_StreamCreateFile(FALSE, name.c_str(), 0,0,0) )
-			{	QWORD bytes = BASS_ChannelGetLength(chan,BASS_POS_BYTE);
+			QWORD bytes = BASS_ChannelGetLength(chan, BASS_POS_BYTE);
 				double time = BASS_ChannelBytes2Seconds(chan,bytes);
 				q->time = time;
-				BASS_StreamFree(chan);  }
+
+			if (q->mod)
+				BASS_MusicFree(chan);
+			else
+				BASS_StreamFree(chan);
 			//else  // ti get error ..
 			//	log("ti error: "+iToStr(BASS_ErrorGetCode()));
 			//Sleep(200);//
@@ -205,7 +216,7 @@ CTrk::CTrk(const string& Name, const string& Path)
 	,sel(0), dis(0), tab(0)
 	,type(TY_FILE), srch(0)
 	,hide(0), rate(0), bokm(0)
-	,name(Name), path(Path)
+	,name(Name), path(Path), mod(0)
 {
 	p=0;
 	updName();

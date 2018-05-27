@@ -12,7 +12,7 @@ void cAmp::DrawAmpRect()
 /* Position bar */
 	if (bPlay)
 	{
-		tmPl = BASS_ChannelBytes2Seconds(chPl, BASS_ChannelGetPosition(chPl, BASS_POS_BYTE));
+		tmPl = BASS_ChannelBytes2Seconds(ch(), BASS_ChannelGetPosition(ch(), BASS_POS_BYTE));
 		float xp = (tmPl/tmTot) * (1.f-xW_pos), //marg,bar dim
 			x1 = xp*view.xSize;  int xb = xW_pos*view.xSize;
 		Rtex(pDev, Tex, TX_PosDk, 0.f,yB_pos, view.xSize,yE_pos);
