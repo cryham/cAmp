@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{F5894707-2ADA-452D-9F40-7B39A9AF9934}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>cAmp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\</OutDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;TIXML_USE_STL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>Source\main;Source\tinyxml;Source\bass;c:\boost_1_67_0;C:\Program Files (x86)\DirectX SDK June 2010\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>header.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>DxErr.lib;d3d9.lib;d3dx9d.lib;dxguid.lib;bass.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>c:\boost_1_67_0\stage\lib;C:\Program Files (x86)\DirectX SDK June 2010\Lib\x86;source\bass;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;TIXML_USE_STL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>header.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>Source\main;Source\tinyxml;Source\bass;c:\boost_1_67_0;C:\Program Files (x86)\DirectX SDK June 2010\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;bass.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>c:\boost_1_67_0\stage\lib;C:\Program Files (x86)\DirectX SDK June 2010\Lib\x86;source\bass;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\main\App.cpp" />
+    <ClCompile Include="Source\main\header.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Source\main\main.cpp" />
+    <ClCompile Include="Source\main\str.cpp" />
+    <ClCompile Include="Source\cD3\CFont.cpp" />
+    <ClCompile Include="Source\cD3\D3.cpp" />
+    <ClCompile Include="Source\cD3\D3wnd.cpp" />
+    <ClCompile Include="Source\cD3\Graphics.cpp" />
+    <ClCompile Include="Source\cD3\SndInit.cpp" />
+    <ClCompile Include="Source\cD3\SndUpd.cpp" />
+    <ClCompile Include="Source\cD3\SndVis.cpp" />
+    <ClCompile Include="Source\List\List_adv.cpp" />
+    <ClCompile Include="Source\List\List_adv2.cpp" />
+    <ClCompile Include="Source\List\List_dir.cpp" />
+    <ClCompile Include="Source\List\List_file.cpp" />
+    <ClCompile Include="Source\List\List_list.cpp" />
+    <ClCompile Include="Source\List\List_util.cpp" />
+    <ClCompile Include="Source\cD3\Gui.cpp" />
+    <ClCompile Include="Source\cD3\GuiSys.cpp" />
+    <ClCompile Include="Source\Amp\InitGui.cpp" />
+    <ClCompile Include="Source\cD3\View.cpp" />
+    <ClCompile Include="Source\Amp\Draw.cpp" />
+    <ClCompile Include="Source\Amp\DrawAmp.cpp" />
+    <ClCompile Include="Source\Amp\DrawKeys.cpp" />
+    <ClCompile Include="Source\Amp\DrawPlst.cpp" />
+    <ClCompile Include="Source\Amp\DrawPlst2.cpp" />
+    <ClCompile Include="Source\Amp\Keys.cpp" />
+    <ClCompile Include="Source\Amp\KeysTab.cpp" />
+    <ClCompile Include="Source\Amp\Mouse.cpp" />
+    <ClCompile Include="Source\Amp\Help.cpp" />
+    <ClCompile Include="Source\Amp\Init.cpp" />
+    <ClCompile Include="Source\Amp\KeysHook.cpp" />
+    <ClCompile Include="Source\Amp\Open.cpp" />
+    <ClCompile Include="Source\Amp\Play.cpp" />
+    <ClCompile Include="Source\Amp\Set.cpp" />
+    <ClCompile Include="Source\tinyxml\tinystr.cpp" />
+    <ClCompile Include="Source\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="Source\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="Source\tinyxml\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\main\App.h" />
+    <ClInclude Include="Source\main\header.h" />
+    <ClInclude Include="Source\main\KeyNames.h" />
+    <ClInclude Include="Source\main\resource.h" />
+    <ClInclude Include="Source\main\str.h" />
+    <ClInclude Include="Source\cD3\CFont.h" />
+    <ClInclude Include="Source\cD3\D3.h" />
+    <ClInclude Include="Source\cD3\Graphics.h" />
+    <ClInclude Include="Source\cD3\Snd.h" />
+    <ClInclude Include="Source\List\List.h" />
+    <ClInclude Include="Source\List\List_cdef.h" />
+    <ClInclude Include="Source\cD3\Gui.h" />
+    <ClInclude Include="Source\cD3\GuiSys.h" />
+    <ClInclude Include="Source\cD3\View.h" />
+    <ClInclude Include="Source\Amp\Amp.h" />
+    <ClInclude Include="Source\Amp\Amp_def.h" />
+    <ClInclude Include="Source\tinyxml\tinystr.h" />
+    <ClInclude Include="Source\tinyxml\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cAmp.log" />
+    <None Include="cAmp.xml" />
+    <None Include="Media\rate.fx" />
+    <None Include="Media\vis-fft.fx" />
+    <None Include="Media\vis-osc.fx" />
+    <None Include="Media\vis-prt.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Source\main\cAmp.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

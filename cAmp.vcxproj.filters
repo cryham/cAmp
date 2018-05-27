@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\Amp\Draw.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\DrawAmp.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\DrawKeys.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\DrawPlst.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\DrawPlst2.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\Help.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\Init.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\InitGui.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\Keys.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\KeysHook.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\KeysTab.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\Mouse.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\Open.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\Play.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Amp\Set.cpp">
+      <Filter>Amp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\CFont.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\D3.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\D3wnd.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\Graphics.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\Gui.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\GuiSys.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\SndInit.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\SndUpd.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\SndVis.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\cD3\View.cpp">
+      <Filter>cD3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\List\List_adv.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\List\List_adv2.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\List\List_dir.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\List\List_file.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\List\List_list.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\List\List_util.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main\App.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main\header.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main\main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main\str.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\tinyxml\tinystr.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\tinyxml\tinyxml.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Amp\Amp.h">
+      <Filter>Amp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Amp\Amp_def.h">
+      <Filter>Amp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cD3\CFont.h">
+      <Filter>cD3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cD3\D3.h">
+      <Filter>cD3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cD3\Graphics.h">
+      <Filter>cD3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cD3\Gui.h">
+      <Filter>cD3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cD3\GuiSys.h">
+      <Filter>cD3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cD3\Snd.h">
+      <Filter>cD3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\cD3\View.h">
+      <Filter>cD3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\List\List.h">
+      <Filter>List</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\List\List_cdef.h">
+      <Filter>List</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\main\App.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\main\header.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\main\KeyNames.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\main\resource.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\main\str.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\tinyxml\tinystr.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\tinyxml\tinyxml.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cAmp.log">
+      <Filter>Media</Filter>
+    </None>
+    <None Include="cAmp.xml">
+      <Filter>Media</Filter>
+    </None>
+    <None Include="Media\rate.fx">
+      <Filter>Media</Filter>
+    </None>
+    <None Include="Media\vis-fft.fx">
+      <Filter>Media</Filter>
+    </None>
+    <None Include="Media\vis-osc.fx">
+      <Filter>Media</Filter>
+    </None>
+    <None Include="Media\vis-prt.fx">
+      <Filter>Media</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Amp">
+      <UniqueIdentifier>{aa2e211e-f973-40bc-a876-8745cdacb59b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cD3">
+      <UniqueIdentifier>{c9ea5308-089d-4ef4-8689-9d9ebcf80f06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="List">
+      <UniqueIdentifier>{191f80fd-06b5-4e18-b70c-850b2c9c535c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{cb066461-8af6-4cc0-871d-9aa6942b28b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyxml">
+      <UniqueIdentifier>{fa6751ff-5a5d-4b37-8792-a18762bf1d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media">
+      <UniqueIdentifier>{0c89b9f4-22f6-4558-935e-c69e50245c89}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Source\main\cAmp.rc">
+      <Filter>main</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
