@@ -7,7 +7,6 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include <strsafe.h>
  #include <CommDlg.h>
  #include <shlobj.h>
  #include <ShellApi.h>
@@ -34,8 +33,8 @@ typedef unsigned char  byte;    typedef LPDIRECT3DDEVICE9  PDev;
 #define rf  return false;
 
 #define sfmt(a)		sprintf_s(a,sizeof(a)-1,
-#define scpy(a,b)	StringCbCopyA(a,sizeof(a)-1, b)
-#define sadd(a,b)	StringCbCatA(a,sizeof(a)-1, b)
+#define scpy(a,b)	strcpy_s(a,sizeof(a)-1, b)
+#define sadd(a,b)	strcat_s(a,sizeof(a)-1, b)
 
 #define mia(a,b,x)  max(a, min(b, x))
 

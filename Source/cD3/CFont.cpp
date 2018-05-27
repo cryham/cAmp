@@ -152,19 +152,19 @@ void CFont::Format(const char* format, ...)
 {
 	va_list args;
 	va_start(args, format);
-	StringCchVPrintfA( str, strSize, format, args );
+	vsprintf_s(str, strSize, format, args);
 	str[strSize-1] = 0;
 	va_end(args);
 }
 
 void CFont::StrCopy(const char* from)
 {
-	StringCchCopyA( str, strSize, from );
+	strcpy_s(str, strSize, from);
 }
 
 void CFont::StrAdd(const char* from)
 {
-	StringCchCatA( str, strSize, from );
+	strcat_s(str, strSize, from);
 }
 
 void CFont::StrWr(const char* from, int x, int y)

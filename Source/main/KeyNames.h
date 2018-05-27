@@ -77,25 +77,11 @@ const static char csKeyNames[256][18]=
 
 	"0xFF --"  // 0xFF : reserved
 };
-/*
- vk sc  name	Crystal Keyboard 2
- 7C 64  Ext A1 (Caps1)
- 7D 65  Ext A2 (Caps2)
- 7E 66  Ext A3 (Caps3)
- A8 00  Ext A4 (Esc2)
- AB 00  Ext B1 (RWin1)
- 0C 59  Ext B2 (RWin2)
- C1 73  Ext C1 (Num1)
- EB 7B  Ext C2 (Num2)
- FF 70  Ext E1 (Exe1)
- FF 79  Ext E2 (Exe2)
- FF 7D  Ext E3 (Exe3)
-*/
 
 const static void strKeyName(byte vk, byte sc, char* str)
 {
 	if (vk == 0 || vk == 0xFF)
-		StringCbPrintfA(str,22,	"0x%02X %02X", vk, sc);
+		sprintf_s(str,22, "0x%02X %02X", vk, sc);
 	else
-		StringCbCopyA(str,22,csKeyNames[vk]);
+		strcpy_s(str,22,csKeyNames[vk]);
 }
