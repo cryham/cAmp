@@ -95,7 +95,7 @@ void cSnd::bErr(const char *se)
 }
 
 //  util-
-char* cSnd::GetErrStr(int err)
+const char* cSnd::GetErrStr(int err)
 {
 	switch (err)  {
 	case BASS_OK				: return "all is OK";

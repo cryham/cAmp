@@ -19,7 +19,7 @@ class cSnd : public D3, public cStr
 public:
 	cSnd();
 	
-    //  Main
+	//  Main
 	bool InitSnd();
 	void DestSnd();
 	void Vis(IDirect3DDevice9* pDev, float y1,float y2);
@@ -32,7 +32,7 @@ public:
 	int xpr, xpn;
 	bool lock;  Timer TimPr;
 
-    //  Osc/FFT ~
+	//  Osc/FFT ~
 	int tmd,tmD,xt_;  // time add str
 	float fft[sFFT],fftB[sFFT];
 	short wav[sFFT];
@@ -46,10 +46,10 @@ public:
 	//  sound  ----
 	int nDev, nFreq, maxFreq;
 	void bErr(const char *s);
-	char* GetErrStr(int err);
+	const char* GetErrStr(int err);
 	std::vector<std::string> sDevs;
  
-    //  wav data =
+	//  wav data =
 	float dt;  //, xL,xR, Ladd,Lsub;
 	float A[sWAV], C[PrLin][sWAV];  //fft,wav clr
 

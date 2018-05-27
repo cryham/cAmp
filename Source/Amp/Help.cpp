@@ -16,6 +16,7 @@ void cAmp::DrawHelpText()									//  help  //
 	#define  wR(x,y)	cf->Write(x,y);  cf->Write(x,y)
 	#define  clr(r,g,b)  cf->Fclr = D3DXCOLOR(r,g,b,1)
 	#define  X(a1,a2)  x1 = a1;  xt = x1+t;  x2 = x1 + a2;
+	#pragma warning(disable: 4305)  // clr(0.7f
 
 	clr(0.7,0.7,0.7);    sc("Keyboard help");  wr(20,y);  //y+=Fy;
 	clr(0.8,0.8,0.9);    cf->Format("Page: %s %d/%d %s", hlpPg==0?"  ":"<", hlpPg+1,HelpPages, hlpPg==HelpPages-1?"  ":">");

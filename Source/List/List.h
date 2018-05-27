@@ -28,8 +28,8 @@ public:
 	std::string getFullPath(){  return path + name + "." + ext;  }
 	void updName();
 
-	CTrk::~CTrk();
-	CTrk::CTrk(const std::string& Name, const std::string& Path);
+	~CTrk();
+	CTrk(const std::string& Name, const std::string& Path);
 };
 
 typedef CTrk* pTrk;

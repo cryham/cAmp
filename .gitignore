@@ -1,18 +1,11 @@
 ## Ignore Visual Studio
 
-# User-specific files
 *.suo
 *.user
-*.sln.docstates
 
-# Build results
-[Dd]ebug/
-[Rr]elease/
+Debug/
+Release/
 RelDbg/
-x64/
-build/
-[Bb]in/
-[Oo]bj/
 .vs/
 
 *.ilk
@@ -21,14 +14,17 @@ build/
 *.pdb
 *.sbr
 
-*.exe
-*.log
 *.iobj
 *.ipdb
 
-# cache files
 ipch/
 *.aps
 *.ncb
 *.opensdf
 *.sdf
+
+# own files
+
+*.exe
+*.log
+*.cp

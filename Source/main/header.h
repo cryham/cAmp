@@ -11,14 +11,15 @@
  #include <CommDlg.h>
  #include <shlobj.h>
  #include <ShellApi.h>
-#include <boost/filesystem.hpp>
 
 #include <vector>
 #include <map>
 #include <fstream>
-#include <tinyxml.h>
 
-#include <bass.h>
+#include <boost/filesystem.hpp>
+#include "tinyxml.h"
+
+#include "bass.h"
 #include <d3dx9.h>
 #if defined(DEBUG) | defined(_DEBUG)
 	#include <crtdbg.h>
@@ -28,10 +29,11 @@
 typedef unsigned int   uint;    typedef LPDIRECT3DTEXTURE9 PTex;
 typedef unsigned char  byte;    typedef LPDIRECT3DDEVICE9  PDev;
 
+
 #define rt  return true;
 #define rf  return false;
 
-#define sfmt(a)		StringCbPrintfA(a,sizeof(a)-1,
+#define sfmt(a)		sprintf_s(a,sizeof(a)-1,
 #define scpy(a,b)	StringCbCopyA(a,sizeof(a)-1, b)
 #define sadd(a,b)	StringCbCatA(a,sizeof(a)-1, b)
 
@@ -41,18 +43,20 @@ typedef unsigned char  byte;    typedef LPDIRECT3DDEVICE9  PDev;
 
 
 #if defined(DEBUG) || defined(_DEBUG)
-#include <dxerr.h>
-	#define Vd(x)    {  hr = (x);  if (FAILED(hr)) {	DXTrace( __FILE__, (DWORD)__LINE__, hr, L#x, true );  }  }
+//#include <dxerr.h>
+//	#define Vd(x)    {  hr = (x);  if (FAILED(hr)) {	DXTrace( __FILE__, (DWORD)__LINE__, hr, L#x, true );  }  }
+	#define Vd(x)    {  hr = (x);  }
 #else
 	#define Vd(x)    {  hr = (x);  }
 #endif
 
 
-static int __declspec(naked) __fastcall NextPow2(unsigned n)
-{  _asm  {
-	dec ecx
-	mov eax, 2
-	bsr ecx, ecx
-	rol eax, cl
-	ret
-}  }
+//  next higher power of 2, 32-bit
+static uint NextPow2(uint n)
+{
+	uint v = n;
+	--v;
+	v |= v >> 1;  v |= v >> 2;  v |= v >> 4;  v |= v >> 8;  v |= v >> 16;
+	++v;
+	return v;
+}
