@@ -168,7 +168,7 @@ DWORD WINAPI CopyThr(LPVOID lpParam)
 { 
 	cAmp* a = (cAmp*)lpParam;
 	a->CopyAll();
-    return 0;
+	return 0;
 }
 
 void cAmp::CopyThread()

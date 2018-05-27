@@ -123,7 +123,7 @@ public:
 
 	///  PlayLists  ------------------------------------------------
 	std::vector<CList*> vPlst;
-    int nTabMov;
+	int nTabMov;
 	CList* pls,*plsPl,*plsSel;  //cur, playing, copy from
 	int plsId,plsPlId,plsSelId;
 	void plsChg(int clrSel=0), plsPlChg(int id);

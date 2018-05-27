@@ -20,7 +20,7 @@ DWORD WINAPI VprThread(LPVOID lpParam)
 		else if (pA->view.pr_fq < 200)	Sleep(1);
 		else Sleep(0);  //!-
 	}
-    return 0;
+	return 0;
 }
 
 bool cAmp::Begin()

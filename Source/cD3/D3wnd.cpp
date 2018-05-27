@@ -27,8 +27,8 @@ void D3::MoveWnd()
 	//  move
 	if (!ctrl && bR && (xMpos!=xMold || yMpos!=yMold))
 	{
-	    view.xPos = xMpos-xWclick;  view.yPos = yMpos-yWclick;
-	    if (WndCheck())
+		view.xPos = xMpos-xWclick;  view.yPos = yMpos-yWclick;
+		if (WndCheck())
 			SetCursorPos(xMpos,yMpos);
 		MoveWindow(hWnd, view.xPos,view.yPos, view.xSize,view.ySize, true);
 	}
@@ -36,12 +36,12 @@ void D3::MoveWnd()
 	//  size
 	if (ctrl && bR && (xMpos!=xMold || yMpos!=yMold))
 	{
-	    xx = xMpos-xMold;  yy = yMpos-yMold;
-	    view.xSize += xx;  view.ySize += yy;
-	    if (view.xSize < 150)  view.xSize = 150;
-	    if (view.ySize < 100)  view.ySize = 100;  // min size
-	    if (view.xPos+view.xSize > xScreen)  view.xSize = xScreen-view.xPos;
-	    if (view.yPos+view.ySize > yScreen)  view.ySize = yScreen-view.yPos;  // max=screen
+		xx = xMpos-xMold;  yy = yMpos-yMold;
+		view.xSize += xx;  view.ySize += yy;
+		if (view.xSize < 150)  view.xSize = 150;
+		if (view.ySize < 100)  view.ySize = 100;  // min size
+		if (view.xPos+view.xSize > xScreen)  view.xSize = xScreen-view.xPos;
+		if (view.yPos+view.ySize > yScreen)  view.ySize = yScreen-view.yPos;  // max=screen
 		MoveWindow(hWnd, view.xPos,view.yPos, view.xSize,view.ySize, true);
 		iSize++;
 	}
@@ -66,16 +66,16 @@ bool D3::WndCheck()  // wnd in screen
 //--------------------------------------------------------------------------------------
 bool D3::CreateWnd()
 {
-    WNDCLASS wc;  wc.style = 0;//CS_VREDRAW | CS_HREDRAW;
-    wc.lpfnWndProc = MsgProc;	wc.cbClsExtra = 0;  wc.cbWndExtra = 0;
-    wc.hInstance = hInst;	wc.lpszMenuName = NULL;
-    wc.hIcon = LoadIcon(hInst, MAKEINTRESOURCE(IDI_ICON1));
-    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wc.lpszClassName = L"cAmp_WC";
+	WNDCLASS wc;  wc.style = 0;//CS_VREDRAW | CS_HREDRAW;
+	wc.lpfnWndProc = MsgProc;	wc.cbClsExtra = 0;  wc.cbWndExtra = 0;
+	wc.hInstance = hInst;	wc.lpszMenuName = NULL;
+	wc.hIcon = LoadIcon(hInst, MAKEINTRESOURCE(IDI_ICON1));
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.lpszClassName = L"cAmp_WC";
 
-    if (RegisterClass(&wc))
-    {
+	if (RegisterClass(&wc))
+	{
 		hWnd = CreateWindow(L"cAmp_WC", L"cAmp", WS_POPUP, view.xPos,view.yPos,view.xSize,view.ySize, 0,0,hInst,0);
 		if (hWnd)
 		{

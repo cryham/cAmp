@@ -82,7 +82,7 @@ LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 	case WM_DROPFILES:
 		return  App::pAmp->OnDropFiles(wp,lp);
 
- 	default:
+	default:
 		return DefWindowProc(hWnd, msg, wp, lp);
 	}
 	return 0;

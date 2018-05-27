@@ -256,7 +256,7 @@ DWORD WINAPI DirThread(LPVOID lpParam)
 	//	pL->DelSel();/* * * * */
 
 	App::pAmp->bDrawPlst2 = true;
-    return 0;
+	return 0;
 }
 
 void CList::destThrTi()

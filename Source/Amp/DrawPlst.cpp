@@ -189,7 +189,7 @@ if (ed!=ED_nFind && ed!=ED_nTab)
 			else if (q->next == NULL)  clr(1.0,0.3,0.2);  //last
 			else if (mid && q->next->prev->name != q->prev->next->name)					  clr(1.0,0.2,0.4);  //split
 			else if (mid && q->next->name != pls->vList[i+1]->name && !q->next->isDir())  clr(1.0,0.7,0.3);  //next
- 			else if (mid && q->prev->name != pls->vList[i-1]->name && !q->prev->isDir())  clr(1.0,0.7,0.3);  //prev
+			else if (mid && q->prev->name != pls->vList[i-1]->name && !q->prev->isDir())  clr(1.0,0.7,0.3);  //prev
 			else
 			#endif
 			///  clr

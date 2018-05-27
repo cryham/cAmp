@@ -17,17 +17,17 @@ void cAmp::DrawHelpText()									//  help  //
 	#define  clr(r,g,b)  cf->Fclr = D3DXCOLOR(r,g,b,1)
 	#define  X(a1,a2)  x1 = a1;  xt = x1+t;  x2 = x1 + a2;
 
-    clr(0.7,0.7,0.7);    sc("Keyboard help");  wr(20,y);  //y+=Fy;
-    clr(0.8,0.8,0.9);    cf->Format("Page: %s %d/%d %s", hlpPg==0?"  ":"<", hlpPg+1,HelpPages, hlpPg==HelpPages-1?"  ":">");
-    wr(view.xSize-110,y);  y+=Fy*3/2;	clr(1,1,1);
-    
-    sc(HPnames[hlpPg]);  int o=cf->GetWidth(); //center
-    wr(view.xSize/2-o/2,y);  y = yB_pt+5*Fy;
-    #define dark()  clr(0.75,0.85,0.95)
+	clr(0.7,0.7,0.7);    sc("Keyboard help");  wr(20,y);  //y+=Fy;
+	clr(0.8,0.8,0.9);    cf->Format("Page: %s %d/%d %s", hlpPg==0?"  ":"<", hlpPg+1,HelpPages, hlpPg==HelpPages-1?"  ":">");
+	wr(view.xSize-110,y);  y+=Fy*3/2;	clr(1,1,1);
+	
+	sc(HPnames[hlpPg]);  int o=cf->GetWidth(); //center
+	wr(view.xSize/2-o/2,y);  y = yB_pt+5*Fy;
+	#define dark()  clr(0.75,0.85,0.95)
 	
 	switch (hlpPg)
 	{
-    case 0:  X(20,35);		//  Player basic
+	case 0:  X(20,35);		//  Player basic
 		clr(0.3,0.7,0.7);
 		sc("Enter, RMB    Play from cursor  |>");	wR(x1,y);  y+=Fy*4/2;  clr(0.7,0.95,1);
 		sc("Z");	wr(x1,y);  sc("Play     |>");	wr(x2,y);  y+=Fy;
@@ -57,7 +57,7 @@ void cAmp::DrawHelpText()									//  help  //
 		sc("ctrl-F2");	wR(x1,y);  sc("Player Settings");		wR(x2,y);  y+=Fy;
 		break;
 
-    case 1:  t=15; X(20,50);		//  Mouse
+	case 1:  t=15; X(20,50);		//  Mouse
 		clr(0.4,0.8,0.8);
 		sc("Left");									wR(x1,y);  y+=Fy;  clr(1,1,1);
 		sc("at player-  change track position (seek)");	wr(xt,y);  y+=Fy*3/2;
@@ -89,7 +89,7 @@ void cAmp::DrawHelpText()									//  help  //
 			sc("shift- change Visualization height");	wr(xt,y);  y+=Fy*2;  clr(0.35,0.5,0.8);
 		break;
 
-    case 2:  X(20,80);		//  Playlist basic
+	case 2:  X(20,80);		//  Playlist basic
 		sc("Up,Down");		wr(x1,y);
 		sc("move cursor,  ctrl- x8");			wr(x2,y);  y+=Fy;	dark();
 			sc("alt- move 1 track up/dn");		wr(xt,y);  y+=Fy;
@@ -124,7 +124,7 @@ void cAmp::DrawHelpText()									//  help  //
 			sc("shift- at Top   ctrl- at End");		wR(xt,y);  y+=Fy*2;	clr(1,1,1);
 		break;
 
-    case 3:  X(20,55);		//  Playlist advanced
+	case 3:  X(20,55);		//  Playlist advanced
 		clr(0.25,0.2,0.3);
 		sc("Num"); wR(x1+20,y);  clr(0.6,0.5,0.7);  y+=Fy;
 		sc("-   -");	wR(x1,y);	sc("dec track Rating");		wR(x2,y);  y+=Fy;
@@ -147,7 +147,7 @@ void cAmp::DrawHelpText()									//  help  //
 		sc("J");	wr(x1,y);	sc("Show directory +");	wr(x2,y);  y+=Fy*2;
 		break;
 
-    case 4:  X(20,50);		//  Tabs, visual
+	case 4:  X(20,50);		//  Tabs, visual
 		sc("Tab `");wr(x1,y);
 		sc("Next/prev playlist Tab");			wr(x2,y);  y+=Fy;	dark();
 			sc("ctrl-  row down/up");			wr(xt,y);  y+=Fy;	clr(0.7,0.75,0.8);
@@ -178,7 +178,7 @@ void cAmp::DrawHelpText()									//  help  //
 		sc("Ctr-I");wr(x1,y);  sc("Time colors test");		wr(x2,y);  y+=Fy;	clr(1,1,1);
 		break;
 
-    case 5:  X(20,50);		//  Player functions
+	case 5:  X(20,50);		//  Player functions
 		sc("F4");	wr(x1,y);	sc("Save playlist (quick)");	wr(x2,y);  y+=Fy;
 		sc("F5");	wr(x1,y);	sc("Reload playlist");			wr(x2,y);  y+=Fy;
 		sc("ctrl-F5");	wr(x1,y);	sc("open playlist");		wr(x2,y);  y+=Fy*4/2;  clr(0.9,0.8,1);

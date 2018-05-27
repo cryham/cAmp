@@ -93,7 +93,7 @@ DWORD WINAPI TimThread(LPVOID lpParam)
 	pL->updTi();
 	pL->bThrTi = false;
 	App::pAmp->bDrawPlst2 = true;
-    return 0;
+	return 0;
 }
 
 void CList::UpdTimes()

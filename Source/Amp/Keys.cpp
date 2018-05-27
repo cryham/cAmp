@@ -10,7 +10,7 @@ DWORD WINAPI BrowseDirThr(LPVOID lp)
 		pA->pls->trGet = true;
 		pA->pls->InsertDir(pa);  pA->sInsPath = pa;  }
 	pA->thrIns = 0;
-    return 0;
+	return 0;
 }
 
 void cAmp::GuiOff()
