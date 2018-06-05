@@ -9,9 +9,12 @@ bool cAmp::KeysHook(byte vk, byte sc, byte fl)  //byte
 	bool dn = (fl & LLKHF_UP)>0 ? false: true;	//LLKHF_EXTENDED gray
 
 	//  key modifiers
-	shift = isKeyDown(VK_SHIFT);  //if (sc==0x38)  alt = dn;
-	/*ctrl = isKeyDown(VK_CONTROL);*/  if (sc==0x1D)  ctrl = dn;
-	alt = isKeyDown(VK_MENU);  //if (vk==0xA0 || vk==0xA1)  shift = dn;
+    if (vk == VK_LSHIFT)  shift = dn;  // R ..sep
+    if (vk == VK_LCONTROL)  ctrl = dn;
+    if (vk == VK_LMENU)  alt = dn;
+	//shift = isKeyDown(VK_SHIFT);  //if (sc==0x38)  alt = dn;
+	//*ctrl = isKeyDown(VK_CONTROL);*/  if (sc==0x1D)  ctrl = dn;
+	//alt = isKeyDown(VK_MENU);  //if (vk==0xA0 || vk==0xA1)  shift = dn;
 	mod = (shift ? 1:0)+(ctrl ? 2:0)+(alt ? 4:0);
 	
 	//  pick
