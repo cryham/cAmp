@@ -110,7 +110,8 @@ public:
 		xMpos,yMpos, xMold,yMold, xWclick,yWclick;  // Mouse
 	bool bLs,bL, bRs,bR, bMs,bM,  // Buttons
 		 shift,ctrl,alt;  // modkeys
-	int mod, act, clear, iSize, iResets;
+	int mod, clear, iSize, iResets;
+    bool act;
 
 	//  str
 	std::string appPath;

@@ -79,7 +79,10 @@ bool D3::CreateWnd()
 		hWnd = CreateWindow(L"cAmp_WC", L"cAmp", WS_POPUP, view.xPos,view.yPos,view.xSize,view.ySize, 0,0,hInst,0);
 		if (hWnd)
 		{
-			SetFocus(hWnd);  ShowWindow(hWnd,SW_SHOWNORMAL);  UpdateWindow(hWnd);
+			//SetFocus(hWnd);
+            //ShowWindow(hWnd,SW_SHOWNORMAL);
+            ShowWindow(hWnd,SW_SHOWNA);
+            UpdateWindow(hWnd);
 			return true;
 		}
 	}

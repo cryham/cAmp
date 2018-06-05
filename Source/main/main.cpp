@@ -76,7 +76,22 @@ LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 	case WM_MOUSEWHEEL:
 		App::pAmp->Wheel(GET_WHEEL_DELTA_WPARAM(wp)/WHEEL_DELTA);  rf
 
-	case WM_ACTIVATE:  App::pAmp->act = (LOWORD(wp) != WA_INACTIVE) && !(HIWORD(wp));  rf
+    case WM_SETFOCUS:
+        App::pAmp->act = true;  rf
+    case WM_KILLFOCUS:
+        App::pAmp->act = false;  rf
+#if 0
+    case WM_ACTIVATE:
+        if ((HANDLE)lp == App::pAmp->hWnd)
+        {
+            if (LOWORD(wp) == WA_ACTIVE || LOWORD(wp) == WA_CLICKACTIVE)
+                App::pAmp->act = true;
+            else
+                App::pAmp->act = false;
+        }
+        //App::pAmp->act = (LOWORD(wp) != WA_INACTIVE)/* && !(HIWORD(wp))*/;
+        rf
+#endif
 	//	ShowCursor(0); rf
 	
 	case WM_DROPFILES:

@@ -26,7 +26,7 @@ cSnd::cSnd()
 	}
 	for (int i = 0; i < sWAV; ++i)
 	{
-		visA[i] = 1.f;
+		visA[i] = 0.f;
 		for (int j = 0; j < PrLin; ++j)
 			visC[j][i] = 0.f;
 	}
