@@ -60,7 +60,7 @@ void cAmp::GraphAmp()
 
 /* plr back */
 	if (view.eVis != viPrint && view.eVis != viOsc) //!
-	{	float th = (view.eVis==viNone||view.eVis==viPrint)? 0.4f: 1.f; //min(1.f, float(yEvi)/view.visH);
+	{	float th = !act ? 0.8f : (view.eVis==viNone||view.eVis==viPrint)? 0.4f: 1.f; //min(1.f, float(yEvi)/view.visH);
 		Rtex(pDev, Tex, TX_BackPlr, 0.f, 0.f, view.xSize, yE_vis/*yBpo*/, 0.f,1.f, 0.f,th);  }
 	
 /* Vis Tex */
