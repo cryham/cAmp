@@ -18,7 +18,7 @@ bool CList::Load()
 	fi.open(p.c_str(), ios_base::in|ios_base::binary);
 	if (fi.fail())  {  Err(string("!Load playlist: Can't open file: ")+p);  rf  }
 
-	fi.getline(s,20);  if (strcmp(s,"cAmpPls")!=0)  {  Err("!Load playlist: Not cAmpPls");  rf  }
+	fi.getline(s,20);  if (strncmp(s,"cAmpPls",7)!=0)  {  Err("!Load playlist: Not cAmpPls");  rf  }
 	fi.getline(s,60);
 	sscanf(s,"%d|%d|%d|%d|%d", &iRFilt, &lCur, &lOfs, &idPl, &iRFilU);
 	

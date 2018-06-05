@@ -156,7 +156,7 @@ void cAmp::SetLoad()
 		
 		
 		//  ext list,  optional, in ver2  . . . .
-		sExtAll = cExt::sVer1;
+		sExtAll = cExt::sExt1;
 		sModAll = cExt::sMod1;
 			
 		n = root->FirstChildElement("Ext");
@@ -287,6 +287,7 @@ void cAmp::SetSave()
 
 	TiXmlElement eExt("Ext");
 		eExt.SetAttribute("all",	sExtAll.c_str());
+		eExt.SetAttribute("mod",	sModAll.c_str());
 	root.InsertEndChild(eExt);
 
 
