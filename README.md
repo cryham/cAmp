@@ -1,5 +1,5 @@
 **Note**: cAmp is abandoned now.  
-WIP reimplementation continued in [cAmp2](https://github.com/cryham/cAmp2/releases) with SFML.
+WIP reimplementation continued in [cAmp2](https://github.com/cryham/cAmp2/) with SFML.
 
 Crystal AMP (cAmp)
 ------------------
